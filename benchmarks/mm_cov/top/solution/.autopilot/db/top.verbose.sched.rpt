@@ -1,0 +1,160 @@
+
+
+================================================================
+== Vitis HLS Report for 'top'
+================================================================
+* Date:           Mon Jul 25 22:20:39 2022
+
+* Version:        2020.2 (Build 3064766 on Wed Nov 18 09:12:47 MST 2020)
+* Project:        top
+* Solution:       solution (Vitis Kernel Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu250-figd2104-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  3.33 ns|  2.433 ns|     0.90 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +-----------+-----------+-----------+-----------+-----------+-----------+---------+
+    |    Latency (cycles)   |   Latency (absolute)  |        Interval       | Pipeline|
+    |    min    |    max    |    min    |    max    |    min    |    max    |   Type  |
+    +-----------+-----------+-----------+-----------+-----------+-----------+---------+
+    |  131307040|  131307040|  0.438 sec|  0.438 sec|  131307041|  131307041|     none|
+    +-----------+-----------+-----------+-----------+-----------+-----------+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        N/A
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 1
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 0
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 5
+* Pipeline : 0
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 3 
+3 --> 4 
+4 --> 5 
+5 --> 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 1.00>
+ST_1 : Operation 6 [1/1] (1.00ns)   --->   "%C_read = read i64 @_ssdm_op_Read.s_axilite.i64, i64 %C"   --->   Operation 6 'read' 'C_read' <Predicate = true> <Delay = 1.00> <CoreInst = "s_axilite">   --->   Core 122 's_axilite' <Latency = 0> <II = 1> <Delay = 1.00> <Adapter> <Opcode : 'read' 'write'>
+ST_1 : Operation 7 [1/1] (1.00ns)   --->   "%B_read = read i64 @_ssdm_op_Read.s_axilite.i64, i64 %B"   --->   Operation 7 'read' 'B_read' <Predicate = true> <Delay = 1.00> <CoreInst = "s_axilite">   --->   Core 122 's_axilite' <Latency = 0> <II = 1> <Delay = 1.00> <Adapter> <Opcode : 'read' 'write'>
+ST_1 : Operation 8 [1/1] (1.00ns)   --->   "%A_read = read i64 @_ssdm_op_Read.s_axilite.i64, i64 %A"   --->   Operation 8 'read' 'A_read' <Predicate = true> <Delay = 1.00> <CoreInst = "s_axilite">   --->   Core 122 's_axilite' <Latency = 0> <II = 1> <Delay = 1.00> <Adapter> <Opcode : 'read' 'write'>
+ST_1 : Operation 9 [1/1] (0.00ns)   --->   "%temp_A1_V = alloca i64 1" [./dut.cpp:20329]   --->   Operation 9 'alloca' 'temp_A1_V' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 10 [1/1] (0.00ns)   --->   "%temp_B1_V = alloca i64 1" [./dut.cpp:20329]   --->   Operation 10 'alloca' 'temp_B1_V' <Predicate = true> <Delay = 0.00>
+
+State 2 <SV = 1> <Delay = 2.43>
+ST_2 : Operation 11 [2/2] (2.43ns)   --->   "%call_ln20331 = call void @nondf_kernel_cov_x0, i512 %gmem_A, i64 %A_read, i119 %temp_A1_V" [./dut.cpp:20331]   --->   Operation 11 'call' 'call_ln20331' <Predicate = true> <Delay = 2.43> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_2 : Operation 12 [2/2] (2.43ns)   --->   "%call_ln20332 = call void @nondf_kernel_cov_x1, i512 %gmem_B, i64 %B_read, i119 %temp_B1_V" [./dut.cpp:20332]   --->   Operation 12 'call' 'call_ln20332' <Predicate = true> <Delay = 2.43> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 3 <SV = 2> <Delay = 0.00>
+ST_3 : Operation 13 [1/2] (0.00ns)   --->   "%call_ln20331 = call void @nondf_kernel_cov_x0, i512 %gmem_A, i64 %A_read, i119 %temp_A1_V" [./dut.cpp:20331]   --->   Operation 13 'call' 'call_ln20331' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_3 : Operation 14 [1/2] (0.00ns)   --->   "%call_ln20332 = call void @nondf_kernel_cov_x1, i512 %gmem_B, i64 %B_read, i119 %temp_B1_V" [./dut.cpp:20332]   --->   Operation 14 'call' 'call_ln20332' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 4 <SV = 3> <Delay = 0.00>
+ST_4 : Operation 15 [2/2] (0.00ns)   --->   "%call_ln20333 = call void @kernel0_x0, i512 %gmem_C, i119 %temp_A1_V, i119 %temp_B1_V, i64 %C_read" [./dut.cpp:20333]   --->   Operation 15 'call' 'call_ln20333' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+
+State 5 <SV = 4> <Delay = 0.00>
+ST_5 : Operation 16 [1/1] (0.00ns)   --->   "%spectopmodule_ln0 = spectopmodule void @_ssdm_op_SpecTopModule, void @empty_96"   --->   Operation 16 'spectopmodule' 'spectopmodule_ln0' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 17 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i32 0, void @empty_460, i32 0, i32 0, void @empty_1243, i32 0, i32 0, void @empty_1243, void @empty_1243, void @empty_1243, i32 0, i32 0, i32 0, i32 0, void @empty_1243, void @empty_1243"   --->   Operation 17 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 18 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i512 %gmem_A, void @empty_70, i32 0, i32 0, void @empty_1243, i32 64, i32 0, void @empty_466, void @empty_146, void @empty_1243, i32 16, i32 16, i32 16, i32 16, void @empty_1243, void @empty_1243"   --->   Operation 18 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 19 [1/1] (0.00ns)   --->   "%specbitsmap_ln0 = specbitsmap void @_ssdm_op_SpecBitsMap, i512 %gmem_A"   --->   Operation 19 'specbitsmap' 'specbitsmap_ln0' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 20 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i512 %gmem_B, void @empty_70, i32 0, i32 0, void @empty_1243, i32 64, i32 0, void @empty_189, void @empty_146, void @empty_1243, i32 16, i32 16, i32 16, i32 16, void @empty_1243, void @empty_1243"   --->   Operation 20 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 21 [1/1] (0.00ns)   --->   "%specbitsmap_ln0 = specbitsmap void @_ssdm_op_SpecBitsMap, i512 %gmem_B"   --->   Operation 21 'specbitsmap' 'specbitsmap_ln0' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 22 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i512 %gmem_C, void @empty_70, i32 0, i32 0, void @empty_1243, i32 64, i32 0, void @empty_78, void @empty_146, void @empty_1243, i32 16, i32 16, i32 16, i32 16, void @empty_1243, void @empty_1243"   --->   Operation 22 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 23 [1/1] (0.00ns)   --->   "%specbitsmap_ln0 = specbitsmap void @_ssdm_op_SpecBitsMap, i512 %gmem_C"   --->   Operation 23 'specbitsmap' 'specbitsmap_ln0' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 24 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i64 %A, void @empty_470, i32 0, i32 0, void @empty_1243, i32 0, i32 0, void @empty_1238, void @empty_469, void @empty_1243, i32 0, i32 0, i32 0, i32 0, void @empty_1243, void @empty_416"   --->   Operation 24 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 25 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i64 %A, void @empty_465, i32 0, i32 0, void @empty_1243, i32 0, i32 0, void @empty_1243, void @empty_1243, void @empty_1243, i32 0, i32 0, i32 0, i32 0, void @empty_1243, void @empty_416"   --->   Operation 25 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 26 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i64 %B, void @empty_470, i32 0, i32 0, void @empty_1243, i32 0, i32 0, void @empty_1238, void @empty_412, void @empty_1243, i32 0, i32 0, i32 0, i32 0, void @empty_1243, void @empty_416"   --->   Operation 26 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 27 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i64 %B, void @empty_465, i32 0, i32 0, void @empty_1243, i32 0, i32 0, void @empty_1243, void @empty_1243, void @empty_1243, i32 0, i32 0, i32 0, i32 0, void @empty_1243, void @empty_416"   --->   Operation 27 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 28 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i64 %C, void @empty_470, i32 0, i32 0, void @empty_1243, i32 0, i32 0, void @empty_1238, void @empty_463, void @empty_1243, i32 0, i32 0, i32 0, i32 0, void @empty_1243, void @empty_416"   --->   Operation 28 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 29 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i64 %C, void @empty_465, i32 0, i32 0, void @empty_1243, i32 0, i32 0, void @empty_1243, void @empty_1243, void @empty_1243, i32 0, i32 0, i32 0, i32 0, void @empty_1243, void @empty_416"   --->   Operation 29 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 30 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i32 0, void @empty_470, i32 0, i32 0, void @empty_1243, i32 0, i32 0, void @empty_1238, void @empty_1243, void @empty_1243, i32 0, i32 0, i32 0, i32 0, void @empty_1243, void @empty_1243"   --->   Operation 30 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 31 [1/2] (0.00ns)   --->   "%call_ln20333 = call void @kernel0_x0, i512 %gmem_C, i119 %temp_A1_V, i119 %temp_B1_V, i64 %C_read" [./dut.cpp:20333]   --->   Operation 31 'call' 'call_ln20333' <Predicate = true> <Delay = 0.00> <CoreType = "Generic">   --->   Core 0 '' <Latency = 0> <II = 1> <Delay = 1.00> <Generic> <Opcode : >
+ST_5 : Operation 32 [1/1] (0.00ns)   --->   "%ret_ln20334 = ret" [./dut.cpp:20334]   --->   Operation 32 'ret' 'ret_ln20334' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 3.33ns, clock uncertainty: 0.9ns.
+
+ <State 1>: 1ns
+The critical path consists of the following:
+	s_axi read on port 'C' [22]  (1 ns)
+
+ <State 2>: 2.43ns
+The critical path consists of the following:
+	'call' operation ('call_ln20331', ./dut.cpp:20331) to 'nondf_kernel_cov_x0' [27]  (2.43 ns)
+
+ <State 3>: 0ns
+The critical path consists of the following:
+
+ <State 4>: 0ns
+The critical path consists of the following:
+
+ <State 5>: 0ns
+The critical path consists of the following:
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+	State 3
+	State 4
+	State 5
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A

@@ -1,0 +1,218 @@
+set moduleName C_drain_IO_L1_out_wrapper_1_5_x0
+set isTopModule 0
+set isCombinational 0
+set isDatapathOnly 0
+set isPipelined 0
+set pipeline_type none
+set FunctionProtocol ap_ctrl_hs
+set isOneStateSeq 0
+set ProfileFlag 0
+set StallSigGenFlag 0
+set isEnableWaveformDebug 1
+set C_modelName {C_drain_IO_L1_out_wrapper_1_5_x0}
+set C_modelType { void 0 }
+set C_modelArgList {
+	{ fifo_C_drain_C_drain_IO_L1_out_1_6_x0250 int 128 regular {fifo 0 volatile }  }
+	{ fifo_C_drain_C_drain_IO_L1_out_1_5_x0249 int 128 regular {fifo 1 volatile }  }
+	{ fifo_C_drain_PE_5_1_x0185 int 16 regular {fifo 0 volatile }  }
+}
+set C_modelArgMapList {[ 
+	{ "Name" : "fifo_C_drain_C_drain_IO_L1_out_1_6_x0250", "interface" : "fifo", "bitwidth" : 128, "direction" : "READONLY"} , 
+ 	{ "Name" : "fifo_C_drain_C_drain_IO_L1_out_1_5_x0249", "interface" : "fifo", "bitwidth" : 128, "direction" : "WRITEONLY"} , 
+ 	{ "Name" : "fifo_C_drain_PE_5_1_x0185", "interface" : "fifo", "bitwidth" : 16, "direction" : "READONLY"} ]}
+# RTL Port declarations: 
+set portNum 16
+set portList { 
+	{ ap_clk sc_in sc_logic 1 clock -1 } 
+	{ ap_rst sc_in sc_logic 1 reset -1 active_high_sync } 
+	{ ap_start sc_in sc_logic 1 start -1 } 
+	{ ap_done sc_out sc_logic 1 predone -1 } 
+	{ ap_continue sc_in sc_logic 1 continue -1 } 
+	{ ap_idle sc_out sc_logic 1 done -1 } 
+	{ ap_ready sc_out sc_logic 1 ready -1 } 
+	{ fifo_C_drain_C_drain_IO_L1_out_1_6_x0250_dout sc_in sc_lv 128 signal 0 } 
+	{ fifo_C_drain_C_drain_IO_L1_out_1_6_x0250_empty_n sc_in sc_logic 1 signal 0 } 
+	{ fifo_C_drain_C_drain_IO_L1_out_1_6_x0250_read sc_out sc_logic 1 signal 0 } 
+	{ fifo_C_drain_C_drain_IO_L1_out_1_5_x0249_din sc_out sc_lv 128 signal 1 } 
+	{ fifo_C_drain_C_drain_IO_L1_out_1_5_x0249_full_n sc_in sc_logic 1 signal 1 } 
+	{ fifo_C_drain_C_drain_IO_L1_out_1_5_x0249_write sc_out sc_logic 1 signal 1 } 
+	{ fifo_C_drain_PE_5_1_x0185_dout sc_in sc_lv 16 signal 2 } 
+	{ fifo_C_drain_PE_5_1_x0185_empty_n sc_in sc_logic 1 signal 2 } 
+	{ fifo_C_drain_PE_5_1_x0185_read sc_out sc_logic 1 signal 2 } 
+}
+set NewPortList {[ 
+	{ "name": "ap_clk", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "clock", "bundle":{"name": "ap_clk", "role": "default" }} , 
+ 	{ "name": "ap_rst", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "reset", "bundle":{"name": "ap_rst", "role": "default" }} , 
+ 	{ "name": "ap_start", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "start", "bundle":{"name": "ap_start", "role": "default" }} , 
+ 	{ "name": "ap_done", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "predone", "bundle":{"name": "ap_done", "role": "default" }} , 
+ 	{ "name": "ap_continue", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "continue", "bundle":{"name": "ap_continue", "role": "default" }} , 
+ 	{ "name": "ap_idle", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "done", "bundle":{"name": "ap_idle", "role": "default" }} , 
+ 	{ "name": "ap_ready", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "ready", "bundle":{"name": "ap_ready", "role": "default" }} , 
+ 	{ "name": "fifo_C_drain_C_drain_IO_L1_out_1_6_x0250_dout", "direction": "in", "datatype": "sc_lv", "bitwidth":128, "type": "signal", "bundle":{"name": "fifo_C_drain_C_drain_IO_L1_out_1_6_x0250", "role": "dout" }} , 
+ 	{ "name": "fifo_C_drain_C_drain_IO_L1_out_1_6_x0250_empty_n", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "fifo_C_drain_C_drain_IO_L1_out_1_6_x0250", "role": "empty_n" }} , 
+ 	{ "name": "fifo_C_drain_C_drain_IO_L1_out_1_6_x0250_read", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "fifo_C_drain_C_drain_IO_L1_out_1_6_x0250", "role": "read" }} , 
+ 	{ "name": "fifo_C_drain_C_drain_IO_L1_out_1_5_x0249_din", "direction": "out", "datatype": "sc_lv", "bitwidth":128, "type": "signal", "bundle":{"name": "fifo_C_drain_C_drain_IO_L1_out_1_5_x0249", "role": "din" }} , 
+ 	{ "name": "fifo_C_drain_C_drain_IO_L1_out_1_5_x0249_full_n", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "fifo_C_drain_C_drain_IO_L1_out_1_5_x0249", "role": "full_n" }} , 
+ 	{ "name": "fifo_C_drain_C_drain_IO_L1_out_1_5_x0249_write", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "fifo_C_drain_C_drain_IO_L1_out_1_5_x0249", "role": "write" }} , 
+ 	{ "name": "fifo_C_drain_PE_5_1_x0185_dout", "direction": "in", "datatype": "sc_lv", "bitwidth":16, "type": "signal", "bundle":{"name": "fifo_C_drain_PE_5_1_x0185", "role": "dout" }} , 
+ 	{ "name": "fifo_C_drain_PE_5_1_x0185_empty_n", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "fifo_C_drain_PE_5_1_x0185", "role": "empty_n" }} , 
+ 	{ "name": "fifo_C_drain_PE_5_1_x0185_read", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "fifo_C_drain_PE_5_1_x0185", "role": "read" }}  ]}
+
+set RtlHierarchyInfo {[
+	{"ID" : "0", "Level" : "0", "Path" : "`AUTOTB_DUT_INST", "Parent" : "", "Child" : ["1", "2"],
+		"CDFG" : "C_drain_IO_L1_out_wrapper_1_5_x0",
+		"Protocol" : "ap_ctrl_hs",
+		"ControlExist" : "1", "ap_start" : "1", "ap_ready" : "1", "ap_done" : "1", "ap_continue" : "1", "ap_idle" : "1", "real_start" : "0",
+		"Pipeline" : "None", "UnalignedPipeline" : "0", "RewindPipeline" : "0", "ProcessNetwork" : "0",
+		"II" : "0",
+		"VariableLatency" : "1", "ExactLatency" : "-1", "EstimateLatencyMin" : "280865", "EstimateLatencyMax" : "280865",
+		"Combinational" : "0",
+		"Datapath" : "0",
+		"ClockEnable" : "0",
+		"HasSubDataflow" : "0",
+		"InDataflowNetwork" : "1",
+		"HasNonBlockingOperation" : "0",
+		"Port" : [
+			{"Name" : "fifo_C_drain_C_drain_IO_L1_out_1_6_x0250", "Type" : "Fifo", "Direction" : "I", "DependentProc" : "0", "DependentChan" : "0", "DependentChanDepth" : "2", "DependentChanType" : "0",
+				"BlockSignal" : [
+					{"Name" : "fifo_C_drain_C_drain_IO_L1_out_1_6_x0250_blk_n", "Type" : "RtlSignal"}]},
+			{"Name" : "fifo_C_drain_C_drain_IO_L1_out_1_5_x0249", "Type" : "Fifo", "Direction" : "O", "DependentProc" : "0", "DependentChan" : "0", "DependentChanDepth" : "2", "DependentChanType" : "0",
+				"BlockSignal" : [
+					{"Name" : "fifo_C_drain_C_drain_IO_L1_out_1_5_x0249_blk_n", "Type" : "RtlSignal"}]},
+			{"Name" : "fifo_C_drain_PE_5_1_x0185", "Type" : "Fifo", "Direction" : "I", "DependentProc" : "0", "DependentChan" : "0", "DependentChanDepth" : "2", "DependentChanType" : "0",
+				"BlockSignal" : [
+					{"Name" : "fifo_C_drain_PE_5_1_x0185_blk_n", "Type" : "RtlSignal"}]}]},
+	{"ID" : "1", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.local_C_V_0_U", "Parent" : "0"},
+	{"ID" : "2", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.data_split_V_U", "Parent" : "0"}]}
+
+
+set ArgLastReadFirstWriteLatency {
+	C_drain_IO_L1_out_wrapper_1_5_x0 {
+		fifo_C_drain_C_drain_IO_L1_out_1_6_x0250 {Type I LastRead 6 FirstWrite -1}
+		fifo_C_drain_C_drain_IO_L1_out_1_5_x0249 {Type O LastRead -1 FirstWrite 6}
+		fifo_C_drain_PE_5_1_x0185 {Type I LastRead 5 FirstWrite -1}}}
+
+set hasDtUnsupportedChannel 0
+
+set PerformanceInfo {[
+	{"Name" : "Latency", "Min" : "280865", "Max" : "280865"}
+	, {"Name" : "Interval", "Min" : "280865", "Max" : "280865"}
+]}
+
+set PipelineEnableSignalInfo {[
+]}
+
+set Spec2ImplPortList { 
+	fifo_C_drain_C_drain_IO_L1_out_1_6_x0250 { ap_fifo {  { fifo_C_drain_C_drain_IO_L1_out_1_6_x0250_dout fifo_data 0 128 }  { fifo_C_drain_C_drain_IO_L1_out_1_6_x0250_empty_n fifo_status 0 1 }  { fifo_C_drain_C_drain_IO_L1_out_1_6_x0250_read fifo_update 1 1 } } }
+	fifo_C_drain_C_drain_IO_L1_out_1_5_x0249 { ap_fifo {  { fifo_C_drain_C_drain_IO_L1_out_1_5_x0249_din fifo_data 1 128 }  { fifo_C_drain_C_drain_IO_L1_out_1_5_x0249_full_n fifo_status 0 1 }  { fifo_C_drain_C_drain_IO_L1_out_1_5_x0249_write fifo_update 1 1 } } }
+	fifo_C_drain_PE_5_1_x0185 { ap_fifo {  { fifo_C_drain_PE_5_1_x0185_dout fifo_data 0 16 }  { fifo_C_drain_PE_5_1_x0185_empty_n fifo_status 0 1 }  { fifo_C_drain_PE_5_1_x0185_read fifo_update 1 1 } } }
+}
+set moduleName C_drain_IO_L1_out_wrapper_1_5_x0
+set isTopModule 0
+set isCombinational 0
+set isDatapathOnly 0
+set isPipelined 0
+set pipeline_type none
+set FunctionProtocol ap_ctrl_hs
+set isOneStateSeq 0
+set ProfileFlag 0
+set StallSigGenFlag 0
+set isEnableWaveformDebug 1
+set C_modelName {C_drain_IO_L1_out_wrapper_1_5_x0}
+set C_modelType { void 0 }
+set C_modelArgList {
+	{ fifo_C_drain_C_drain_IO_L1_out_1_6_x0242 int 128 regular {fifo 0 volatile }  }
+	{ fifo_C_drain_C_drain_IO_L1_out_1_5_x0241 int 128 regular {fifo 1 volatile }  }
+	{ fifo_C_drain_PE_5_1_x0177 int 16 regular {fifo 0 volatile }  }
+}
+set C_modelArgMapList {[ 
+	{ "Name" : "fifo_C_drain_C_drain_IO_L1_out_1_6_x0242", "interface" : "fifo", "bitwidth" : 128, "direction" : "READONLY"} , 
+ 	{ "Name" : "fifo_C_drain_C_drain_IO_L1_out_1_5_x0241", "interface" : "fifo", "bitwidth" : 128, "direction" : "WRITEONLY"} , 
+ 	{ "Name" : "fifo_C_drain_PE_5_1_x0177", "interface" : "fifo", "bitwidth" : 16, "direction" : "READONLY"} ]}
+# RTL Port declarations: 
+set portNum 16
+set portList { 
+	{ ap_clk sc_in sc_logic 1 clock -1 } 
+	{ ap_rst sc_in sc_logic 1 reset -1 active_high_sync } 
+	{ ap_start sc_in sc_logic 1 start -1 } 
+	{ ap_done sc_out sc_logic 1 predone -1 } 
+	{ ap_continue sc_in sc_logic 1 continue -1 } 
+	{ ap_idle sc_out sc_logic 1 done -1 } 
+	{ ap_ready sc_out sc_logic 1 ready -1 } 
+	{ fifo_C_drain_C_drain_IO_L1_out_1_6_x0242_dout sc_in sc_lv 128 signal 0 } 
+	{ fifo_C_drain_C_drain_IO_L1_out_1_6_x0242_empty_n sc_in sc_logic 1 signal 0 } 
+	{ fifo_C_drain_C_drain_IO_L1_out_1_6_x0242_read sc_out sc_logic 1 signal 0 } 
+	{ fifo_C_drain_C_drain_IO_L1_out_1_5_x0241_din sc_out sc_lv 128 signal 1 } 
+	{ fifo_C_drain_C_drain_IO_L1_out_1_5_x0241_full_n sc_in sc_logic 1 signal 1 } 
+	{ fifo_C_drain_C_drain_IO_L1_out_1_5_x0241_write sc_out sc_logic 1 signal 1 } 
+	{ fifo_C_drain_PE_5_1_x0177_dout sc_in sc_lv 16 signal 2 } 
+	{ fifo_C_drain_PE_5_1_x0177_empty_n sc_in sc_logic 1 signal 2 } 
+	{ fifo_C_drain_PE_5_1_x0177_read sc_out sc_logic 1 signal 2 } 
+}
+set NewPortList {[ 
+	{ "name": "ap_clk", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "clock", "bundle":{"name": "ap_clk", "role": "default" }} , 
+ 	{ "name": "ap_rst", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "reset", "bundle":{"name": "ap_rst", "role": "default" }} , 
+ 	{ "name": "ap_start", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "start", "bundle":{"name": "ap_start", "role": "default" }} , 
+ 	{ "name": "ap_done", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "predone", "bundle":{"name": "ap_done", "role": "default" }} , 
+ 	{ "name": "ap_continue", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "continue", "bundle":{"name": "ap_continue", "role": "default" }} , 
+ 	{ "name": "ap_idle", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "done", "bundle":{"name": "ap_idle", "role": "default" }} , 
+ 	{ "name": "ap_ready", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "ready", "bundle":{"name": "ap_ready", "role": "default" }} , 
+ 	{ "name": "fifo_C_drain_C_drain_IO_L1_out_1_6_x0242_dout", "direction": "in", "datatype": "sc_lv", "bitwidth":128, "type": "signal", "bundle":{"name": "fifo_C_drain_C_drain_IO_L1_out_1_6_x0242", "role": "dout" }} , 
+ 	{ "name": "fifo_C_drain_C_drain_IO_L1_out_1_6_x0242_empty_n", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "fifo_C_drain_C_drain_IO_L1_out_1_6_x0242", "role": "empty_n" }} , 
+ 	{ "name": "fifo_C_drain_C_drain_IO_L1_out_1_6_x0242_read", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "fifo_C_drain_C_drain_IO_L1_out_1_6_x0242", "role": "read" }} , 
+ 	{ "name": "fifo_C_drain_C_drain_IO_L1_out_1_5_x0241_din", "direction": "out", "datatype": "sc_lv", "bitwidth":128, "type": "signal", "bundle":{"name": "fifo_C_drain_C_drain_IO_L1_out_1_5_x0241", "role": "din" }} , 
+ 	{ "name": "fifo_C_drain_C_drain_IO_L1_out_1_5_x0241_full_n", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "fifo_C_drain_C_drain_IO_L1_out_1_5_x0241", "role": "full_n" }} , 
+ 	{ "name": "fifo_C_drain_C_drain_IO_L1_out_1_5_x0241_write", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "fifo_C_drain_C_drain_IO_L1_out_1_5_x0241", "role": "write" }} , 
+ 	{ "name": "fifo_C_drain_PE_5_1_x0177_dout", "direction": "in", "datatype": "sc_lv", "bitwidth":16, "type": "signal", "bundle":{"name": "fifo_C_drain_PE_5_1_x0177", "role": "dout" }} , 
+ 	{ "name": "fifo_C_drain_PE_5_1_x0177_empty_n", "direction": "in", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "fifo_C_drain_PE_5_1_x0177", "role": "empty_n" }} , 
+ 	{ "name": "fifo_C_drain_PE_5_1_x0177_read", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "fifo_C_drain_PE_5_1_x0177", "role": "read" }}  ]}
+
+set RtlHierarchyInfo {[
+	{"ID" : "0", "Level" : "0", "Path" : "`AUTOTB_DUT_INST", "Parent" : "", "Child" : ["1", "2"],
+		"CDFG" : "C_drain_IO_L1_out_wrapper_1_5_x0",
+		"Protocol" : "ap_ctrl_hs",
+		"ControlExist" : "1", "ap_start" : "1", "ap_ready" : "1", "ap_done" : "1", "ap_continue" : "1", "ap_idle" : "1", "real_start" : "0",
+		"Pipeline" : "None", "UnalignedPipeline" : "0", "RewindPipeline" : "0", "ProcessNetwork" : "0",
+		"II" : "0",
+		"VariableLatency" : "1", "ExactLatency" : "-1", "EstimateLatencyMin" : "280865", "EstimateLatencyMax" : "280865",
+		"Combinational" : "0",
+		"Datapath" : "0",
+		"ClockEnable" : "0",
+		"HasSubDataflow" : "0",
+		"InDataflowNetwork" : "1",
+		"HasNonBlockingOperation" : "0",
+		"Port" : [
+			{"Name" : "fifo_C_drain_C_drain_IO_L1_out_1_6_x0242", "Type" : "Fifo", "Direction" : "I", "DependentProc" : "0", "DependentChan" : "0", "DependentChanDepth" : "2", "DependentChanType" : "0",
+				"BlockSignal" : [
+					{"Name" : "fifo_C_drain_C_drain_IO_L1_out_1_6_x0242_blk_n", "Type" : "RtlSignal"}]},
+			{"Name" : "fifo_C_drain_C_drain_IO_L1_out_1_5_x0241", "Type" : "Fifo", "Direction" : "O", "DependentProc" : "0", "DependentChan" : "0", "DependentChanDepth" : "2", "DependentChanType" : "0",
+				"BlockSignal" : [
+					{"Name" : "fifo_C_drain_C_drain_IO_L1_out_1_5_x0241_blk_n", "Type" : "RtlSignal"}]},
+			{"Name" : "fifo_C_drain_PE_5_1_x0177", "Type" : "Fifo", "Direction" : "I", "DependentProc" : "0", "DependentChan" : "0", "DependentChanDepth" : "2", "DependentChanType" : "0",
+				"BlockSignal" : [
+					{"Name" : "fifo_C_drain_PE_5_1_x0177_blk_n", "Type" : "RtlSignal"}]}]},
+	{"ID" : "1", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.local_C_V_0_U", "Parent" : "0"},
+	{"ID" : "2", "Level" : "1", "Path" : "`AUTOTB_DUT_INST.data_split_V_U", "Parent" : "0"}]}
+
+
+set ArgLastReadFirstWriteLatency {
+	C_drain_IO_L1_out_wrapper_1_5_x0 {
+		fifo_C_drain_C_drain_IO_L1_out_1_6_x0242 {Type I LastRead 6 FirstWrite -1}
+		fifo_C_drain_C_drain_IO_L1_out_1_5_x0241 {Type O LastRead -1 FirstWrite 6}
+		fifo_C_drain_PE_5_1_x0177 {Type I LastRead 5 FirstWrite -1}}}
+
+set hasDtUnsupportedChannel 0
+
+set PerformanceInfo {[
+	{"Name" : "Latency", "Min" : "280865", "Max" : "280865"}
+	, {"Name" : "Interval", "Min" : "280865", "Max" : "280865"}
+]}
+
+set PipelineEnableSignalInfo {[
+]}
+
+set Spec2ImplPortList { 
+	fifo_C_drain_C_drain_IO_L1_out_1_6_x0242 { ap_fifo {  { fifo_C_drain_C_drain_IO_L1_out_1_6_x0242_dout fifo_data 0 128 }  { fifo_C_drain_C_drain_IO_L1_out_1_6_x0242_empty_n fifo_status 0 1 }  { fifo_C_drain_C_drain_IO_L1_out_1_6_x0242_read fifo_update 1 1 } } }
+	fifo_C_drain_C_drain_IO_L1_out_1_5_x0241 { ap_fifo {  { fifo_C_drain_C_drain_IO_L1_out_1_5_x0241_din fifo_data 1 128 }  { fifo_C_drain_C_drain_IO_L1_out_1_5_x0241_full_n fifo_status 0 1 }  { fifo_C_drain_C_drain_IO_L1_out_1_5_x0241_write fifo_update 1 1 } } }
+	fifo_C_drain_PE_5_1_x0177 { ap_fifo {  { fifo_C_drain_PE_5_1_x0177_dout fifo_data 0 16 }  { fifo_C_drain_PE_5_1_x0177_empty_n fifo_status 0 1 }  { fifo_C_drain_PE_5_1_x0177_read fifo_update 1 1 } } }
+}
