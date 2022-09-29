@@ -20,7 +20,7 @@ In all sub-directories under `<fado_base>/benchmarks/*/`, you can find the follo
 
 * *dut.cpp*: source code (containing dataflow/non-dataflow kernels)
 * *top*: the **directory** of initial HLS synthesis reports and RTL code, named after the top function **top** in *dut.cpp*
-* *fado.log*: log during running FADO over *top* directory
+* *fado.log* or *fado_log.zip*: log during running FADO over *top* directory
 * *directives.tcl*: results of directive search
 * *constraint.tcl*: results of floorplan search
 * *imp*: the **directory** Vitis log after implementation on the Alveo U250 multi-die FPGA
