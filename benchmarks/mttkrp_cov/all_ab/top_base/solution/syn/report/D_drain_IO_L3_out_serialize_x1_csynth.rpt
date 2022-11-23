@@ -1,0 +1,206 @@
+
+
+================================================================
+== Vitis HLS Report for 'D_drain_IO_L3_out_serialize_x1'
+================================================================
+* Date:           Thu Sep 15 03:14:07 2022
+
+* Version:        2020.2 (Build 3064766 on Wed Nov 18 09:12:47 MST 2020)
+* Project:        top
+* Solution:       solution (Vitis Kernel Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu250-figd2104-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  3.33 ns|  2.433 ns|     0.90 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+-----------+-----------+------+------+---------+
+    |  Latency (cycles) |   Latency (absolute)  |   Interval  | Pipeline|
+    |   min   |   max   |    min    |    max    |  min |  max |   Type  |
+    +---------+---------+-----------+-----------+------+------+---------+
+    |     7238|     7238|  24.124 us|  24.124 us|  7238|  7238|     none|
+    +---------+---------+-----------+-----------+------+------+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +------------------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |                                          |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        |                 Loop Name                |   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +------------------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |- D_drain_IO_L3_out_serialize_x1_loop_1   |     7168|     7168|         7|          -|          -|  1024|        no|
+        | + D_drain_IO_L3_out_serialize_x1_loop_2  |        4|        4|         1|          -|          -|     4|        no|
+        +------------------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++---------------------+---------+-------+---------+---------+------+
+|         Name        | BRAM_18K|  DSP  |    FF   |   LUT   | URAM |
++---------------------+---------+-------+---------+---------+------+
+|DSP                  |        -|      -|        -|        -|     -|
+|Expression           |        -|      -|        0|       53|     -|
+|FIFO                 |        -|      -|        -|        -|     -|
+|Instance             |        -|      -|        -|        -|     -|
+|Memory               |        -|      -|        -|        -|     -|
+|Multiplexer          |        -|      -|        -|      410|     -|
+|Register             |        -|      -|      669|        -|     -|
++---------------------+---------+-------+---------+---------+------+
+|Total                |        0|      0|      669|      463|     0|
++---------------------+---------+-------+---------+---------+------+
+|Available SLR        |     1344|   3072|   864000|   432000|   320|
++---------------------+---------+-------+---------+---------+------+
+|Utilization SLR (%)  |        0|      0|       ~0|       ~0|     0|
++---------------------+---------+-------+---------+---------+------+
+|Available            |     5376|  12288|  3456000|  1728000|  1280|
++---------------------+---------+-------+---------+---------+------+
+|Utilization (%)      |        0|      0|       ~0|       ~0|     0|
++---------------------+---------+-------+---------+---------+------+
+
++ Detail: 
+    * Instance: 
+    N/A
+
+    * DSP: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +------------------------+----------+----+---+----+------------+------------+
+    |      Variable Name     | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +------------------------+----------+----+---+----+------------+------------+
+    |add_ln26293_fu_172_p2   |         +|   0|  0|  18|          11|           1|
+    |add_ln691_fu_184_p2     |         +|   0|  0|  10|           3|           1|
+    |ap_block_state4         |       and|   0|  0|   2|           1|           1|
+    |icmp_ln26293_fu_178_p2  |      icmp|   0|  0|  12|          11|          12|
+    |icmp_ln878_fu_190_p2    |      icmp|   0|  0|   9|           3|           4|
+    |ap_block_state1         |        or|   0|  0|   2|           1|           1|
+    +------------------------+----------+----+---+----+------------+------------+
+    |Total                   |          |   0|  0|  53|          30|          20|
+    +------------------------+----------+----+---+----+------------+------------+
+
+    * Multiplexer: 
+    +-----------------------------+-----+-----------+-----+-----------+
+    |             Name            | LUT | Input Size| Bits| Total Bits|
+    +-----------------------------+-----+-----------+-----+-----------+
+    |D_blk_n                      |    9|          2|    1|          2|
+    |ap_NS_fsm                    |  338|         74|    1|         74|
+    |ap_done                      |    9|          2|    1|          2|
+    |fifo_D_drain_local_in_blk_n  |    9|          2|    1|          2|
+    |gmem_D_blk_n_AW              |    9|          2|    1|          2|
+    |gmem_D_blk_n_B               |    9|          2|    1|          2|
+    |gmem_D_blk_n_W               |    9|          2|    1|          2|
+    |p_V_reg_141                  |    9|          2|    3|          6|
+    |phi_ln26293_reg_130          |    9|          2|   11|         22|
+    +-----------------------------+-----+-----------+-----+-----------+
+    |Total                        |  410|         90|   21|        114|
+    +-----------------------------+-----+-----------+-----+-----------+
+
+    * Register: 
+    +---------------------+-----+----+-----+-----------+
+    |         Name        |  FF | LUT| Bits| Const Bits|
+    +---------------------+-----+----+-----+-----------+
+    |add_ln26293_reg_280  |   11|   0|   11|          0|
+    |ap_CS_fsm            |   73|   0|   73|          0|
+    |ap_done_reg          |    1|   0|    1|          0|
+    |p_Repl2_961_fu_90    |  128|   0|  128|          0|
+    |p_Repl2_962_fu_94    |  128|   0|  128|          0|
+    |p_Repl2_963_fu_98    |  128|   0|  128|          0|
+    |p_Repl2_s_fu_86      |  128|   0|  128|          0|
+    |p_V_reg_141          |    3|   0|    3|          0|
+    |phi_ln26293_reg_130  |   11|   0|   11|          0|
+    |trunc_ln_reg_269     |   58|   0|   58|          0|
+    +---------------------+-----+----+-----+-----------+
+    |Total                |  669|   0|  669|          0|
+    +---------------------+-----+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++-------------------------------+-----+-----+------------+--------------------------------+--------------+
+|           RTL Ports           | Dir | Bits|  Protocol  |          Source Object         |    C Type    |
++-------------------------------+-----+-----+------------+--------------------------------+--------------+
+|ap_clk                         |   in|    1|  ap_ctrl_hs|  D_drain_IO_L3_out_serialize_x1|  return value|
+|ap_rst                         |   in|    1|  ap_ctrl_hs|  D_drain_IO_L3_out_serialize_x1|  return value|
+|ap_start                       |   in|    1|  ap_ctrl_hs|  D_drain_IO_L3_out_serialize_x1|  return value|
+|ap_done                        |  out|    1|  ap_ctrl_hs|  D_drain_IO_L3_out_serialize_x1|  return value|
+|ap_continue                    |   in|    1|  ap_ctrl_hs|  D_drain_IO_L3_out_serialize_x1|  return value|
+|ap_idle                        |  out|    1|  ap_ctrl_hs|  D_drain_IO_L3_out_serialize_x1|  return value|
+|ap_ready                       |  out|    1|  ap_ctrl_hs|  D_drain_IO_L3_out_serialize_x1|  return value|
+|m_axi_gmem_D_AWVALID           |  out|    1|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_AWREADY           |   in|    1|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_AWADDR            |  out|   64|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_AWID              |  out|    1|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_AWLEN             |  out|   32|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_AWSIZE            |  out|    3|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_AWBURST           |  out|    2|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_AWLOCK            |  out|    2|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_AWCACHE           |  out|    4|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_AWPROT            |  out|    3|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_AWQOS             |  out|    4|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_AWREGION          |  out|    4|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_AWUSER            |  out|    1|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_WVALID            |  out|    1|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_WREADY            |   in|    1|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_WDATA             |  out|  512|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_WSTRB             |  out|   64|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_WLAST             |  out|    1|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_WID               |  out|    1|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_WUSER             |  out|    1|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_ARVALID           |  out|    1|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_ARREADY           |   in|    1|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_ARADDR            |  out|   64|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_ARID              |  out|    1|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_ARLEN             |  out|   32|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_ARSIZE            |  out|    3|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_ARBURST           |  out|    2|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_ARLOCK            |  out|    2|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_ARCACHE           |  out|    4|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_ARPROT            |  out|    3|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_ARQOS             |  out|    4|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_ARREGION          |  out|    4|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_ARUSER            |  out|    1|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_RVALID            |   in|    1|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_RREADY            |  out|    1|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_RDATA             |   in|  512|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_RLAST             |   in|    1|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_RID               |   in|    1|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_RUSER             |   in|    1|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_RRESP             |   in|    2|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_BVALID            |   in|    1|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_BREADY            |  out|    1|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_BRESP             |   in|    2|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_BID               |   in|    1|       m_axi|                          gmem_D|       pointer|
+|m_axi_gmem_D_BUSER             |   in|    1|       m_axi|                          gmem_D|       pointer|
+|fifo_D_drain_local_in_dout     |   in|  128|     ap_fifo|           fifo_D_drain_local_in|       pointer|
+|fifo_D_drain_local_in_empty_n  |   in|    1|     ap_fifo|           fifo_D_drain_local_in|       pointer|
+|fifo_D_drain_local_in_read     |  out|    1|     ap_fifo|           fifo_D_drain_local_in|       pointer|
+|D_dout                         |   in|   64|     ap_fifo|                               D|       pointer|
+|D_empty_n                      |   in|    1|     ap_fifo|                               D|       pointer|
+|D_read                         |  out|    1|     ap_fifo|                               D|       pointer|
++-------------------------------+-----+-----+------------+--------------------------------+--------------+
+

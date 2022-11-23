@@ -1,0 +1,249 @@
+
+
+================================================================
+== Vitis HLS Report for 'D_drain_IO_L1_out_wrapper_4_1_x0'
+================================================================
+* Date:           Sun Sep 18 13:58:39 2022
+
+* Version:        2020.2 (Build 3064766 on Wed Nov 18 09:12:47 MST 2020)
+* Project:        top
+* Solution:       solution (Vitis Kernel Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu250-figd2104-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  3.33 ns|  2.433 ns|     0.90 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+-----------+-----+------+---------+
+    |  Latency (cycles) |  Latency (absolute)  |  Interval  | Pipeline|
+    |   min   |   max   |    min   |    max    | min |  max |   Type  |
+    +---------+---------+----------+-----------+-----+------+---------+
+    |       49|     5713|  0.163 us|  19.041 us|   49|  5713|     none|
+    +---------+---------+----------+-----------+-----+------+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +------------------------------------------------------------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |                                                                                    |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        |                                      Loop Name                                     |   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +------------------------------------------------------------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |- D_drain_IO_L1_out_wrapper_4_1_x0_loop_1_D_drain_IO_L1_out_wrapper_4_1_x0_loop_2   |       48|     5712|   2 ~ 238|          -|          -|    24|        no|
+        | + D_drain_IO_L1_out_wrapper_4_1_x0_loop_3_D_drain_IO_L1_out_wrapper_4_1_x0_loop_4  |      129|      129|         3|          1|          1|   128|       yes|
+        | + D_drain_IO_L1_out_wrapper_4_1_x0_loop_6                                          |      105|      105|        35|          -|          -|     3|        no|
+        |  ++ D_drain_IO_L1_out_wrapper_4_1_x0_loop_7                                        |       32|       32|         3|          2|          2|    16|       yes|
+        |  ++ D_drain_IO_L1_out_wrapper_4_1_x0_loop_9                                        |       32|       32|         3|          2|          2|    16|       yes|
+        +------------------------------------------------------------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++---------------------+---------+-------+---------+---------+------+
+|         Name        | BRAM_18K|  DSP  |    FF   |   LUT   | URAM |
++---------------------+---------+-------+---------+---------+------+
+|DSP                  |        -|      -|        -|        -|     -|
+|Expression           |        -|      -|        0|      230|     -|
+|FIFO                 |        -|      -|        -|        -|     -|
+|Instance             |        -|      -|        -|        -|     -|
+|Memory               |        4|      -|        0|        0|     -|
+|Multiplexer          |        -|      -|        -|      334|     -|
+|Register             |        -|      -|      479|        -|     -|
++---------------------+---------+-------+---------+---------+------+
+|Total                |        4|      0|      479|      564|     0|
++---------------------+---------+-------+---------+---------+------+
+|Available SLR        |     1344|   3072|   864000|   432000|   320|
++---------------------+---------+-------+---------+---------+------+
+|Utilization SLR (%)  |       ~0|      0|       ~0|       ~0|     0|
++---------------------+---------+-------+---------+---------+------+
+|Available            |     5376|  12288|  3456000|  1728000|  1280|
++---------------------+---------+-------+---------+---------+------+
+|Utilization (%)      |       ~0|      0|       ~0|       ~0|     0|
++---------------------+---------+-------+---------+---------+------+
+
++ Detail: 
+    * Instance: 
+    N/A
+
+    * DSP: 
+    N/A
+
+    * Memory: 
+    +-------------+---------------------------------------------------+---------+---+----+-----+------+-----+------+-------------+
+    |    Memory   |                       Module                      | BRAM_18K| FF| LUT| URAM| Words| Bits| Banks| W*Bits*Banks|
+    +-------------+---------------------------------------------------+---------+---+----+-----+------+-----+------+-------------+
+    |local_D_V_U  |D_drain_IO_L1_out_boundary_wrapper_0_x0_local_D_V  |        4|  0|   0|    0|    32|  128|     1|         4096|
+    +-------------+---------------------------------------------------+---------+---+----+-----+------+-----+------+-------------+
+    |Total        |                                                   |        4|  0|   0|    0|    32|  128|     1|         4096|
+    +-------------+---------------------------------------------------+---------+---+----+-----+------+-----+------+-------------+
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +-----------------------------------+----------+----+---+----+------------+------------+
+    |           Variable Name           | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +-----------------------------------+----------+----+---+----+------------+------------+
+    |add_ln691_812_fu_439_p2            |         +|   0|  0|  12|           5|           1|
+    |add_ln691_813_fu_504_p2            |         +|   0|  0|  10|           3|           1|
+    |add_ln691_814_fu_527_p2            |         +|   0|  0|  12|           5|           1|
+    |add_ln691_815_fu_509_p2            |         +|   0|  0|  12|           5|           1|
+    |add_ln691_816_fu_521_p2            |         +|   0|  0|  10|           3|           1|
+    |add_ln691_fu_386_p2                |         +|   0|  0|  12|           4|           1|
+    |add_ln890_54_fu_328_p2             |         +|   0|  0|  12|           5|           1|
+    |add_ln890_fu_374_p2                |         +|   0|  0|  15|           8|           1|
+    |ap_block_pp0_stage0_11001          |       and|   0|  0|   2|           1|           1|
+    |ap_block_pp1_stage0_01001          |       and|   0|  0|   2|           1|           1|
+    |ap_block_pp1_stage1_01001          |       and|   0|  0|   2|           1|           1|
+    |ap_block_pp2_stage0_01001          |       and|   0|  0|   2|           1|           1|
+    |ap_block_pp2_stage1_01001          |       and|   0|  0|   2|           1|           1|
+    |ap_block_state13_pp2_stage1_iter0  |       and|   0|  0|   2|           1|           1|
+    |ap_block_state4_pp0_stage0_iter1   |       and|   0|  0|   2|           1|           1|
+    |icmp_ln870_fu_498_p2               |      icmp|   0|  0|   8|           3|           1|
+    |icmp_ln89028_fu_340_p2             |      icmp|   0|  0|   8|           3|           3|
+    |icmp_ln890_719_fu_368_p2           |      icmp|   0|  0|  10|           6|           6|
+    |icmp_ln890_720_fu_380_p2           |      icmp|   0|  0|  11|           8|           9|
+    |icmp_ln890_721_fu_392_p2           |      icmp|   0|  0|  10|           5|           6|
+    |icmp_ln890_722_fu_492_p2           |      icmp|   0|  0|   9|           3|           4|
+    |icmp_ln890_723_fu_533_p2           |      icmp|   0|  0|  10|           5|           6|
+    |icmp_ln890_724_fu_515_p2           |      icmp|   0|  0|  10|           5|           6|
+    |icmp_ln890_fu_334_p2               |      icmp|   0|  0|   9|           5|           5|
+    |ap_block_state1                    |        or|   0|  0|   2|           1|           1|
+    |ap_block_state10_pp1_stage0_iter1  |        or|   0|  0|   2|           1|           1|
+    |or_ln10442_fu_552_p2               |        or|   0|  0|   6|           6|           1|
+    |ret_fu_362_p2                      |        or|   0|  0|   6|           6|           3|
+    |select_ln10397_fu_346_p3           |    select|   0|  0|   3|           1|           1|
+    |select_ln890_22_fu_406_p3          |    select|   0|  0|   4|           1|           4|
+    |select_ln890_fu_398_p3             |    select|   0|  0|   5|           1|           1|
+    |ap_enable_pp0                      |       xor|   0|  0|   2|           1|           2|
+    |ap_enable_pp1                      |       xor|   0|  0|   2|           1|           2|
+    |ap_enable_pp2                      |       xor|   0|  0|   2|           1|           2|
+    |ap_enable_reg_pp0_iter1            |       xor|   0|  0|   2|           2|           1|
+    +-----------------------------------+----------+----+---+----+------------+------------+
+    |Total                              |          |   0|  0| 230|         110|          80|
+    +-----------------------------------+----------+----+---+----+------------+------------+
+
+    * Multiplexer: 
+    +------------------------------------------------+----+-----------+-----+-----------+
+    |                      Name                      | LUT| Input Size| Bits| Total Bits|
+    +------------------------------------------------+----+-----------+-----+-----------+
+    |ap_NS_fsm                                       |  59|         11|    1|         11|
+    |ap_done                                         |   9|          2|    1|          2|
+    |ap_enable_reg_pp0_iter1                         |   9|          2|    1|          2|
+    |ap_enable_reg_pp0_iter2                         |   9|          2|    1|          2|
+    |ap_enable_reg_pp1_iter1                         |   9|          2|    1|          2|
+    |ap_enable_reg_pp2_iter1                         |   9|          2|    1|          2|
+    |ap_phi_mux_c5_V_22_phi_fu_310_p4                |   9|          2|    5|         10|
+    |ap_phi_mux_c5_V_phi_fu_321_p4                   |   9|          2|    5|         10|
+    |ap_phi_mux_c7_V_phi_fu_224_p4                   |   9|          2|    4|          8|
+    |ap_phi_reg_pp0_iter2_v1_V_reg_242               |  14|          3|   32|         96|
+    |ap_phi_reg_pp0_iter2_v2_V_1689_reg_268          |  14|          3|   32|         96|
+    |ap_phi_reg_pp0_iter2_v2_V_1690_reg_255          |  14|          3|   32|         96|
+    |ap_phi_reg_pp0_iter2_v2_V_reg_281               |  14|          3|   32|         96|
+    |c1_V_reg_198                                    |   9|          2|    3|          6|
+    |c4_V_reg_294                                    |   9|          2|    3|          6|
+    |c5_V_22_reg_306                                 |   9|          2|    5|         10|
+    |c5_V_reg_317                                    |   9|          2|    5|         10|
+    |c7_V_reg_220                                    |   9|          2|    4|          8|
+    |c8_V_reg_231                                    |   9|          2|    5|         10|
+    |fifo_D_drain_D_drain_IO_L1_out_4_1_x0190_blk_n  |   9|          2|    1|          2|
+    |fifo_D_drain_D_drain_IO_L1_out_4_1_x0190_din    |  20|          4|  128|        512|
+    |fifo_D_drain_D_drain_IO_L1_out_4_2_x0191_blk_n  |   9|          2|    1|          2|
+    |fifo_D_drain_PE_1_4_x0158_blk_n                 |   9|          2|    1|          2|
+    |indvar_flatten7_reg_187                         |   9|          2|    5|         10|
+    |indvar_flatten_reg_209                          |   9|          2|    8|         16|
+    |local_D_V_address0                              |  14|          3|    5|         15|
+    |local_D_V_address1                              |  14|          3|    5|         15|
+    +------------------------------------------------+----+-----------+-----+-----------+
+    |Total                                           | 334|         71|  327|       1057|
+    +------------------------------------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +----------------------------------------+-----+----+-----+-----------+
+    |                  Name                  |  FF | LUT| Bits| Const Bits|
+    +----------------------------------------+-----+----+-----+-----------+
+    |add_ln691_814_reg_677                   |    5|   0|    5|          0|
+    |add_ln691_815_reg_663                   |    5|   0|    5|          0|
+    |add_ln890_54_reg_567                    |    5|   0|    5|          0|
+    |ap_CS_fsm                               |   10|   0|   10|          0|
+    |ap_done_reg                             |    1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter0                 |    1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter1                 |    1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter2                 |    1|   0|    1|          0|
+    |ap_enable_reg_pp1_iter0                 |    1|   0|    1|          0|
+    |ap_enable_reg_pp1_iter1                 |    1|   0|    1|          0|
+    |ap_enable_reg_pp2_iter0                 |    1|   0|    1|          0|
+    |ap_enable_reg_pp2_iter1                 |    1|   0|    1|          0|
+    |ap_phi_reg_pp0_iter1_v1_V_reg_242       |   32|   0|   32|          0|
+    |ap_phi_reg_pp0_iter1_v2_V_1689_reg_268  |   32|   0|   32|          0|
+    |ap_phi_reg_pp0_iter1_v2_V_1690_reg_255  |   32|   0|   32|          0|
+    |ap_phi_reg_pp0_iter1_v2_V_reg_281       |   32|   0|   32|          0|
+    |ap_phi_reg_pp0_iter2_v1_V_reg_242       |   32|   0|   32|          0|
+    |ap_phi_reg_pp0_iter2_v2_V_1689_reg_268  |   32|   0|   32|          0|
+    |ap_phi_reg_pp0_iter2_v2_V_1690_reg_255  |   32|   0|   32|          0|
+    |ap_phi_reg_pp0_iter2_v2_V_reg_281       |   32|   0|   32|          0|
+    |c1_V_reg_198                            |    3|   0|    3|          0|
+    |c4_V_reg_294                            |    3|   0|    3|          0|
+    |c5_V_22_reg_306                         |    5|   0|    5|          0|
+    |c5_V_reg_317                            |    5|   0|    5|          0|
+    |c7_V_reg_220                            |    4|   0|    4|          0|
+    |c8_V_reg_231                            |    5|   0|    5|          0|
+    |icmp_ln890_719_reg_581                  |    1|   0|    1|          0|
+    |icmp_ln890_720_reg_590                  |    1|   0|    1|          0|
+    |icmp_ln890_720_reg_590_pp0_iter1_reg    |    1|   0|    1|          0|
+    |icmp_ln890_723_reg_682                  |    1|   0|    1|          0|
+    |icmp_ln890_724_reg_668                  |    1|   0|    1|          0|
+    |indvar_flatten7_reg_187                 |    5|   0|    5|          0|
+    |indvar_flatten_reg_209                  |    8|   0|    8|          0|
+    |local_D_V_addr_reg_603                  |    5|   0|    5|          0|
+    |local_D_V_addr_reg_603_pp0_iter1_reg    |    5|   0|    5|          0|
+    |local_D_V_load_1_reg_696                |  128|   0|  128|          0|
+    |select_ln10397_reg_576                  |    3|   0|    3|          0|
+    |select_ln890_22_reg_594                 |    4|   0|    4|          0|
+    |trunc_ln890_reg_599                     |    2|   0|    2|          0|
+    +----------------------------------------+-----+----+-----+-----------+
+    |Total                                   |  479|   0|  479|          0|
+    +----------------------------------------+-----+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++--------------------------------------------------+-----+-----+------------+------------------------------------------+--------------+
+|                     RTL Ports                    | Dir | Bits|  Protocol  |               Source Object              |    C Type    |
++--------------------------------------------------+-----+-----+------------+------------------------------------------+--------------+
+|ap_clk                                            |   in|    1|  ap_ctrl_hs|          D_drain_IO_L1_out_wrapper_4_1_x0|  return value|
+|ap_rst                                            |   in|    1|  ap_ctrl_hs|          D_drain_IO_L1_out_wrapper_4_1_x0|  return value|
+|ap_start                                          |   in|    1|  ap_ctrl_hs|          D_drain_IO_L1_out_wrapper_4_1_x0|  return value|
+|ap_done                                           |  out|    1|  ap_ctrl_hs|          D_drain_IO_L1_out_wrapper_4_1_x0|  return value|
+|ap_continue                                       |   in|    1|  ap_ctrl_hs|          D_drain_IO_L1_out_wrapper_4_1_x0|  return value|
+|ap_idle                                           |  out|    1|  ap_ctrl_hs|          D_drain_IO_L1_out_wrapper_4_1_x0|  return value|
+|ap_ready                                          |  out|    1|  ap_ctrl_hs|          D_drain_IO_L1_out_wrapper_4_1_x0|  return value|
+|fifo_D_drain_D_drain_IO_L1_out_4_2_x0191_dout     |   in|  128|     ap_fifo|  fifo_D_drain_D_drain_IO_L1_out_4_2_x0191|       pointer|
+|fifo_D_drain_D_drain_IO_L1_out_4_2_x0191_empty_n  |   in|    1|     ap_fifo|  fifo_D_drain_D_drain_IO_L1_out_4_2_x0191|       pointer|
+|fifo_D_drain_D_drain_IO_L1_out_4_2_x0191_read     |  out|    1|     ap_fifo|  fifo_D_drain_D_drain_IO_L1_out_4_2_x0191|       pointer|
+|fifo_D_drain_D_drain_IO_L1_out_4_1_x0190_din      |  out|  128|     ap_fifo|  fifo_D_drain_D_drain_IO_L1_out_4_1_x0190|       pointer|
+|fifo_D_drain_D_drain_IO_L1_out_4_1_x0190_full_n   |   in|    1|     ap_fifo|  fifo_D_drain_D_drain_IO_L1_out_4_1_x0190|       pointer|
+|fifo_D_drain_D_drain_IO_L1_out_4_1_x0190_write    |  out|    1|     ap_fifo|  fifo_D_drain_D_drain_IO_L1_out_4_1_x0190|       pointer|
+|fifo_D_drain_PE_1_4_x0158_dout                    |   in|   32|     ap_fifo|                 fifo_D_drain_PE_1_4_x0158|       pointer|
+|fifo_D_drain_PE_1_4_x0158_empty_n                 |   in|    1|     ap_fifo|                 fifo_D_drain_PE_1_4_x0158|       pointer|
+|fifo_D_drain_PE_1_4_x0158_read                    |  out|    1|     ap_fifo|                 fifo_D_drain_PE_1_4_x0158|       pointer|
++--------------------------------------------------+-----+-----+------------+------------------------------------------+--------------+
+
