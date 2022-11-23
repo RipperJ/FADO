@@ -1,0 +1,1210 @@
+
+
+================================================================
+== Vitis HLS Report for 'kernel0_x1'
+================================================================
+* Date:           Sun Sep 18 20:13:25 2022
+
+* Version:        2020.2 (Build 3064766 on Wed Nov 18 09:12:47 MST 2020)
+* Project:        top
+* Solution:       solution (Vitis Kernel Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu250-figd2104-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  3.33 ns|  2.433 ns|     0.90 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +-----------+-----------+-----------+-----------+-----------+-----------+----------+
+    |    Latency (cycles)   |   Latency (absolute)  |        Interval       | Pipeline |
+    |    min    |    max    |    min    |    max    |    min    |    max    |   Type   |
+    +-----------+-----------+-----------+-----------+-----------+-----------+----------+
+    |  129123158|  129123158|  0.430 sec|  0.430 sec|  129122850|  129122850|  dataflow|
+    +-----------+-----------+-----------+-----------+-----------+-----------+----------+
+
+    + Detail: 
+        * Instance: 
+        +--------------------------------------------+-----------------------------------------+-----------+-----------+-----------+-----------+-----------+-----------+---------+
+        |                                            |                                         |    Latency (cycles)   |   Latency (absolute)  |        Interval       | Pipeline|
+        |                  Instance                  |                  Module                 |    min    |    max    |    min    |    max    |    min    |    max    |   Type  |
+        +--------------------------------------------+-----------------------------------------+-----------+-----------+-----------+-----------+-----------+-----------+---------+
+        |PE_wrapper_0_0_x1_U0                        |PE_wrapper_0_0_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_0_1_x1_U0                        |PE_wrapper_0_1_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_1_0_x1_U0                        |PE_wrapper_1_0_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_0_2_x1_U0                        |PE_wrapper_0_2_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_1_1_x1_U0                        |PE_wrapper_1_1_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_2_0_x1_U0                        |PE_wrapper_2_0_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_0_3_x1_U0                        |PE_wrapper_0_3_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_1_2_x1_U0                        |PE_wrapper_1_2_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_2_1_x1_U0                        |PE_wrapper_2_1_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_3_0_x1_U0                        |PE_wrapper_3_0_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_0_4_x1_U0                        |PE_wrapper_0_4_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_1_3_x1_U0                        |PE_wrapper_1_3_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_2_2_x1_U0                        |PE_wrapper_2_2_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_3_1_x1_U0                        |PE_wrapper_3_1_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_4_0_x1_U0                        |PE_wrapper_4_0_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_0_5_x1_U0                        |PE_wrapper_0_5_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_1_4_x1_U0                        |PE_wrapper_1_4_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_2_3_x1_U0                        |PE_wrapper_2_3_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_3_2_x1_U0                        |PE_wrapper_3_2_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_4_1_x1_U0                        |PE_wrapper_4_1_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_5_0_x1_U0                        |PE_wrapper_5_0_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_0_6_x1_U0                        |PE_wrapper_0_6_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_1_5_x1_U0                        |PE_wrapper_1_5_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_2_4_x1_U0                        |PE_wrapper_2_4_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_3_3_x1_U0                        |PE_wrapper_3_3_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_4_2_x1_U0                        |PE_wrapper_4_2_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_5_1_x1_U0                        |PE_wrapper_5_1_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_6_0_x1_U0                        |PE_wrapper_6_0_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_0_7_x1_U0                        |PE_wrapper_0_7_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_1_6_x1_U0                        |PE_wrapper_1_6_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_2_5_x1_U0                        |PE_wrapper_2_5_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_3_4_x1_U0                        |PE_wrapper_3_4_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_4_3_x1_U0                        |PE_wrapper_4_3_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_5_2_x1_U0                        |PE_wrapper_5_2_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_6_1_x1_U0                        |PE_wrapper_6_1_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_7_0_x1_U0                        |PE_wrapper_7_0_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_1_7_x1_U0                        |PE_wrapper_1_7_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_2_6_x1_U0                        |PE_wrapper_2_6_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_3_5_x1_U0                        |PE_wrapper_3_5_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_4_4_x1_U0                        |PE_wrapper_4_4_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_5_3_x1_U0                        |PE_wrapper_5_3_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_6_2_x1_U0                        |PE_wrapper_6_2_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_7_1_x1_U0                        |PE_wrapper_7_1_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_2_7_x1_U0                        |PE_wrapper_2_7_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_3_6_x1_U0                        |PE_wrapper_3_6_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_4_5_x1_U0                        |PE_wrapper_4_5_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_5_4_x1_U0                        |PE_wrapper_5_4_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_6_3_x1_U0                        |PE_wrapper_6_3_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_7_2_x1_U0                        |PE_wrapper_7_2_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_3_7_x1_U0                        |PE_wrapper_3_7_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_4_6_x1_U0                        |PE_wrapper_4_6_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_5_5_x1_U0                        |PE_wrapper_5_5_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_6_4_x1_U0                        |PE_wrapper_6_4_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_7_3_x1_U0                        |PE_wrapper_7_3_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_4_7_x1_U0                        |PE_wrapper_4_7_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_5_6_x1_U0                        |PE_wrapper_5_6_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_6_5_x1_U0                        |PE_wrapper_6_5_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_7_4_x1_U0                        |PE_wrapper_7_4_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_5_7_x1_U0                        |PE_wrapper_5_7_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_6_6_x1_U0                        |PE_wrapper_6_6_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_7_5_x1_U0                        |PE_wrapper_7_5_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_6_7_x1_U0                        |PE_wrapper_6_7_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_7_6_x1_U0                        |PE_wrapper_7_6_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |PE_wrapper_7_7_x1_U0                        |PE_wrapper_7_7_x1                        |  129122849|  129122849|  0.430 sec|  0.430 sec|  129122849|  129122849|     none|
+        |B_IO_L2_in_1_x1_U0                          |B_IO_L2_in_1_x1                          |     548995|    1147011|   1.830 ms|   3.823 ms|     548995|    1147011|     none|
+        |B_IO_L2_in_2_x1_U0                          |B_IO_L2_in_2_x1                          |     475267|    1073283|   1.584 ms|   3.577 ms|     475267|    1073283|     none|
+        |B_IO_L2_in_3_x1_U0                          |B_IO_L2_in_3_x1                          |     401539|     999555|   1.338 ms|   3.332 ms|     401539|     999555|     none|
+        |B_IO_L2_in_4_x1_U0                          |B_IO_L2_in_4_x1                          |     327811|     925827|   1.093 ms|   3.086 ms|     327811|     925827|     none|
+        |B_IO_L2_in_5_x1_U0                          |B_IO_L2_in_5_x1                          |     254083|     852099|   0.847 ms|   2.840 ms|     254083|     852099|     none|
+        |B_IO_L2_in_6_x1_U0                          |B_IO_L2_in_6_x1                          |     180355|     778371|   0.601 ms|   2.594 ms|     180355|     778371|     none|
+        |B_IO_L2_in_0_x1_U0                          |B_IO_L2_in_0_x1                          |     622723|    1220739|   2.076 ms|   4.069 ms|     622723|    1220739|     none|
+        |C_drain_IO_L3_out_serialize_x1_U0           |C_drain_IO_L3_out_serialize_x1           |     131143|     131143|   0.437 ms|   0.437 ms|     131143|     131143|     none|
+        |B_IO_L2_in_boundary_x1_U0                   |B_IO_L2_in_boundary_x1                   |      98394|     630874|   0.328 ms|   2.103 ms|      98394|     630874|     none|
+        |C_drain_IO_L1_out_boundary_wrapper_0_x1_U0  |C_drain_IO_L1_out_boundary_wrapper_0_x1  |      16386|      16386|  54.615 us|  54.615 us|      16386|      16386|     none|
+        |C_drain_IO_L1_out_boundary_wrapper_1_x1_U0  |C_drain_IO_L1_out_boundary_wrapper_1_x1  |      16386|      16386|  54.615 us|  54.615 us|      16386|      16386|     none|
+        |C_drain_IO_L1_out_boundary_wrapper_2_x1_U0  |C_drain_IO_L1_out_boundary_wrapper_2_x1  |      16386|      16386|  54.615 us|  54.615 us|      16386|      16386|     none|
+        |C_drain_IO_L1_out_boundary_wrapper_3_x1_U0  |C_drain_IO_L1_out_boundary_wrapper_3_x1  |      16386|      16386|  54.615 us|  54.615 us|      16386|      16386|     none|
+        |C_drain_IO_L1_out_boundary_wrapper_4_x1_U0  |C_drain_IO_L1_out_boundary_wrapper_4_x1  |      16386|      16386|  54.615 us|  54.615 us|      16386|      16386|     none|
+        |C_drain_IO_L1_out_boundary_wrapper_5_x1_U0  |C_drain_IO_L1_out_boundary_wrapper_5_x1  |      16386|      16386|  54.615 us|  54.615 us|      16386|      16386|     none|
+        |C_drain_IO_L1_out_boundary_wrapper_6_x1_U0  |C_drain_IO_L1_out_boundary_wrapper_6_x1  |      16386|      16386|  54.615 us|  54.615 us|      16386|      16386|     none|
+        |C_drain_IO_L1_out_boundary_wrapper_7_x1_U0  |C_drain_IO_L1_out_boundary_wrapper_7_x1  |      16386|      16386|  54.615 us|  54.615 us|      16386|      16386|     none|
+        |C_drain_IO_L1_out_wrapper_0_6_x1_U0         |C_drain_IO_L1_out_wrapper_0_6_x1         |     276257|     276257|   0.921 ms|   0.921 ms|     276257|     276257|     none|
+        |C_drain_IO_L1_out_wrapper_0_5_x1_U0         |C_drain_IO_L1_out_wrapper_0_5_x1         |     280865|     280865|   0.936 ms|   0.936 ms|     280865|     280865|     none|
+        |C_drain_IO_L1_out_wrapper_1_6_x1_U0         |C_drain_IO_L1_out_wrapper_1_6_x1         |     276257|     276257|   0.921 ms|   0.921 ms|     276257|     276257|     none|
+        |C_drain_IO_L1_out_wrapper_0_4_x1_U0         |C_drain_IO_L1_out_wrapper_0_4_x1         |     285473|     285473|   0.951 ms|   0.951 ms|     285473|     285473|     none|
+        |C_drain_IO_L1_out_wrapper_1_5_x1_U0         |C_drain_IO_L1_out_wrapper_1_5_x1         |     280865|     280865|   0.936 ms|   0.936 ms|     280865|     280865|     none|
+        |C_drain_IO_L1_out_wrapper_2_6_x1_U0         |C_drain_IO_L1_out_wrapper_2_6_x1         |     276257|     276257|   0.921 ms|   0.921 ms|     276257|     276257|     none|
+        |C_drain_IO_L1_out_wrapper_0_3_x1_U0         |C_drain_IO_L1_out_wrapper_0_3_x1         |     290081|     290081|   0.967 ms|   0.967 ms|     290081|     290081|     none|
+        |C_drain_IO_L1_out_wrapper_1_4_x1_U0         |C_drain_IO_L1_out_wrapper_1_4_x1         |     285473|     285473|   0.951 ms|   0.951 ms|     285473|     285473|     none|
+        |C_drain_IO_L1_out_wrapper_2_5_x1_U0         |C_drain_IO_L1_out_wrapper_2_5_x1         |     280865|     280865|   0.936 ms|   0.936 ms|     280865|     280865|     none|
+        |C_drain_IO_L1_out_wrapper_3_6_x1_U0         |C_drain_IO_L1_out_wrapper_3_6_x1         |     276257|     276257|   0.921 ms|   0.921 ms|     276257|     276257|     none|
+        |C_drain_IO_L1_out_wrapper_0_2_x1_U0         |C_drain_IO_L1_out_wrapper_0_2_x1         |     294689|     294689|   0.982 ms|   0.982 ms|     294689|     294689|     none|
+        |C_drain_IO_L1_out_wrapper_1_3_x1_U0         |C_drain_IO_L1_out_wrapper_1_3_x1         |     290081|     290081|   0.967 ms|   0.967 ms|     290081|     290081|     none|
+        |C_drain_IO_L1_out_wrapper_2_4_x1_U0         |C_drain_IO_L1_out_wrapper_2_4_x1         |     285473|     285473|   0.951 ms|   0.951 ms|     285473|     285473|     none|
+        |C_drain_IO_L1_out_wrapper_3_5_x1_U0         |C_drain_IO_L1_out_wrapper_3_5_x1         |     280865|     280865|   0.936 ms|   0.936 ms|     280865|     280865|     none|
+        |C_drain_IO_L1_out_wrapper_4_6_x1_U0         |C_drain_IO_L1_out_wrapper_4_6_x1         |     276257|     276257|   0.921 ms|   0.921 ms|     276257|     276257|     none|
+        |C_drain_IO_L1_out_wrapper_0_1_x1_U0         |C_drain_IO_L1_out_wrapper_0_1_x1         |     299297|     299297|   0.998 ms|   0.998 ms|     299297|     299297|     none|
+        |C_drain_IO_L1_out_wrapper_1_2_x1_U0         |C_drain_IO_L1_out_wrapper_1_2_x1         |     294689|     294689|   0.982 ms|   0.982 ms|     294689|     294689|     none|
+        |C_drain_IO_L1_out_wrapper_2_3_x1_U0         |C_drain_IO_L1_out_wrapper_2_3_x1         |     290081|     290081|   0.967 ms|   0.967 ms|     290081|     290081|     none|
+        |C_drain_IO_L1_out_wrapper_3_4_x1_U0         |C_drain_IO_L1_out_wrapper_3_4_x1         |     285473|     285473|   0.951 ms|   0.951 ms|     285473|     285473|     none|
+        |C_drain_IO_L1_out_wrapper_4_5_x1_U0         |C_drain_IO_L1_out_wrapper_4_5_x1         |     280865|     280865|   0.936 ms|   0.936 ms|     280865|     280865|     none|
+        |C_drain_IO_L1_out_wrapper_5_6_x1_U0         |C_drain_IO_L1_out_wrapper_5_6_x1         |     276257|     276257|   0.921 ms|   0.921 ms|     276257|     276257|     none|
+        |C_drain_IO_L1_out_wrapper_1_1_x1_U0         |C_drain_IO_L1_out_wrapper_1_1_x1         |     299297|     299297|   0.998 ms|   0.998 ms|     299297|     299297|     none|
+        |C_drain_IO_L1_out_wrapper_2_2_x1_U0         |C_drain_IO_L1_out_wrapper_2_2_x1         |     294689|     294689|   0.982 ms|   0.982 ms|     294689|     294689|     none|
+        |C_drain_IO_L1_out_wrapper_3_3_x1_U0         |C_drain_IO_L1_out_wrapper_3_3_x1         |     290081|     290081|   0.967 ms|   0.967 ms|     290081|     290081|     none|
+        |C_drain_IO_L1_out_wrapper_4_4_x1_U0         |C_drain_IO_L1_out_wrapper_4_4_x1         |     285473|     285473|   0.951 ms|   0.951 ms|     285473|     285473|     none|
+        |C_drain_IO_L1_out_wrapper_5_5_x1_U0         |C_drain_IO_L1_out_wrapper_5_5_x1         |     280865|     280865|   0.936 ms|   0.936 ms|     280865|     280865|     none|
+        |C_drain_IO_L1_out_wrapper_6_6_x1_U0         |C_drain_IO_L1_out_wrapper_6_6_x1         |     276257|     276257|   0.921 ms|   0.921 ms|     276257|     276257|     none|
+        |C_drain_IO_L1_out_wrapper_2_1_x1_U0         |C_drain_IO_L1_out_wrapper_2_1_x1         |     299297|     299297|   0.998 ms|   0.998 ms|     299297|     299297|     none|
+        |C_drain_IO_L1_out_wrapper_3_2_x1_U0         |C_drain_IO_L1_out_wrapper_3_2_x1         |     294689|     294689|   0.982 ms|   0.982 ms|     294689|     294689|     none|
+        |C_drain_IO_L1_out_wrapper_4_3_x1_U0         |C_drain_IO_L1_out_wrapper_4_3_x1         |     290081|     290081|   0.967 ms|   0.967 ms|     290081|     290081|     none|
+        |C_drain_IO_L1_out_wrapper_5_4_x1_U0         |C_drain_IO_L1_out_wrapper_5_4_x1         |     285473|     285473|   0.951 ms|   0.951 ms|     285473|     285473|     none|
+        |C_drain_IO_L1_out_wrapper_6_5_x1_U0         |C_drain_IO_L1_out_wrapper_6_5_x1         |     280865|     280865|   0.936 ms|   0.936 ms|     280865|     280865|     none|
+        |C_drain_IO_L1_out_wrapper_7_6_x1_U0         |C_drain_IO_L1_out_wrapper_7_6_x1         |     276257|     276257|   0.921 ms|   0.921 ms|     276257|     276257|     none|
+        |C_drain_IO_L1_out_wrapper_3_1_x1_U0         |C_drain_IO_L1_out_wrapper_3_1_x1         |     299297|     299297|   0.998 ms|   0.998 ms|     299297|     299297|     none|
+        |C_drain_IO_L1_out_wrapper_4_2_x1_U0         |C_drain_IO_L1_out_wrapper_4_2_x1         |     294689|     294689|   0.982 ms|   0.982 ms|     294689|     294689|     none|
+        |C_drain_IO_L1_out_wrapper_5_3_x1_U0         |C_drain_IO_L1_out_wrapper_5_3_x1         |     290081|     290081|   0.967 ms|   0.967 ms|     290081|     290081|     none|
+        |C_drain_IO_L1_out_wrapper_6_4_x1_U0         |C_drain_IO_L1_out_wrapper_6_4_x1         |     285473|     285473|   0.951 ms|   0.951 ms|     285473|     285473|     none|
+        |C_drain_IO_L1_out_wrapper_7_5_x1_U0         |C_drain_IO_L1_out_wrapper_7_5_x1         |     280865|     280865|   0.936 ms|   0.936 ms|     280865|     280865|     none|
+        |C_drain_IO_L1_out_wrapper_4_1_x1_U0         |C_drain_IO_L1_out_wrapper_4_1_x1         |     299297|     299297|   0.998 ms|   0.998 ms|     299297|     299297|     none|
+        |C_drain_IO_L1_out_wrapper_5_2_x1_U0         |C_drain_IO_L1_out_wrapper_5_2_x1         |     294689|     294689|   0.982 ms|   0.982 ms|     294689|     294689|     none|
+        |C_drain_IO_L1_out_wrapper_6_3_x1_U0         |C_drain_IO_L1_out_wrapper_6_3_x1         |     290081|     290081|   0.967 ms|   0.967 ms|     290081|     290081|     none|
+        |C_drain_IO_L1_out_wrapper_7_4_x1_U0         |C_drain_IO_L1_out_wrapper_7_4_x1         |     285473|     285473|   0.951 ms|   0.951 ms|     285473|     285473|     none|
+        |C_drain_IO_L1_out_wrapper_5_1_x1_U0         |C_drain_IO_L1_out_wrapper_5_1_x1         |     299297|     299297|   0.998 ms|   0.998 ms|     299297|     299297|     none|
+        |C_drain_IO_L1_out_wrapper_6_2_x1_U0         |C_drain_IO_L1_out_wrapper_6_2_x1         |     294689|     294689|   0.982 ms|   0.982 ms|     294689|     294689|     none|
+        |C_drain_IO_L1_out_wrapper_7_3_x1_U0         |C_drain_IO_L1_out_wrapper_7_3_x1         |     290081|     290081|   0.967 ms|   0.967 ms|     290081|     290081|     none|
+        |C_drain_IO_L1_out_wrapper_6_1_x1_U0         |C_drain_IO_L1_out_wrapper_6_1_x1         |     299297|     299297|   0.998 ms|   0.998 ms|     299297|     299297|     none|
+        |C_drain_IO_L1_out_wrapper_7_2_x1_U0         |C_drain_IO_L1_out_wrapper_7_2_x1         |     294689|     294689|   0.982 ms|   0.982 ms|     294689|     294689|     none|
+        |C_drain_IO_L1_out_wrapper_7_1_x1_U0         |C_drain_IO_L1_out_wrapper_7_1_x1         |     299297|     299297|   0.998 ms|   0.998 ms|     299297|     299297|     none|
+        |C_drain_IO_L1_out_wrapper_0_0_x1_U0         |C_drain_IO_L1_out_wrapper_0_0_x1         |     303905|     303905|   1.013 ms|   1.013 ms|     303905|     303905|     none|
+        |C_drain_IO_L1_out_wrapper_1_0_x1_U0         |C_drain_IO_L1_out_wrapper_1_0_x1         |     303905|     303905|   1.013 ms|   1.013 ms|     303905|     303905|     none|
+        |C_drain_IO_L1_out_wrapper_2_0_x1_U0         |C_drain_IO_L1_out_wrapper_2_0_x1         |     303905|     303905|   1.013 ms|   1.013 ms|     303905|     303905|     none|
+        |C_drain_IO_L1_out_wrapper_3_0_x1_U0         |C_drain_IO_L1_out_wrapper_3_0_x1         |     303905|     303905|   1.013 ms|   1.013 ms|     303905|     303905|     none|
+        |C_drain_IO_L1_out_wrapper_4_0_x1_U0         |C_drain_IO_L1_out_wrapper_4_0_x1         |     303905|     303905|   1.013 ms|   1.013 ms|     303905|     303905|     none|
+        |C_drain_IO_L1_out_wrapper_5_0_x1_U0         |C_drain_IO_L1_out_wrapper_5_0_x1         |     303905|     303905|   1.013 ms|   1.013 ms|     303905|     303905|     none|
+        |C_drain_IO_L1_out_wrapper_6_0_x1_U0         |C_drain_IO_L1_out_wrapper_6_0_x1         |     303905|     303905|   1.013 ms|   1.013 ms|     303905|     303905|     none|
+        |C_drain_IO_L1_out_wrapper_7_0_x1_U0         |C_drain_IO_L1_out_wrapper_7_0_x1         |     303905|     303905|   1.013 ms|   1.013 ms|     303905|     303905|     none|
+        |A_IO_L2_in_1_x1_U0                          |A_IO_L2_in_1_x1                          |    1114802|    2294450|   3.716 ms|   7.647 ms|    1114802|    2294450|     none|
+        |A_IO_L2_in_2_x1_U0                          |A_IO_L2_in_2_x1                          |     959154|    2138802|   3.197 ms|   7.129 ms|     959154|    2138802|     none|
+        |A_IO_L2_in_3_x1_U0                          |A_IO_L2_in_3_x1                          |     803506|    1983154|   2.678 ms|   6.610 ms|     803506|    1983154|     none|
+        |A_IO_L2_in_4_x1_U0                          |A_IO_L2_in_4_x1                          |     647858|    1827506|   2.159 ms|   6.091 ms|     647858|    1827506|     none|
+        |A_IO_L2_in_5_x1_U0                          |A_IO_L2_in_5_x1                          |     492210|    1671858|   1.641 ms|   5.572 ms|     492210|    1671858|     none|
+        |A_IO_L2_in_6_x1_U0                          |A_IO_L2_in_6_x1                          |     336562|    1516210|   1.122 ms|   5.054 ms|     336562|    1516210|     none|
+        |A_IO_L2_in_0_x1_U0                          |A_IO_L2_in_0_x1                          |    1270450|    2450098|   4.234 ms|   8.166 ms|    1270450|    2450098|     none|
+        |A_IO_L2_in_boundary_x1_U0                   |A_IO_L2_in_boundary_x1                   |      98450|     630930|   0.328 ms|   2.103 ms|      98450|     630930|     none|
+        |C_drain_IO_L2_out_0_x1_U0                   |C_drain_IO_L2_out_0_x1                   |     137217|     137217|   0.457 ms|   0.457 ms|     137217|     137217|     none|
+        |C_drain_IO_L2_out_4_x1_U0                   |C_drain_IO_L2_out_4_x1                   |      68609|      68609|   0.229 ms|   0.229 ms|      68609|      68609|     none|
+        |C_drain_IO_L2_out_3_x1_U0                   |C_drain_IO_L2_out_3_x1                   |      85761|      85761|   0.286 ms|   0.286 ms|      85761|      85761|     none|
+        |C_drain_IO_L2_out_2_x1_U0                   |C_drain_IO_L2_out_2_x1                   |     102913|     102913|   0.343 ms|   0.343 ms|     102913|     102913|     none|
+        |C_drain_IO_L2_out_1_x1_U0                   |C_drain_IO_L2_out_1_x1                   |     120065|     120065|   0.400 ms|   0.400 ms|     120065|     120065|     none|
+        |C_drain_IO_L2_out_6_x1_U0                   |C_drain_IO_L2_out_6_x1                   |      34305|      34305|   0.114 ms|   0.114 ms|      34305|      34305|     none|
+        |C_drain_IO_L2_out_5_x1_U0                   |C_drain_IO_L2_out_5_x1                   |      51457|      51457|   0.172 ms|   0.172 ms|      51457|      51457|     none|
+        |A_IO_L3_in_serialize_x1_U0                  |A_IO_L3_in_serialize_x1                  |    1048577|    1048577|   3.495 ms|   3.495 ms|    1048577|    1048577|     none|
+        |B_IO_L3_in_serialize_x1_U0                  |B_IO_L3_in_serialize_x1                  |    1048577|    1048577|   3.495 ms|   3.495 ms|    1048577|    1048577|     none|
+        |A_IO_L3_in_x1_U0                            |A_IO_L3_in_x1                            |     524290|     524290|   1.747 ms|   1.747 ms|     524290|     524290|     none|
+        |B_IO_L3_in_x1_U0                            |B_IO_L3_in_x1                            |     524290|     524290|   1.747 ms|   1.747 ms|     524290|     524290|     none|
+        |A_PE_dummy_in_0_x1_U0                       |A_PE_dummy_in_0_x1                       |     524290|     524290|   1.747 ms|   1.747 ms|     524290|     524290|     none|
+        |B_PE_dummy_in_0_x1_U0                       |B_PE_dummy_in_0_x1                       |     524290|     524290|   1.747 ms|   1.747 ms|     524290|     524290|     none|
+        |A_PE_dummy_in_1_x1_U0                       |A_PE_dummy_in_1_x1                       |     524290|     524290|   1.747 ms|   1.747 ms|     524290|     524290|     none|
+        |B_PE_dummy_in_1_x1_U0                       |B_PE_dummy_in_1_x1                       |     524290|     524290|   1.747 ms|   1.747 ms|     524290|     524290|     none|
+        |A_PE_dummy_in_2_x1_U0                       |A_PE_dummy_in_2_x1                       |     524290|     524290|   1.747 ms|   1.747 ms|     524290|     524290|     none|
+        |B_PE_dummy_in_2_x1_U0                       |B_PE_dummy_in_2_x1                       |     524290|     524290|   1.747 ms|   1.747 ms|     524290|     524290|     none|
+        |A_PE_dummy_in_3_x1_U0                       |A_PE_dummy_in_3_x1                       |     524290|     524290|   1.747 ms|   1.747 ms|     524290|     524290|     none|
+        |B_PE_dummy_in_3_x1_U0                       |B_PE_dummy_in_3_x1                       |     524290|     524290|   1.747 ms|   1.747 ms|     524290|     524290|     none|
+        |A_PE_dummy_in_4_x1_U0                       |A_PE_dummy_in_4_x1                       |     524290|     524290|   1.747 ms|   1.747 ms|     524290|     524290|     none|
+        |B_PE_dummy_in_4_x1_U0                       |B_PE_dummy_in_4_x1                       |     524290|     524290|   1.747 ms|   1.747 ms|     524290|     524290|     none|
+        |A_PE_dummy_in_5_x1_U0                       |A_PE_dummy_in_5_x1                       |     524290|     524290|   1.747 ms|   1.747 ms|     524290|     524290|     none|
+        |B_PE_dummy_in_5_x1_U0                       |B_PE_dummy_in_5_x1                       |     524290|     524290|   1.747 ms|   1.747 ms|     524290|     524290|     none|
+        |A_PE_dummy_in_6_x1_U0                       |A_PE_dummy_in_6_x1                       |     524290|     524290|   1.747 ms|   1.747 ms|     524290|     524290|     none|
+        |B_PE_dummy_in_6_x1_U0                       |B_PE_dummy_in_6_x1                       |     524290|     524290|   1.747 ms|   1.747 ms|     524290|     524290|     none|
+        |A_PE_dummy_in_7_x1_U0                       |A_PE_dummy_in_7_x1                       |     524290|     524290|   1.747 ms|   1.747 ms|     524290|     524290|     none|
+        |B_PE_dummy_in_7_x1_U0                       |B_PE_dummy_in_7_x1                       |     524290|     524290|   1.747 ms|   1.747 ms|     524290|     524290|     none|
+        |C_drain_IO_L3_out_x1_U0                     |C_drain_IO_L3_out_x1                     |     131074|     131074|   0.437 ms|   0.437 ms|     131074|     131074|     none|
+        |C_drain_IO_L2_out_boundary_x1_U0            |C_drain_IO_L2_out_boundary_x1            |      16386|      16386|  54.615 us|  54.615 us|      16386|      16386|     none|
+        |kernel0_x1_entry28_U0                       |kernel0_x1_entry28                       |          0|          0|       0 ns|       0 ns|          0|          0|     none|
+        |kernel0_x1_entry22_U0                       |kernel0_x1_entry22                       |          0|          0|       0 ns|       0 ns|          0|          0|     none|
+        +--------------------------------------------+-----------------------------------------+-----------+-----------+-----------+-----------+-----------+-----------+---------+
+
+        * Loop: 
+        N/A
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++---------------------+---------+-------+---------+---------+------+
+|         Name        | BRAM_18K|  DSP  |    FF   |   LUT   | URAM |
++---------------------+---------+-------+---------+---------+------+
+|DSP                  |        -|      -|        -|        -|     -|
+|Expression           |        -|      -|        0|      366|     -|
+|FIFO                 |        0|      -|   188171|    95657|     -|
+|Instance             |      144|     64|   188053|   121014|     -|
+|Memory               |        -|      -|        -|        -|     -|
+|Multiplexer          |        -|      -|        -|       27|     -|
+|Register             |        -|      -|      176|        -|     -|
++---------------------+---------+-------+---------+---------+------+
+|Total                |      144|     64|   376400|   217064|     0|
++---------------------+---------+-------+---------+---------+------+
+|Available SLR        |     1344|   3072|   864000|   432000|   320|
++---------------------+---------+-------+---------+---------+------+
+|Utilization SLR (%)  |       10|      2|       43|       50|     0|
++---------------------+---------+-------+---------+---------+------+
+|Available            |     5376|  12288|  3456000|  1728000|  1280|
++---------------------+---------+-------+---------+---------+------+
+|Utilization (%)      |        2|     ~0|       10|       12|     0|
++---------------------+---------+-------+---------+---------+------+
+
++ Detail: 
+    * Instance: 
+    +--------------------------------------------+-----------------------------------------+---------+----+------+------+-----+
+    |                  Instance                  |                  Module                 | BRAM_18K| DSP|  FF  |  LUT | URAM|
+    +--------------------------------------------+-----------------------------------------+---------+----+------+------+-----+
+    |A_IO_L2_in_0_x1_U0                          |A_IO_L2_in_0_x1                          |        0|   0|   671|  1224|    0|
+    |A_IO_L2_in_1_x1_U0                          |A_IO_L2_in_1_x1                          |        0|   0|   663|  1224|    0|
+    |A_IO_L2_in_2_x1_U0                          |A_IO_L2_in_2_x1                          |        0|   0|   663|  1224|    0|
+    |A_IO_L2_in_3_x1_U0                          |A_IO_L2_in_3_x1                          |        0|   0|   663|  1224|    0|
+    |A_IO_L2_in_4_x1_U0                          |A_IO_L2_in_4_x1                          |        0|   0|   663|  1224|    0|
+    |A_IO_L2_in_5_x1_U0                          |A_IO_L2_in_5_x1                          |        0|   0|   663|  1224|    0|
+    |A_IO_L2_in_6_x1_U0                          |A_IO_L2_in_6_x1                          |        0|   0|   663|  1224|    0|
+    |A_IO_L2_in_boundary_x1_U0                   |A_IO_L2_in_boundary_x1                   |       16|   0|   130|   642|    0|
+    |A_IO_L3_in_serialize_x1_U0                  |A_IO_L3_in_serialize_x1                  |        0|   0|    44|    91|    0|
+    |A_IO_L3_in_x1_U0                            |A_IO_L3_in_x1                            |        0|   0|    27|   122|    0|
+    |A_PE_dummy_in_0_x1_U0                       |A_PE_dummy_in_0_x1                       |        0|   0|    27|   113|    0|
+    |A_PE_dummy_in_1_x1_U0                       |A_PE_dummy_in_1_x1                       |        0|   0|    27|   113|    0|
+    |A_PE_dummy_in_2_x1_U0                       |A_PE_dummy_in_2_x1                       |        0|   0|    27|   113|    0|
+    |A_PE_dummy_in_3_x1_U0                       |A_PE_dummy_in_3_x1                       |        0|   0|    27|   113|    0|
+    |A_PE_dummy_in_4_x1_U0                       |A_PE_dummy_in_4_x1                       |        0|   0|    27|   113|    0|
+    |A_PE_dummy_in_5_x1_U0                       |A_PE_dummy_in_5_x1                       |        0|   0|    27|   113|    0|
+    |A_PE_dummy_in_6_x1_U0                       |A_PE_dummy_in_6_x1                       |        0|   0|    27|   113|    0|
+    |A_PE_dummy_in_7_x1_U0                       |A_PE_dummy_in_7_x1                       |        0|   0|    27|   113|    0|
+    |B_IO_L2_in_0_x1_U0                          |B_IO_L2_in_0_x1                          |       16|   0|  1186|   802|    0|
+    |B_IO_L2_in_1_x1_U0                          |B_IO_L2_in_1_x1                          |       16|   0|  1178|   802|    0|
+    |B_IO_L2_in_2_x1_U0                          |B_IO_L2_in_2_x1                          |       16|   0|  1178|   802|    0|
+    |B_IO_L2_in_3_x1_U0                          |B_IO_L2_in_3_x1                          |       16|   0|  1178|   802|    0|
+    |B_IO_L2_in_4_x1_U0                          |B_IO_L2_in_4_x1                          |       16|   0|  1178|   802|    0|
+    |B_IO_L2_in_5_x1_U0                          |B_IO_L2_in_5_x1                          |       16|   0|  1178|   802|    0|
+    |B_IO_L2_in_6_x1_U0                          |B_IO_L2_in_6_x1                          |       16|   0|  1178|   802|    0|
+    |B_IO_L2_in_boundary_x1_U0                   |B_IO_L2_in_boundary_x1                   |       16|   0|   654|   718|    0|
+    |B_IO_L3_in_serialize_x1_U0                  |B_IO_L3_in_serialize_x1                  |        0|   0|    44|    91|    0|
+    |B_IO_L3_in_x1_U0                            |B_IO_L3_in_x1                            |        0|   0|    27|   122|    0|
+    |B_PE_dummy_in_0_x1_U0                       |B_PE_dummy_in_0_x1                       |        0|   0|    27|   113|    0|
+    |B_PE_dummy_in_1_x1_U0                       |B_PE_dummy_in_1_x1                       |        0|   0|    27|   113|    0|
+    |B_PE_dummy_in_2_x1_U0                       |B_PE_dummy_in_2_x1                       |        0|   0|    27|   113|    0|
+    |B_PE_dummy_in_3_x1_U0                       |B_PE_dummy_in_3_x1                       |        0|   0|    27|   113|    0|
+    |B_PE_dummy_in_4_x1_U0                       |B_PE_dummy_in_4_x1                       |        0|   0|    27|   113|    0|
+    |B_PE_dummy_in_5_x1_U0                       |B_PE_dummy_in_5_x1                       |        0|   0|    27|   113|    0|
+    |B_PE_dummy_in_6_x1_U0                       |B_PE_dummy_in_6_x1                       |        0|   0|    27|   113|    0|
+    |B_PE_dummy_in_7_x1_U0                       |B_PE_dummy_in_7_x1                       |        0|   0|    27|   113|    0|
+    |C_drain_IO_L1_out_boundary_wrapper_0_x1_U0  |C_drain_IO_L1_out_boundary_wrapper_0_x1  |        0|   0|   984|   452|    0|
+    |C_drain_IO_L1_out_boundary_wrapper_1_x1_U0  |C_drain_IO_L1_out_boundary_wrapper_1_x1  |        0|   0|   984|   452|    0|
+    |C_drain_IO_L1_out_boundary_wrapper_2_x1_U0  |C_drain_IO_L1_out_boundary_wrapper_2_x1  |        0|   0|   984|   452|    0|
+    |C_drain_IO_L1_out_boundary_wrapper_3_x1_U0  |C_drain_IO_L1_out_boundary_wrapper_3_x1  |        0|   0|   984|   452|    0|
+    |C_drain_IO_L1_out_boundary_wrapper_4_x1_U0  |C_drain_IO_L1_out_boundary_wrapper_4_x1  |        0|   0|   984|   452|    0|
+    |C_drain_IO_L1_out_boundary_wrapper_5_x1_U0  |C_drain_IO_L1_out_boundary_wrapper_5_x1  |        0|   0|   984|   452|    0|
+    |C_drain_IO_L1_out_boundary_wrapper_6_x1_U0  |C_drain_IO_L1_out_boundary_wrapper_6_x1  |        0|   0|   984|   452|    0|
+    |C_drain_IO_L1_out_boundary_wrapper_7_x1_U0  |C_drain_IO_L1_out_boundary_wrapper_7_x1  |        0|   0|   984|   452|    0|
+    |C_drain_IO_L1_out_wrapper_0_0_x1_U0         |C_drain_IO_L1_out_wrapper_0_0_x1         |        0|   0|   472|   638|    0|
+    |C_drain_IO_L1_out_wrapper_0_1_x1_U0         |C_drain_IO_L1_out_wrapper_0_1_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_0_2_x1_U0         |C_drain_IO_L1_out_wrapper_0_2_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_0_3_x1_U0         |C_drain_IO_L1_out_wrapper_0_3_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_0_4_x1_U0         |C_drain_IO_L1_out_wrapper_0_4_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_0_5_x1_U0         |C_drain_IO_L1_out_wrapper_0_5_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_0_6_x1_U0         |C_drain_IO_L1_out_wrapper_0_6_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_1_0_x1_U0         |C_drain_IO_L1_out_wrapper_1_0_x1         |        0|   0|   472|   638|    0|
+    |C_drain_IO_L1_out_wrapper_1_1_x1_U0         |C_drain_IO_L1_out_wrapper_1_1_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_1_2_x1_U0         |C_drain_IO_L1_out_wrapper_1_2_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_1_3_x1_U0         |C_drain_IO_L1_out_wrapper_1_3_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_1_4_x1_U0         |C_drain_IO_L1_out_wrapper_1_4_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_1_5_x1_U0         |C_drain_IO_L1_out_wrapper_1_5_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_1_6_x1_U0         |C_drain_IO_L1_out_wrapper_1_6_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_2_0_x1_U0         |C_drain_IO_L1_out_wrapper_2_0_x1         |        0|   0|   472|   638|    0|
+    |C_drain_IO_L1_out_wrapper_2_1_x1_U0         |C_drain_IO_L1_out_wrapper_2_1_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_2_2_x1_U0         |C_drain_IO_L1_out_wrapper_2_2_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_2_3_x1_U0         |C_drain_IO_L1_out_wrapper_2_3_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_2_4_x1_U0         |C_drain_IO_L1_out_wrapper_2_4_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_2_5_x1_U0         |C_drain_IO_L1_out_wrapper_2_5_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_2_6_x1_U0         |C_drain_IO_L1_out_wrapper_2_6_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_3_0_x1_U0         |C_drain_IO_L1_out_wrapper_3_0_x1         |        0|   0|   472|   638|    0|
+    |C_drain_IO_L1_out_wrapper_3_1_x1_U0         |C_drain_IO_L1_out_wrapper_3_1_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_3_2_x1_U0         |C_drain_IO_L1_out_wrapper_3_2_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_3_3_x1_U0         |C_drain_IO_L1_out_wrapper_3_3_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_3_4_x1_U0         |C_drain_IO_L1_out_wrapper_3_4_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_3_5_x1_U0         |C_drain_IO_L1_out_wrapper_3_5_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_3_6_x1_U0         |C_drain_IO_L1_out_wrapper_3_6_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_4_0_x1_U0         |C_drain_IO_L1_out_wrapper_4_0_x1         |        0|   0|   472|   638|    0|
+    |C_drain_IO_L1_out_wrapper_4_1_x1_U0         |C_drain_IO_L1_out_wrapper_4_1_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_4_2_x1_U0         |C_drain_IO_L1_out_wrapper_4_2_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_4_3_x1_U0         |C_drain_IO_L1_out_wrapper_4_3_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_4_4_x1_U0         |C_drain_IO_L1_out_wrapper_4_4_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_4_5_x1_U0         |C_drain_IO_L1_out_wrapper_4_5_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_4_6_x1_U0         |C_drain_IO_L1_out_wrapper_4_6_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_5_0_x1_U0         |C_drain_IO_L1_out_wrapper_5_0_x1         |        0|   0|   472|   638|    0|
+    |C_drain_IO_L1_out_wrapper_5_1_x1_U0         |C_drain_IO_L1_out_wrapper_5_1_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_5_2_x1_U0         |C_drain_IO_L1_out_wrapper_5_2_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_5_3_x1_U0         |C_drain_IO_L1_out_wrapper_5_3_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_5_4_x1_U0         |C_drain_IO_L1_out_wrapper_5_4_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_5_5_x1_U0         |C_drain_IO_L1_out_wrapper_5_5_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_5_6_x1_U0         |C_drain_IO_L1_out_wrapper_5_6_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_6_0_x1_U0         |C_drain_IO_L1_out_wrapper_6_0_x1         |        0|   0|   472|   638|    0|
+    |C_drain_IO_L1_out_wrapper_6_1_x1_U0         |C_drain_IO_L1_out_wrapper_6_1_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_6_2_x1_U0         |C_drain_IO_L1_out_wrapper_6_2_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_6_3_x1_U0         |C_drain_IO_L1_out_wrapper_6_3_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_6_4_x1_U0         |C_drain_IO_L1_out_wrapper_6_4_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_6_5_x1_U0         |C_drain_IO_L1_out_wrapper_6_5_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_6_6_x1_U0         |C_drain_IO_L1_out_wrapper_6_6_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_7_0_x1_U0         |C_drain_IO_L1_out_wrapper_7_0_x1         |        0|   0|   472|   638|    0|
+    |C_drain_IO_L1_out_wrapper_7_1_x1_U0         |C_drain_IO_L1_out_wrapper_7_1_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_7_2_x1_U0         |C_drain_IO_L1_out_wrapper_7_2_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_7_3_x1_U0         |C_drain_IO_L1_out_wrapper_7_3_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_7_4_x1_U0         |C_drain_IO_L1_out_wrapper_7_4_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_7_5_x1_U0         |C_drain_IO_L1_out_wrapper_7_5_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L1_out_wrapper_7_6_x1_U0         |C_drain_IO_L1_out_wrapper_7_6_x1         |        0|   0|   468|   638|    0|
+    |C_drain_IO_L2_out_0_x1_U0                   |C_drain_IO_L2_out_0_x1                   |        0|   0|    68|   329|    0|
+    |C_drain_IO_L2_out_1_x1_U0                   |C_drain_IO_L2_out_1_x1                   |        0|   0|    65|   325|    0|
+    |C_drain_IO_L2_out_2_x1_U0                   |C_drain_IO_L2_out_2_x1                   |        0|   0|    65|   325|    0|
+    |C_drain_IO_L2_out_3_x1_U0                   |C_drain_IO_L2_out_3_x1                   |        0|   0|    65|   325|    0|
+    |C_drain_IO_L2_out_4_x1_U0                   |C_drain_IO_L2_out_4_x1                   |        0|   0|    65|   326|    0|
+    |C_drain_IO_L2_out_5_x1_U0                   |C_drain_IO_L2_out_5_x1                   |        0|   0|    62|   321|    0|
+    |C_drain_IO_L2_out_6_x1_U0                   |C_drain_IO_L2_out_6_x1                   |        0|   0|    62|   321|    0|
+    |C_drain_IO_L2_out_boundary_x1_U0            |C_drain_IO_L2_out_boundary_x1            |        0|   0|    22|   115|    0|
+    |C_drain_IO_L3_out_serialize_x1_U0           |C_drain_IO_L3_out_serialize_x1           |        0|   0|   681|   475|    0|
+    |C_drain_IO_L3_out_x1_U0                     |C_drain_IO_L3_out_x1                     |        0|   0|    25|   119|    0|
+    |PE_wrapper_0_0_x1_U0                        |PE_wrapper_0_0_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_0_1_x1_U0                        |PE_wrapper_0_1_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_0_2_x1_U0                        |PE_wrapper_0_2_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_0_3_x1_U0                        |PE_wrapper_0_3_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_0_4_x1_U0                        |PE_wrapper_0_4_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_0_5_x1_U0                        |PE_wrapper_0_5_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_0_6_x1_U0                        |PE_wrapper_0_6_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_0_7_x1_U0                        |PE_wrapper_0_7_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_1_0_x1_U0                        |PE_wrapper_1_0_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_1_1_x1_U0                        |PE_wrapper_1_1_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_1_2_x1_U0                        |PE_wrapper_1_2_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_1_3_x1_U0                        |PE_wrapper_1_3_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_1_4_x1_U0                        |PE_wrapper_1_4_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_1_5_x1_U0                        |PE_wrapper_1_5_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_1_6_x1_U0                        |PE_wrapper_1_6_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_1_7_x1_U0                        |PE_wrapper_1_7_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_2_0_x1_U0                        |PE_wrapper_2_0_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_2_1_x1_U0                        |PE_wrapper_2_1_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_2_2_x1_U0                        |PE_wrapper_2_2_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_2_3_x1_U0                        |PE_wrapper_2_3_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_2_4_x1_U0                        |PE_wrapper_2_4_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_2_5_x1_U0                        |PE_wrapper_2_5_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_2_6_x1_U0                        |PE_wrapper_2_6_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_2_7_x1_U0                        |PE_wrapper_2_7_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_3_0_x1_U0                        |PE_wrapper_3_0_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_3_1_x1_U0                        |PE_wrapper_3_1_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_3_2_x1_U0                        |PE_wrapper_3_2_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_3_3_x1_U0                        |PE_wrapper_3_3_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_3_4_x1_U0                        |PE_wrapper_3_4_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_3_5_x1_U0                        |PE_wrapper_3_5_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_3_6_x1_U0                        |PE_wrapper_3_6_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_3_7_x1_U0                        |PE_wrapper_3_7_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_4_0_x1_U0                        |PE_wrapper_4_0_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_4_1_x1_U0                        |PE_wrapper_4_1_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_4_2_x1_U0                        |PE_wrapper_4_2_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_4_3_x1_U0                        |PE_wrapper_4_3_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_4_4_x1_U0                        |PE_wrapper_4_4_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_4_5_x1_U0                        |PE_wrapper_4_5_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_4_6_x1_U0                        |PE_wrapper_4_6_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_4_7_x1_U0                        |PE_wrapper_4_7_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_5_0_x1_U0                        |PE_wrapper_5_0_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_5_1_x1_U0                        |PE_wrapper_5_1_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_5_2_x1_U0                        |PE_wrapper_5_2_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_5_3_x1_U0                        |PE_wrapper_5_3_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_5_4_x1_U0                        |PE_wrapper_5_4_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_5_5_x1_U0                        |PE_wrapper_5_5_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_5_6_x1_U0                        |PE_wrapper_5_6_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_5_7_x1_U0                        |PE_wrapper_5_7_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_6_0_x1_U0                        |PE_wrapper_6_0_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_6_1_x1_U0                        |PE_wrapper_6_1_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_6_2_x1_U0                        |PE_wrapper_6_2_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_6_3_x1_U0                        |PE_wrapper_6_3_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_6_4_x1_U0                        |PE_wrapper_6_4_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_6_5_x1_U0                        |PE_wrapper_6_5_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_6_6_x1_U0                        |PE_wrapper_6_6_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_6_7_x1_U0                        |PE_wrapper_6_7_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_7_0_x1_U0                        |PE_wrapper_7_0_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_7_1_x1_U0                        |PE_wrapper_7_1_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_7_2_x1_U0                        |PE_wrapper_7_2_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_7_3_x1_U0                        |PE_wrapper_7_3_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_7_4_x1_U0                        |PE_wrapper_7_4_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_7_5_x1_U0                        |PE_wrapper_7_5_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_7_6_x1_U0                        |PE_wrapper_7_6_x1                        |        0|   1|  2164|   951|    0|
+    |PE_wrapper_7_7_x1_U0                        |PE_wrapper_7_7_x1                        |        0|   1|  2164|   951|    0|
+    |kernel0_x1_entry22_U0                       |kernel0_x1_entry22                       |        0|   0|     2|    29|    0|
+    |kernel0_x1_entry28_U0                       |kernel0_x1_entry28                       |        0|   0|     2|    20|    0|
+    +--------------------------------------------+-----------------------------------------+---------+----+------+------+-----+
+    |Total                                       |                                         |      144|  64|188053|121014|    0|
+    +--------------------------------------------+-----------------------------------------+---------+----+------+------+-----+
+
+    * DSP: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    +-----------------------------------------------+---------+------+----+-----+------+-----+---------+
+    |                      Name                     | BRAM_18K|  FF  | LUT| URAM| Depth| Bits| Size:D*B|
+    +-----------------------------------------------+---------+------+----+-----+------+-----+---------+
+    |C_c1_U                                         |        0|   133|   0|    -|     2|   64|      128|
+    |C_c_U                                          |        0|   218|   0|    -|    37|   64|     2368|
+    |fifo_A_A_IO_L2_in_0_x1_U                       |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_A_IO_L2_in_1_x1_U                       |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_A_IO_L2_in_2_x1_U                       |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_A_IO_L2_in_3_x1_U                       |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_A_IO_L2_in_4_x1_U                       |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_A_IO_L2_in_5_x1_U                       |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_A_IO_L2_in_6_x1_U                       |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_A_IO_L2_in_7_x1_U                       |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_A_IO_L3_in_serialize_x1_U               |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_0_0_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_0_1_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_0_2_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_0_3_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_0_4_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_0_5_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_0_6_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_0_7_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_0_8_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_1_0_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_1_1_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_1_2_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_1_3_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_1_4_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_1_5_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_1_6_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_1_7_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_1_8_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_2_0_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_2_1_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_2_2_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_2_3_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_2_4_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_2_5_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_2_6_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_2_7_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_2_8_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_3_0_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_3_1_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_3_2_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_3_3_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_3_4_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_3_5_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_3_6_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_3_7_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_3_8_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_4_0_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_4_1_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_4_2_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_4_3_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_4_4_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_4_5_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_4_6_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_4_7_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_4_8_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_5_0_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_5_1_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_5_2_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_5_3_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_5_4_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_5_5_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_5_6_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_5_7_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_5_8_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_6_0_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_6_1_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_6_2_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_6_3_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_6_4_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_6_5_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_6_6_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_6_7_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_6_8_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_7_0_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_7_1_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_7_2_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_7_3_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_7_4_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_7_5_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_7_6_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_7_7_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_A_PE_7_8_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_B_IO_L2_in_0_x1_U                       |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_B_IO_L2_in_1_x1_U                       |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_B_IO_L2_in_2_x1_U                       |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_B_IO_L2_in_3_x1_U                       |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_B_IO_L2_in_4_x1_U                       |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_B_IO_L2_in_5_x1_U                       |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_B_IO_L2_in_6_x1_U                       |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_B_IO_L2_in_7_x1_U                       |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_B_IO_L3_in_serialize_x1_U               |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_0_0_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_0_1_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_0_2_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_0_3_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_0_4_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_0_5_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_0_6_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_0_7_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_1_0_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_1_1_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_1_2_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_1_3_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_1_4_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_1_5_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_1_6_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_1_7_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_2_0_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_2_1_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_2_2_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_2_3_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_2_4_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_2_5_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_2_6_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_2_7_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_3_0_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_3_1_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_3_2_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_3_3_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_3_4_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_3_5_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_3_6_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_3_7_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_4_0_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_4_1_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_4_2_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_4_3_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_4_4_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_4_5_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_4_6_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_4_7_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_5_0_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_5_1_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_5_2_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_5_3_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_5_4_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_5_5_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_5_6_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_5_7_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_6_0_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_6_1_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_6_2_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_6_3_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_6_4_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_6_5_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_6_6_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_6_7_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_7_0_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_7_1_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_7_2_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_7_3_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_7_4_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_7_5_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_7_6_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_7_7_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_8_0_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_8_1_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_8_2_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_8_3_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_8_4_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_8_5_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_8_6_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_B_PE_8_7_x1_U                             |        0|  1028|   0|    -|     2|  512|     1024|
+    |fifo_C_drain_C_drain_IO_L1_out_0_0_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_0_1_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_0_2_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_0_3_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_0_4_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_0_5_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_0_6_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_0_7_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_1_0_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_1_1_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_1_2_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_1_3_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_1_4_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_1_5_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_1_6_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_1_7_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_2_0_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_2_1_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_2_2_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_2_3_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_2_4_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_2_5_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_2_6_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_2_7_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_3_0_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_3_1_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_3_2_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_3_3_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_3_4_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_3_5_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_3_6_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_3_7_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_4_0_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_4_1_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_4_2_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_4_3_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_4_4_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_4_5_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_4_6_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_4_7_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_5_0_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_5_1_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_5_2_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_5_3_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_5_4_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_5_5_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_5_6_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_5_7_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_6_0_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_6_1_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_6_2_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_6_3_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_6_4_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_6_5_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_6_6_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_6_7_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_7_0_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_7_1_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_7_2_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_7_3_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_7_4_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_7_5_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_7_6_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L1_out_7_7_x1_U        |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L2_out_0_x1_U          |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L2_out_1_x1_U          |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L2_out_2_x1_U          |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L2_out_3_x1_U          |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L2_out_4_x1_U          |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L2_out_5_x1_U          |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L2_out_6_x1_U          |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L2_out_7_x1_U          |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_C_drain_IO_L3_out_serialize_x1_U  |        0|   260|   0|    -|     2|  128|      256|
+    |fifo_C_drain_PE_0_0_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_0_1_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_0_2_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_0_3_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_0_4_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_0_5_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_0_6_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_0_7_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_1_0_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_1_1_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_1_2_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_1_3_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_1_4_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_1_5_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_1_6_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_1_7_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_2_0_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_2_1_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_2_2_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_2_3_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_2_4_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_2_5_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_2_6_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_2_7_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_3_0_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_3_1_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_3_2_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_3_3_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_3_4_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_3_5_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_3_6_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_3_7_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_4_0_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_4_1_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_4_2_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_4_3_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_4_4_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_4_5_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_4_6_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_4_7_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_5_0_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_5_1_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_5_2_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_5_3_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_5_4_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_5_5_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_5_6_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_5_7_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_6_0_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_6_1_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_6_2_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_6_3_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_6_4_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_6_5_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_6_6_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_6_7_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_7_0_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_7_1_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_7_2_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_7_3_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_7_4_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_7_5_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_7_6_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    |fifo_C_drain_PE_7_7_x1_U                       |        0|    36|   0|    -|     2|   16|       32|
+    +-----------------------------------------------+---------+------+----+-----+------+-----+---------+
+    |Total                                          |        0|188171|   0|    0|   637|93440|   189120|
+    +-----------------------------------------------+---------+------+----+-----+------+-----+---------+
+
+    * Expression: 
+    +-----------------------------------------------------+----------+----+---+----+------------+------------+
+    |                    Variable Name                    | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +-----------------------------------------------------+----------+----+---+----+------------+------------+
+    |A_IO_L3_in_serialize_x1_U0_ap_start                  |       and|   0|  0|   2|           1|           1|
+    |B_IO_L3_in_serialize_x1_U0_ap_start                  |       and|   0|  0|   2|           1|           1|
+    |ap_idle                                              |       and|   0|  0|   2|           1|           1|
+    |ap_sync_continue                                     |       and|   0|  0|   2|           1|           1|
+    |ap_sync_done                                         |       and|   0|  0|   2|           1|           1|
+    |ap_sync_ready                                        |       and|   0|  0|   2|           1|           1|
+    |kernel0_x1_entry28_U0_ap_start                       |       and|   0|  0|   2|           1|           1|
+    |A_IO_L2_in_0_x1_U0_ap_start                          |        or|   0|  0|   2|           1|           1|
+    |A_IO_L2_in_1_x1_U0_ap_start                          |        or|   0|  0|   2|           1|           1|
+    |A_IO_L2_in_2_x1_U0_ap_start                          |        or|   0|  0|   2|           1|           1|
+    |A_IO_L2_in_3_x1_U0_ap_start                          |        or|   0|  0|   2|           1|           1|
+    |A_IO_L2_in_4_x1_U0_ap_start                          |        or|   0|  0|   2|           1|           1|
+    |A_IO_L2_in_5_x1_U0_ap_start                          |        or|   0|  0|   2|           1|           1|
+    |A_IO_L2_in_6_x1_U0_ap_start                          |        or|   0|  0|   2|           1|           1|
+    |A_IO_L2_in_boundary_x1_U0_ap_start                   |        or|   0|  0|   2|           1|           1|
+    |A_IO_L3_in_x1_U0_ap_start                            |        or|   0|  0|   2|           1|           1|
+    |A_PE_dummy_in_0_x1_U0_ap_start                       |        or|   0|  0|   2|           1|           1|
+    |A_PE_dummy_in_1_x1_U0_ap_start                       |        or|   0|  0|   2|           1|           1|
+    |A_PE_dummy_in_2_x1_U0_ap_start                       |        or|   0|  0|   2|           1|           1|
+    |A_PE_dummy_in_3_x1_U0_ap_start                       |        or|   0|  0|   2|           1|           1|
+    |A_PE_dummy_in_4_x1_U0_ap_start                       |        or|   0|  0|   2|           1|           1|
+    |A_PE_dummy_in_5_x1_U0_ap_start                       |        or|   0|  0|   2|           1|           1|
+    |A_PE_dummy_in_6_x1_U0_ap_start                       |        or|   0|  0|   2|           1|           1|
+    |A_PE_dummy_in_7_x1_U0_ap_start                       |        or|   0|  0|   2|           1|           1|
+    |B_IO_L2_in_0_x1_U0_ap_start                          |        or|   0|  0|   2|           1|           1|
+    |B_IO_L2_in_1_x1_U0_ap_start                          |        or|   0|  0|   2|           1|           1|
+    |B_IO_L2_in_2_x1_U0_ap_start                          |        or|   0|  0|   2|           1|           1|
+    |B_IO_L2_in_3_x1_U0_ap_start                          |        or|   0|  0|   2|           1|           1|
+    |B_IO_L2_in_4_x1_U0_ap_start                          |        or|   0|  0|   2|           1|           1|
+    |B_IO_L2_in_5_x1_U0_ap_start                          |        or|   0|  0|   2|           1|           1|
+    |B_IO_L2_in_6_x1_U0_ap_start                          |        or|   0|  0|   2|           1|           1|
+    |B_IO_L2_in_boundary_x1_U0_ap_start                   |        or|   0|  0|   2|           1|           1|
+    |B_IO_L3_in_x1_U0_ap_start                            |        or|   0|  0|   2|           1|           1|
+    |B_PE_dummy_in_0_x1_U0_ap_start                       |        or|   0|  0|   2|           1|           1|
+    |B_PE_dummy_in_1_x1_U0_ap_start                       |        or|   0|  0|   2|           1|           1|
+    |B_PE_dummy_in_2_x1_U0_ap_start                       |        or|   0|  0|   2|           1|           1|
+    |B_PE_dummy_in_3_x1_U0_ap_start                       |        or|   0|  0|   2|           1|           1|
+    |B_PE_dummy_in_4_x1_U0_ap_start                       |        or|   0|  0|   2|           1|           1|
+    |B_PE_dummy_in_5_x1_U0_ap_start                       |        or|   0|  0|   2|           1|           1|
+    |B_PE_dummy_in_6_x1_U0_ap_start                       |        or|   0|  0|   2|           1|           1|
+    |B_PE_dummy_in_7_x1_U0_ap_start                       |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_boundary_wrapper_0_x1_U0_ap_start  |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_boundary_wrapper_1_x1_U0_ap_start  |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_boundary_wrapper_2_x1_U0_ap_start  |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_boundary_wrapper_3_x1_U0_ap_start  |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_boundary_wrapper_4_x1_U0_ap_start  |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_boundary_wrapper_5_x1_U0_ap_start  |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_boundary_wrapper_6_x1_U0_ap_start  |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_boundary_wrapper_7_x1_U0_ap_start  |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_0_0_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_0_1_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_0_2_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_0_3_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_0_4_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_0_5_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_0_6_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_1_0_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_1_1_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_1_2_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_1_3_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_1_4_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_1_5_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_1_6_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_2_0_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_2_1_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_2_2_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_2_3_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_2_4_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_2_5_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_2_6_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_3_0_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_3_1_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_3_2_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_3_3_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_3_4_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_3_5_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_3_6_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_4_0_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_4_1_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_4_2_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_4_3_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_4_4_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_4_5_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_4_6_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_5_0_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_5_1_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_5_2_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_5_3_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_5_4_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_5_5_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_5_6_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_6_0_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_6_1_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_6_2_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_6_3_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_6_4_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_6_5_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_6_6_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_7_0_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_7_1_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_7_2_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_7_3_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_7_4_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_7_5_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L1_out_wrapper_7_6_x1_U0_ap_start         |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L2_out_0_x1_U0_ap_start                   |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L2_out_1_x1_U0_ap_start                   |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L2_out_2_x1_U0_ap_start                   |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L2_out_3_x1_U0_ap_start                   |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L2_out_4_x1_U0_ap_start                   |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L2_out_5_x1_U0_ap_start                   |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L2_out_6_x1_U0_ap_start                   |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L2_out_boundary_x1_U0_ap_start            |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L3_out_serialize_x1_U0_ap_start           |        or|   0|  0|   2|           1|           1|
+    |C_drain_IO_L3_out_x1_U0_ap_start                     |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_0_0_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_0_1_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_0_2_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_0_3_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_0_4_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_0_5_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_0_6_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_0_7_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_1_0_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_1_1_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_1_2_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_1_3_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_1_4_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_1_5_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_1_6_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_1_7_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_2_0_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_2_1_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_2_2_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_2_3_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_2_4_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_2_5_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_2_6_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_2_7_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_3_0_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_3_1_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_3_2_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_3_3_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_3_4_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_3_5_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_3_6_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_3_7_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_4_0_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_4_1_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_4_2_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_4_3_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_4_4_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_4_5_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_4_6_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_4_7_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_5_0_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_5_1_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_5_2_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_5_3_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_5_4_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_5_5_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_5_6_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_5_7_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_6_0_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_6_1_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_6_2_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_6_3_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_6_4_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_6_5_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_6_6_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_6_7_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_7_0_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_7_1_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_7_2_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_7_3_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_7_4_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_7_5_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_7_6_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |PE_wrapper_7_7_x1_U0_ap_start                        |        or|   0|  0|   2|           1|           1|
+    |ap_sync_A_IO_L3_in_serialize_x1_U0_ap_ready          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_B_IO_L3_in_serialize_x1_U0_ap_ready          |        or|   0|  0|   2|           1|           1|
+    |ap_sync_kernel0_x1_entry28_U0_ap_ready               |        or|   0|  0|   2|           1|           1|
+    |kernel0_x1_entry22_U0_ap_start                       |        or|   0|  0|   2|           1|           1|
+    +-----------------------------------------------------+----------+----+---+----+------------+------------+
+    |Total                                                |          |   0|  0| 366|         183|         183|
+    +-----------------------------------------------------+----------+----+---+----+------------+------------+
+
+    * Multiplexer: 
+    +-------------------------------------------------+----+-----------+-----+-----------+
+    |                       Name                      | LUT| Input Size| Bits| Total Bits|
+    +-------------------------------------------------+----+-----------+-----+-----------+
+    |ap_sync_reg_A_IO_L3_in_serialize_x1_U0_ap_ready  |   9|          2|    1|          2|
+    |ap_sync_reg_B_IO_L3_in_serialize_x1_U0_ap_ready  |   9|          2|    1|          2|
+    |ap_sync_reg_kernel0_x1_entry28_U0_ap_ready       |   9|          2|    1|          2|
+    +-------------------------------------------------+----+-----------+-----+-----------+
+    |Total                                            |  27|          6|    3|          6|
+    +-------------------------------------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +-----------------------------------------------------------------+---+----+-----+-----------+
+    |                               Name                              | FF| LUT| Bits| Const Bits|
+    +-----------------------------------------------------------------+---+----+-----+-----------+
+    |ap_sync_reg_A_IO_L2_in_0_x1_U0_ap_start                          |  1|   0|    1|          0|
+    |ap_sync_reg_A_IO_L2_in_1_x1_U0_ap_start                          |  1|   0|    1|          0|
+    |ap_sync_reg_A_IO_L2_in_2_x1_U0_ap_start                          |  1|   0|    1|          0|
+    |ap_sync_reg_A_IO_L2_in_3_x1_U0_ap_start                          |  1|   0|    1|          0|
+    |ap_sync_reg_A_IO_L2_in_4_x1_U0_ap_start                          |  1|   0|    1|          0|
+    |ap_sync_reg_A_IO_L2_in_5_x1_U0_ap_start                          |  1|   0|    1|          0|
+    |ap_sync_reg_A_IO_L2_in_6_x1_U0_ap_start                          |  1|   0|    1|          0|
+    |ap_sync_reg_A_IO_L2_in_boundary_x1_U0_ap_start                   |  1|   0|    1|          0|
+    |ap_sync_reg_A_IO_L3_in_serialize_x1_U0_ap_ready                  |  1|   0|    1|          0|
+    |ap_sync_reg_A_IO_L3_in_x1_U0_ap_start                            |  1|   0|    1|          0|
+    |ap_sync_reg_A_PE_dummy_in_0_x1_U0_ap_start                       |  1|   0|    1|          0|
+    |ap_sync_reg_A_PE_dummy_in_1_x1_U0_ap_start                       |  1|   0|    1|          0|
+    |ap_sync_reg_A_PE_dummy_in_2_x1_U0_ap_start                       |  1|   0|    1|          0|
+    |ap_sync_reg_A_PE_dummy_in_3_x1_U0_ap_start                       |  1|   0|    1|          0|
+    |ap_sync_reg_A_PE_dummy_in_4_x1_U0_ap_start                       |  1|   0|    1|          0|
+    |ap_sync_reg_A_PE_dummy_in_5_x1_U0_ap_start                       |  1|   0|    1|          0|
+    |ap_sync_reg_A_PE_dummy_in_6_x1_U0_ap_start                       |  1|   0|    1|          0|
+    |ap_sync_reg_A_PE_dummy_in_7_x1_U0_ap_start                       |  1|   0|    1|          0|
+    |ap_sync_reg_B_IO_L2_in_0_x1_U0_ap_start                          |  1|   0|    1|          0|
+    |ap_sync_reg_B_IO_L2_in_1_x1_U0_ap_start                          |  1|   0|    1|          0|
+    |ap_sync_reg_B_IO_L2_in_2_x1_U0_ap_start                          |  1|   0|    1|          0|
+    |ap_sync_reg_B_IO_L2_in_3_x1_U0_ap_start                          |  1|   0|    1|          0|
+    |ap_sync_reg_B_IO_L2_in_4_x1_U0_ap_start                          |  1|   0|    1|          0|
+    |ap_sync_reg_B_IO_L2_in_5_x1_U0_ap_start                          |  1|   0|    1|          0|
+    |ap_sync_reg_B_IO_L2_in_6_x1_U0_ap_start                          |  1|   0|    1|          0|
+    |ap_sync_reg_B_IO_L2_in_boundary_x1_U0_ap_start                   |  1|   0|    1|          0|
+    |ap_sync_reg_B_IO_L3_in_serialize_x1_U0_ap_ready                  |  1|   0|    1|          0|
+    |ap_sync_reg_B_IO_L3_in_x1_U0_ap_start                            |  1|   0|    1|          0|
+    |ap_sync_reg_B_PE_dummy_in_0_x1_U0_ap_start                       |  1|   0|    1|          0|
+    |ap_sync_reg_B_PE_dummy_in_1_x1_U0_ap_start                       |  1|   0|    1|          0|
+    |ap_sync_reg_B_PE_dummy_in_2_x1_U0_ap_start                       |  1|   0|    1|          0|
+    |ap_sync_reg_B_PE_dummy_in_3_x1_U0_ap_start                       |  1|   0|    1|          0|
+    |ap_sync_reg_B_PE_dummy_in_4_x1_U0_ap_start                       |  1|   0|    1|          0|
+    |ap_sync_reg_B_PE_dummy_in_5_x1_U0_ap_start                       |  1|   0|    1|          0|
+    |ap_sync_reg_B_PE_dummy_in_6_x1_U0_ap_start                       |  1|   0|    1|          0|
+    |ap_sync_reg_B_PE_dummy_in_7_x1_U0_ap_start                       |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_boundary_wrapper_0_x1_U0_ap_start  |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_boundary_wrapper_1_x1_U0_ap_start  |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_boundary_wrapper_2_x1_U0_ap_start  |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_boundary_wrapper_3_x1_U0_ap_start  |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_boundary_wrapper_4_x1_U0_ap_start  |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_boundary_wrapper_5_x1_U0_ap_start  |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_boundary_wrapper_6_x1_U0_ap_start  |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_boundary_wrapper_7_x1_U0_ap_start  |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_0_0_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_0_1_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_0_2_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_0_3_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_0_4_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_0_5_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_0_6_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_1_0_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_1_1_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_1_2_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_1_3_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_1_4_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_1_5_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_1_6_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_2_0_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_2_1_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_2_2_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_2_3_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_2_4_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_2_5_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_2_6_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_3_0_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_3_1_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_3_2_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_3_3_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_3_4_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_3_5_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_3_6_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_4_0_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_4_1_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_4_2_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_4_3_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_4_4_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_4_5_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_4_6_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_5_0_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_5_1_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_5_2_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_5_3_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_5_4_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_5_5_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_5_6_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_6_0_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_6_1_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_6_2_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_6_3_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_6_4_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_6_5_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_6_6_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_7_0_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_7_1_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_7_2_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_7_3_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_7_4_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_7_5_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L1_out_wrapper_7_6_x1_U0_ap_start         |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L2_out_0_x1_U0_ap_start                   |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L2_out_1_x1_U0_ap_start                   |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L2_out_2_x1_U0_ap_start                   |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L2_out_3_x1_U0_ap_start                   |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L2_out_4_x1_U0_ap_start                   |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L2_out_5_x1_U0_ap_start                   |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L2_out_6_x1_U0_ap_start                   |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L2_out_boundary_x1_U0_ap_start            |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L3_out_serialize_x1_U0_ap_start           |  1|   0|    1|          0|
+    |ap_sync_reg_C_drain_IO_L3_out_x1_U0_ap_start                     |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_0_0_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_0_1_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_0_2_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_0_3_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_0_4_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_0_5_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_0_6_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_0_7_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_1_0_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_1_1_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_1_2_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_1_3_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_1_4_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_1_5_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_1_6_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_1_7_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_2_0_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_2_1_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_2_2_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_2_3_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_2_4_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_2_5_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_2_6_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_2_7_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_3_0_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_3_1_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_3_2_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_3_3_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_3_4_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_3_5_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_3_6_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_3_7_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_4_0_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_4_1_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_4_2_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_4_3_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_4_4_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_4_5_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_4_6_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_4_7_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_5_0_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_5_1_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_5_2_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_5_3_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_5_4_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_5_5_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_5_6_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_5_7_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_6_0_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_6_1_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_6_2_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_6_3_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_6_4_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_6_5_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_6_6_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_6_7_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_7_0_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_7_1_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_7_2_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_7_3_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_7_4_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_7_5_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_7_6_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_PE_wrapper_7_7_x1_U0_ap_start                        |  1|   0|    1|          0|
+    |ap_sync_reg_kernel0_x1_entry22_U0_ap_start                       |  1|   0|    1|          0|
+    |ap_sync_reg_kernel0_x1_entry28_U0_ap_ready                       |  1|   0|    1|          0|
+    +-----------------------------------------------------------------+---+----+-----+-----------+
+    |Total                                                            |176|   0|  176|          0|
+    +-----------------------------------------------------------------+---+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++-----------------------+-----+-----+------------+--------------+--------------+
+|       RTL Ports       | Dir | Bits|  Protocol  | Source Object|    C Type    |
++-----------------------+-----+-----+------------+--------------+--------------+
+|m_axi_gmem_C_AWVALID   |  out|    1|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_AWREADY   |   in|    1|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_AWADDR    |  out|   64|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_AWID      |  out|    1|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_AWLEN     |  out|   32|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_AWSIZE    |  out|    3|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_AWBURST   |  out|    2|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_AWLOCK    |  out|    2|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_AWCACHE   |  out|    4|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_AWPROT    |  out|    3|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_AWQOS     |  out|    4|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_AWREGION  |  out|    4|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_AWUSER    |  out|    1|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_WVALID    |  out|    1|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_WREADY    |   in|    1|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_WDATA     |  out|  512|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_WSTRB     |  out|   64|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_WLAST     |  out|    1|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_WID       |  out|    1|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_WUSER     |  out|    1|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_ARVALID   |  out|    1|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_ARREADY   |   in|    1|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_ARADDR    |  out|   64|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_ARID      |  out|    1|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_ARLEN     |  out|   32|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_ARSIZE    |  out|    3|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_ARBURST   |  out|    2|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_ARLOCK    |  out|    2|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_ARCACHE   |  out|    4|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_ARPROT    |  out|    3|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_ARQOS     |  out|    4|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_ARREGION  |  out|    4|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_ARUSER    |  out|    1|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_RVALID    |   in|    1|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_RREADY    |  out|    1|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_RDATA     |   in|  512|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_RLAST     |   in|    1|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_RID       |   in|    1|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_RUSER     |   in|    1|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_RRESP     |   in|    2|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_BVALID    |   in|    1|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_BREADY    |  out|    1|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_BRESP     |   in|    2|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_BID       |   in|    1|       m_axi|        gmem_C|       pointer|
+|m_axi_gmem_C_BUSER     |   in|    1|       m_axi|        gmem_C|       pointer|
+|B_address0             |  out|   10|   ap_memory|             B|         array|
+|B_ce0                  |  out|    1|   ap_memory|             B|         array|
+|B_d0                   |  out|   32|   ap_memory|             B|         array|
+|B_q0                   |   in|   32|   ap_memory|             B|         array|
+|B_we0                  |  out|    1|   ap_memory|             B|         array|
+|B_address1             |  out|   10|   ap_memory|             B|         array|
+|B_ce1                  |  out|    1|   ap_memory|             B|         array|
+|B_d1                   |  out|   32|   ap_memory|             B|         array|
+|B_q1                   |   in|   32|   ap_memory|             B|         array|
+|B_we1                  |  out|    1|   ap_memory|             B|         array|
+|C                      |   in|   64|     ap_none|             C|        scalar|
+|C_ap_vld               |   in|    1|     ap_none|             C|        scalar|
+|ap_clk                 |   in|    1|  ap_ctrl_hs|    kernel0_x1|  return value|
+|ap_rst                 |   in|    1|  ap_ctrl_hs|    kernel0_x1|  return value|
+|ap_start               |   in|    1|  ap_ctrl_hs|    kernel0_x1|  return value|
+|ap_done                |  out|    1|  ap_ctrl_hs|    kernel0_x1|  return value|
+|ap_ready               |  out|    1|  ap_ctrl_hs|    kernel0_x1|  return value|
+|ap_idle                |  out|    1|  ap_ctrl_hs|    kernel0_x1|  return value|
+|ap_continue            |   in|    1|  ap_ctrl_hs|    kernel0_x1|  return value|
++-----------------------+-----+-----+------------+--------------+--------------+
+

@@ -1,0 +1,144 @@
+
+
+================================================================
+== Vitis HLS Report for 'A_IO_L3_in_serialize_x0'
+================================================================
+* Date:           Fri Sep 16 02:30:14 2022
+
+* Version:        2020.2 (Build 3064766 on Wed Nov 18 09:12:47 MST 2020)
+* Project:        top
+* Solution:       solution (Vitis Kernel Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu250-figd2104-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  3.33 ns|  2.417 ns|     0.90 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+---------+---------+---------+
+    |  Latency (cycles) |  Latency (absolute) |      Interval     | Pipeline|
+    |   min   |   max   |    min   |    max   |   min   |   max   |   Type  |
+    +---------+---------+----------+----------+---------+---------+---------+
+    |  1048577|  1048577|  3.495 ms|  3.495 ms|  1048577|  1048577|     none|
+    +---------+---------+----------+----------+---------+---------+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +----------------------------------+---------+---------+----------+-----------+-----------+--------+----------+
+        |                                  |  Latency (cycles) | Iteration|  Initiation Interval  |  Trip  |          |
+        |             Loop Name            |   min   |   max   |  Latency |  achieved |   target  |  Count | Pipelined|
+        +----------------------------------+---------+---------+----------+-----------+-----------+--------+----------+
+        |- A_IO_L3_in_serialize_x0_loop_1  |  1048576|  1048576|         2|          -|          -|  524288|        no|
+        +----------------------------------+---------+---------+----------+-----------+-----------+--------+----------+
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 0
+ResetActiveHigh: 1
+IsCombinational: 2
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 0
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 3
+* Pipeline : 0
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 3 
+3 --> 2 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 0.38>
+ST_1 : Operation 4 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i512 %fifo_A_A_IO_L3_in_serialize_x01, void @empty_161, i32 0, i32 0, void @empty_2404, i32 0, i32 0, void @empty_2404, void @empty_2404, void @empty_2404, i32 0, i32 0, i32 0, i32 0, void @empty_2404, void @empty_2404"   --->   Operation 4 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 5 [1/1] (0.38ns)   --->   "%br_ln146 = br void" [./dut.cpp:146]   --->   Operation 5 'br' 'br_ln146' <Predicate = true> <Delay = 0.38>
+
+State 2 <SV = 1> <Delay = 1.20>
+ST_2 : Operation 6 [1/1] (0.00ns)   --->   "%i_V = phi i20 0, void, i20 %i_V_6, void %.split"   --->   Operation 6 'phi' 'i_V' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 7 [1/1] (0.80ns)   --->   "%i_V_6 = add i20 %i_V, i20 1"   --->   Operation 7 'add' 'i_V_6' <Predicate = true> <Delay = 0.80> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.80> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 8 [1/1] (0.72ns)   --->   "%icmp_ln146 = icmp_eq  i20 %i_V, i20 524288" [./dut.cpp:146]   --->   Operation 8 'icmp' 'icmp_ln146' <Predicate = true> <Delay = 0.72> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.72> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 9 [1/1] (0.00ns)   --->   "%speclooptripcount_ln0 = speclooptripcount void @_ssdm_op_SpecLoopTripCount, i64 524288, i64 524288, i64 524288"   --->   Operation 9 'speclooptripcount' 'speclooptripcount_ln0' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 10 [1/1] (0.00ns)   --->   "%br_ln146 = br i1 %icmp_ln146, void %.split, void" [./dut.cpp:146]   --->   Operation 10 'br' 'br_ln146' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 11 [1/1] (0.00ns)   --->   "%zext_ln534 = zext i20 %i_V"   --->   Operation 11 'zext' 'zext_ln534' <Predicate = (!icmp_ln146)> <Delay = 0.00>
+ST_2 : Operation 12 [1/1] (0.00ns)   --->   "%A_addr = getelementptr i32 %A, i64 0, i64 %zext_ln534" [./dut.cpp:148]   --->   Operation 12 'getelementptr' 'A_addr' <Predicate = (!icmp_ln146)> <Delay = 0.00>
+ST_2 : Operation 13 [2/2] (1.20ns)   --->   "%A_load = load i10 %A_addr" [./dut.cpp:148]   --->   Operation 13 'load' 'A_load' <Predicate = (!icmp_ln146)> <Delay = 1.20> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 1024> <RAM>
+ST_2 : Operation 14 [1/1] (0.00ns)   --->   "%ret_ln151 = ret" [./dut.cpp:151]   --->   Operation 14 'ret' 'ret_ln151' <Predicate = (icmp_ln146)> <Delay = 0.00>
+
+State 3 <SV = 2> <Delay = 2.41>
+ST_3 : Operation 15 [1/1] (0.00ns)   --->   "%specloopname_ln146 = specloopname void @_ssdm_op_SpecLoopName, void @empty_168" [./dut.cpp:146]   --->   Operation 15 'specloopname' 'specloopname_ln146' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 16 [1/2] (1.20ns)   --->   "%A_load = load i10 %A_addr" [./dut.cpp:148]   --->   Operation 16 'load' 'A_load' <Predicate = true> <Delay = 1.20> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 1024> <RAM>
+ST_3 : Operation 17 [1/1] (0.00ns)   --->   "%A_load_cast = sext i32 %A_load" [./dut.cpp:148]   --->   Operation 17 'sext' 'A_load_cast' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 18 [1/1] (1.21ns)   --->   "%write_ln174 = write void @_ssdm_op_Write.ap_fifo.volatile.i512P0A, i512 %fifo_A_A_IO_L3_in_serialize_x01, i512 %A_load_cast" [/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174]   --->   Operation 18 'write' 'write_ln174' <Predicate = true> <Delay = 1.21> <CoreInst = "FIFO_SRL">   --->   Core 81 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 1.41> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 512> <Depth = 2> <FIFO>
+ST_3 : Operation 19 [1/1] (0.00ns)   --->   "%br_ln0 = br void"   --->   Operation 19 'br' 'br_ln0' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 3.33ns, clock uncertainty: 0.9ns.
+
+ <State 1>: 0.387ns
+The critical path consists of the following:
+	multiplexor before 'phi' operation ('i.V') with incoming values : ('i.V') [6]  (0.387 ns)
+
+ <State 2>: 1.2ns
+The critical path consists of the following:
+	'phi' operation ('i.V') with incoming values : ('i.V') [6]  (0 ns)
+	'getelementptr' operation ('A_addr', ./dut.cpp:148) [14]  (0 ns)
+	'load' operation ('A_load', ./dut.cpp:148) on array 'A' [15]  (1.2 ns)
+
+ <State 3>: 2.42ns
+The critical path consists of the following:
+	'load' operation ('A_load', ./dut.cpp:148) on array 'A' [15]  (1.2 ns)
+	fifo write on port 'fifo_A_A_IO_L3_in_serialize_x01' (/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174) [17]  (1.22 ns)
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+	State 3
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A
