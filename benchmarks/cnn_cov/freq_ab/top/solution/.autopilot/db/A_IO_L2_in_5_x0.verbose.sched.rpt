@@ -1,0 +1,466 @@
+
+
+================================================================
+== Vitis HLS Report for 'A_IO_L2_in_5_x0'
+================================================================
+* Date:           Sat Sep 17 09:26:55 2022
+
+* Version:        2020.2 (Build 3064766 on Wed Nov 18 09:12:47 MST 2020)
+* Project:        top
+* Solution:       solution (Vitis Kernel Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu250-figd2104-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  3.33 ns|  2.433 ns|     0.90 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+-------+-------+---------+
+    |  Latency (cycles) |  Latency (absolute) |    Interval   | Pipeline|
+    |   min   |   max   |    min   |    max   |  min  |  max  |   Type  |
+    +---------+---------+----------+----------+-------+-------+---------+
+    |    36868|    36868|  0.123 ms|  0.123 ms|  36868|  36868|     none|
+    +---------+---------+----------+----------+-------+-------+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +------------------------------------------------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |                                                                        |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        |                                Loop Name                               |   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +------------------------------------------------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |- A_IO_L2_in_5_x0_loop_1_A_IO_L2_in_5_x0_loop_2_A_IO_L2_in_5_x0_loop_3  |     4096|     4096|         2|          1|          1|  4096|       yes|
+        |- A_IO_L2_in_5_x0_loop_4_A_IO_L2_in_5_x0_loop_5                         |    32768|    32768|        17|         16|         16|  2048|       yes|
+        +------------------------------------------------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 0
+ResetActiveHigh: 1
+IsCombinational: 2
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 0
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
++ Individual pipeline summary: 
+  * Pipeline-0: initiation interval (II) = 1, depth = 2
+  * Pipeline-1: initiation interval (II) = 16, depth = 17
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 22
+* Pipeline : 2
+  Pipeline-0 : II = 1, D = 2, States = { 2 3 }
+  Pipeline-1 : II = 16, D = 17, States = { 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 }
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 4 3 
+3 --> 2 
+4 --> 5 
+5 --> 22 6 
+6 --> 7 
+7 --> 8 
+8 --> 9 
+9 --> 10 
+10 --> 11 
+11 --> 12 
+12 --> 13 
+13 --> 14 
+14 --> 15 
+15 --> 16 
+16 --> 17 
+17 --> 18 
+18 --> 19 
+19 --> 20 
+20 --> 21 
+21 --> 5 
+22 --> 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 0.38>
+ST_1 : Operation 23 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i256 %fifo_A_PE_5_0_x031, void @empty_198, i32 0, i32 0, void @empty_647, i32 0, i32 0, void @empty_647, void @empty_647, void @empty_647, i32 0, i32 0, i32 0, i32 0, void @empty_647, void @empty_647"   --->   Operation 23 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 24 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i256 %fifo_A_A_IO_L2_in_6_x07, void @empty_198, i32 0, i32 0, void @empty_647, i32 0, i32 0, void @empty_647, void @empty_647, void @empty_647, i32 0, i32 0, i32 0, i32 0, void @empty_647, void @empty_647"   --->   Operation 24 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 25 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i256 %fifo_A_A_IO_L2_in_5_x06, void @empty_198, i32 0, i32 0, void @empty_647, i32 0, i32 0, void @empty_647, void @empty_647, void @empty_647, i32 0, i32 0, i32 0, i32 0, void @empty_647, void @empty_647"   --->   Operation 25 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 26 [1/1] (0.00ns)   --->   "%local_A_pong_V = alloca i64 1" [./dut.cpp:368]   --->   Operation 26 'alloca' 'local_A_pong_V' <Predicate = true> <Delay = 0.00> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_1 : Operation 27 [1/1] (0.00ns)   --->   "%specmemcore_ln368 = specmemcore void @_ssdm_op_SpecMemCore, i256 %local_A_pong_V, i64 666, i64 22, i64 18446744073709551615" [./dut.cpp:368]   --->   Operation 27 'specmemcore' 'specmemcore_ln368' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 28 [1/1] (0.00ns)   --->   "%specmemcore_ln369 = specmemcore void @_ssdm_op_SpecMemCore, i256 %local_A_pong_V, i64 666, i64 22, i64 18446744073709551615" [./dut.cpp:369]   --->   Operation 28 'specmemcore' 'specmemcore_ln369' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 29 [1/1] (0.38ns)   --->   "%br_ln375 = br void" [./dut.cpp:375]   --->   Operation 29 'br' 'br_ln375' <Predicate = true> <Delay = 0.38>
+
+State 2 <SV = 1> <Delay = 2.31>
+ST_2 : Operation 30 [1/1] (0.00ns)   --->   "%indvar_flatten13 = phi i13 0, void, i13 %add_ln890_212, void"   --->   Operation 30 'phi' 'indvar_flatten13' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 31 [1/1] (0.00ns)   --->   "%c3_V = phi i4 5, void, i4 %select_ln890, void"   --->   Operation 31 'phi' 'c3_V' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 32 [1/1] (0.00ns)   --->   "%indvar_flatten = phi i11 0, void, i11 %select_ln890_528, void"   --->   Operation 32 'phi' 'indvar_flatten' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 33 [1/1] (0.00ns)   --->   "%c4_V = phi i5 0, void, i5 %select_ln890_526, void"   --->   Operation 33 'phi' 'c4_V' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 34 [1/1] (0.00ns)   --->   "%c5_V_24 = phi i6 0, void, i6 %add_ln691_733, void"   --->   Operation 34 'phi' 'c5_V_24' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 35 [1/1] (0.75ns)   --->   "%add_ln890_212 = add i13 %indvar_flatten13, i13 1"   --->   Operation 35 'add' 'add_ln890_212' <Predicate = true> <Delay = 0.75> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 36 [1/1] (0.64ns)   --->   "%icmp_ln890 = icmp_eq  i13 %indvar_flatten13, i13 4096"   --->   Operation 36 'icmp' 'icmp_ln890' <Predicate = true> <Delay = 0.64> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.59> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 37 [1/1] (0.00ns)   --->   "%br_ln890 = br i1 %icmp_ln890, void %.split10, void %.preheader.preheader.preheader"   --->   Operation 37 'br' 'br_ln890' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 38 [1/1] (0.70ns)   --->   "%add_ln691 = add i4 %c3_V, i4 1"   --->   Operation 38 'add' 'add_ln691' <Predicate = (!icmp_ln890)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 39 [1/1] (0.61ns)   --->   "%icmp_ln890_583 = icmp_eq  i11 %indvar_flatten, i11 512"   --->   Operation 39 'icmp' 'icmp_ln890_583' <Predicate = (!icmp_ln890)> <Delay = 0.61> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.59> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 40 [1/1] (0.27ns)   --->   "%select_ln375 = select i1 %icmp_ln890_583, i5 0, i5 %c4_V" [./dut.cpp:375]   --->   Operation 40 'select' 'select_ln375' <Predicate = (!icmp_ln890)> <Delay = 0.27> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_2 : Operation 41 [1/1] (0.65ns)   --->   "%cmp_i_i72_mid1 = icmp_eq  i4 %add_ln691, i4 5"   --->   Operation 41 'icmp' 'cmp_i_i72_mid1' <Predicate = (!icmp_ln890)> <Delay = 0.65> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.59> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 42 [1/1] (0.65ns)   --->   "%cmp_i_i72138 = icmp_eq  i4 %c3_V, i4 5"   --->   Operation 42 'icmp' 'cmp_i_i72138' <Predicate = (!icmp_ln890)> <Delay = 0.65> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.59> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 43 [1/1] (0.27ns)   --->   "%select_ln375_1 = select i1 %icmp_ln890_583, i1 %cmp_i_i72_mid1, i1 %cmp_i_i72138" [./dut.cpp:375]   --->   Operation 43 'select' 'select_ln375_1' <Predicate = (!icmp_ln890)> <Delay = 0.27> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_2 : Operation 44 [1/1] (0.00ns) (grouped into LUT with out node and_ln375)   --->   "%xor_ln375 = xor i1 %icmp_ln890_583, i1 1" [./dut.cpp:375]   --->   Operation 44 'xor' 'xor_ln375' <Predicate = (!icmp_ln890)> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 45 [1/1] (0.61ns)   --->   "%icmp_ln890146 = icmp_eq  i6 %c5_V_24, i6 32"   --->   Operation 45 'icmp' 'icmp_ln890146' <Predicate = (!icmp_ln890)> <Delay = 0.61> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.59> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 46 [1/1] (0.12ns) (out node of the LUT)   --->   "%and_ln375 = and i1 %icmp_ln890146, i1 %xor_ln375" [./dut.cpp:375]   --->   Operation 46 'and' 'and_ln375' <Predicate = (!icmp_ln890)> <Delay = 0.12> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 47 [1/1] (0.35ns)   --->   "%select_ln890 = select i1 %icmp_ln890_583, i4 %add_ln691, i4 %c3_V"   --->   Operation 47 'select' 'select_ln890' <Predicate = (!icmp_ln890)> <Delay = 0.35> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_2 : Operation 48 [1/1] (0.70ns)   --->   "%add_ln691_730 = add i5 %select_ln375, i5 1"   --->   Operation 48 'add' 'add_ln691_730' <Predicate = (!icmp_ln890)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 49 [1/1] (0.00ns) (grouped into LUT with out node select_ln890_524)   --->   "%or_ln890 = or i1 %and_ln375, i1 %icmp_ln890_583"   --->   Operation 49 'or' 'or_ln890' <Predicate = (!icmp_ln890)> <Delay = 0.00> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 50 [1/1] (0.29ns) (out node of the LUT)   --->   "%select_ln890_524 = select i1 %or_ln890, i6 0, i6 %c5_V_24"   --->   Operation 50 'select' 'select_ln890_524' <Predicate = (!icmp_ln890)> <Delay = 0.29> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_2 : Operation 51 [1/1] (0.00ns) (grouped into LUT with out node add_ln384)   --->   "%trunc_ln384 = trunc i5 %add_ln691_730" [./dut.cpp:384]   --->   Operation 51 'trunc' 'trunc_ln384' <Predicate = (!icmp_ln890)> <Delay = 0.00>
+ST_2 : Operation 52 [1/1] (0.00ns) (grouped into LUT with out node add_ln384)   --->   "%trunc_ln384_1 = trunc i5 %c4_V" [./dut.cpp:384]   --->   Operation 52 'trunc' 'trunc_ln384_1' <Predicate = (!icmp_ln890)> <Delay = 0.00>
+ST_2 : Operation 53 [1/1] (0.00ns) (grouped into LUT with out node add_ln384)   --->   "%select_ln375_2 = select i1 %icmp_ln890_583, i4 0, i4 %trunc_ln384_1" [./dut.cpp:375]   --->   Operation 53 'select' 'select_ln375_2' <Predicate = (!icmp_ln890)> <Delay = 0.00> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_2 : Operation 54 [1/1] (0.00ns) (grouped into LUT with out node add_ln384)   --->   "%select_ln890_525 = select i1 %and_ln375, i4 %trunc_ln384, i4 %select_ln375_2"   --->   Operation 54 'select' 'select_ln890_525' <Predicate = (!icmp_ln890)> <Delay = 0.00> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_2 : Operation 55 [1/1] (0.00ns) (grouped into LUT with out node add_ln384)   --->   "%tmp_2091_cast = bitconcatenate i9 @_ssdm_op_BitConcatenate.i9.i4.i5, i4 %select_ln890_525, i5 0"   --->   Operation 55 'bitconcatenate' 'tmp_2091_cast' <Predicate = (!icmp_ln890)> <Delay = 0.00>
+ST_2 : Operation 56 [1/1] (0.27ns)   --->   "%select_ln890_526 = select i1 %and_ln375, i5 %add_ln691_730, i5 %select_ln375"   --->   Operation 56 'select' 'select_ln890_526' <Predicate = (!icmp_ln890)> <Delay = 0.27> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_2 : Operation 57 [1/1] (0.00ns) (grouped into LUT with out node add_ln384)   --->   "%zext_ln384 = zext i6 %select_ln890_524" [./dut.cpp:384]   --->   Operation 57 'zext' 'zext_ln384' <Predicate = (!icmp_ln890)> <Delay = 0.00>
+ST_2 : Operation 58 [1/1] (0.71ns) (out node of the LUT)   --->   "%add_ln384 = add i9 %tmp_2091_cast, i9 %zext_ln384" [./dut.cpp:384]   --->   Operation 58 'add' 'add_ln384' <Predicate = (!icmp_ln890)> <Delay = 0.71> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 59 [1/1] (0.00ns)   --->   "%br_ln383 = br i1 %select_ln375_1, void, void" [./dut.cpp:383]   --->   Operation 59 'br' 'br_ln383' <Predicate = (!icmp_ln890)> <Delay = 0.00>
+ST_2 : Operation 60 [1/1] (0.70ns)   --->   "%add_ln691_733 = add i6 %select_ln890_524, i6 1"   --->   Operation 60 'add' 'add_ln691_733' <Predicate = (!icmp_ln890)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 61 [1/1] (0.73ns)   --->   "%add_ln890_211 = add i11 %indvar_flatten, i11 1"   --->   Operation 61 'add' 'add_ln890_211' <Predicate = (!icmp_ln890)> <Delay = 0.73> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 62 [1/1] (0.30ns)   --->   "%select_ln890_528 = select i1 %icmp_ln890_583, i11 1, i11 %add_ln890_211"   --->   Operation 62 'select' 'select_ln890_528' <Predicate = (!icmp_ln890)> <Delay = 0.30> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_2 : Operation 63 [1/1] (0.00ns)   --->   "%br_ln0 = br void"   --->   Operation 63 'br' 'br_ln0' <Predicate = (!icmp_ln890)> <Delay = 0.00>
+
+State 3 <SV = 2> <Delay = 2.43>
+ST_3 : Operation 64 [1/1] (0.00ns)   --->   "%specloopname_ln0 = specloopname void @_ssdm_op_SpecLoopName, void @A_IO_L2_in_5_x0_loop_1_A_IO_L2_in_5_x0_loop_2_A_IO_L2_in_5_x0_loop_3_str"   --->   Operation 64 'specloopname' 'specloopname_ln0' <Predicate = (!icmp_ln890)> <Delay = 0.00>
+ST_3 : Operation 65 [1/1] (0.00ns)   --->   "%speclooptripcount_ln0 = speclooptripcount void @_ssdm_op_SpecLoopTripCount, i64 4096, i64 4096, i64 4096"   --->   Operation 65 'speclooptripcount' 'speclooptripcount_ln0' <Predicate = (!icmp_ln890)> <Delay = 0.00>
+ST_3 : Operation 66 [1/1] (0.00ns)   --->   "%specloopname_ln0 = specloopname void @_ssdm_op_SpecLoopName, void @A_IO_L2_in_5_x0_loop_2_A_IO_L2_in_5_x0_loop_3_str"   --->   Operation 66 'specloopname' 'specloopname_ln0' <Predicate = (!icmp_ln890)> <Delay = 0.00>
+ST_3 : Operation 67 [1/1] (0.00ns)   --->   "%zext_ln384_1 = zext i9 %add_ln384" [./dut.cpp:384]   --->   Operation 67 'zext' 'zext_ln384_1' <Predicate = (!icmp_ln890)> <Delay = 0.00>
+ST_3 : Operation 68 [1/1] (0.00ns)   --->   "%local_A_pong_V_addr = getelementptr i256 %local_A_pong_V, i64 0, i64 %zext_ln384_1" [./dut.cpp:384]   --->   Operation 68 'getelementptr' 'local_A_pong_V_addr' <Predicate = (!icmp_ln890)> <Delay = 0.00>
+ST_3 : Operation 69 [1/1] (0.00ns)   --->   "%specpipeline_ln380 = specpipeline void @_ssdm_op_SpecPipeline, i32 1, i32 0, i32 0, i32 0, void @empty_647" [./dut.cpp:380]   --->   Operation 69 'specpipeline' 'specpipeline_ln380' <Predicate = (!icmp_ln890)> <Delay = 0.00>
+ST_3 : Operation 70 [1/1] (0.00ns)   --->   "%specloopname_ln380 = specloopname void @_ssdm_op_SpecLoopName, void @empty_234" [./dut.cpp:380]   --->   Operation 70 'specloopname' 'specloopname_ln380' <Predicate = (!icmp_ln890)> <Delay = 0.00>
+ST_3 : Operation 71 [1/1] (1.21ns)   --->   "%tmp_1673 = read i256 @_ssdm_op_Read.ap_fifo.volatile.i256P0A, i256 %fifo_A_A_IO_L2_in_5_x06" [/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:145]   --->   Operation 71 'read' 'tmp_1673' <Predicate = (!icmp_ln890)> <Delay = 1.21> <CoreInst = "FIFO_SRL">   --->   Core 81 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 1.42> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 256> <Depth = 2> <FIFO>
+ST_3 : Operation 72 [1/1] (1.21ns)   --->   "%write_ln174 = write void @_ssdm_op_Write.ap_fifo.volatile.i256P0A, i256 %fifo_A_A_IO_L2_in_6_x07, i256 %tmp_1673" [/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174]   --->   Operation 72 'write' 'write_ln174' <Predicate = (!select_ln375_1)> <Delay = 1.21> <CoreInst = "FIFO_SRL">   --->   Core 81 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 1.42> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 256> <Depth = 2> <FIFO>
+ST_3 : Operation 73 [1/1] (0.00ns)   --->   "%br_ln0 = br void"   --->   Operation 73 'br' 'br_ln0' <Predicate = (!select_ln375_1)> <Delay = 0.00>
+ST_3 : Operation 74 [1/1] (1.20ns)   --->   "%store_ln384 = store i256 %tmp_1673, i9 %local_A_pong_V_addr" [./dut.cpp:384]   --->   Operation 74 'store' 'store_ln384' <Predicate = (select_ln375_1)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_3 : Operation 75 [1/1] (0.00ns)   --->   "%br_ln385 = br void" [./dut.cpp:385]   --->   Operation 75 'br' 'br_ln385' <Predicate = (select_ln375_1)> <Delay = 0.00>
+
+State 4 <SV = 2> <Delay = 0.38>
+ST_4 : Operation 76 [1/1] (0.38ns)   --->   "%br_ln394 = br void %.preheader.preheader" [./dut.cpp:394]   --->   Operation 76 'br' 'br_ln394' <Predicate = true> <Delay = 0.38>
+
+State 5 <SV = 3> <Delay = 2.19>
+ST_5 : Operation 77 [1/1] (0.00ns)   --->   "%indvar_flatten37 = phi i12 %add_ln890, void %.preheader, i12 0, void %.preheader.preheader.preheader"   --->   Operation 77 'phi' 'indvar_flatten37' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 78 [1/1] (0.00ns)   --->   "%c5_V = phi i6 %select_ln890_527, void %.preheader, i6 0, void %.preheader.preheader.preheader"   --->   Operation 78 'phi' 'c5_V' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 79 [1/1] (0.00ns)   --->   "%c6_V = phi i7 %select_ln691, void %.preheader, i7 0, void %.preheader.preheader.preheader"   --->   Operation 79 'phi' 'c6_V' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 80 [1/1] (0.74ns)   --->   "%add_ln890 = add i12 %indvar_flatten37, i12 1"   --->   Operation 80 'add' 'add_ln890' <Predicate = true> <Delay = 0.74> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_5 : Operation 81 [1/1] (0.62ns)   --->   "%icmp_ln890_584 = icmp_eq  i12 %indvar_flatten37, i12 2048"   --->   Operation 81 'icmp' 'icmp_ln890_584' <Predicate = true> <Delay = 0.62> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.59> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_5 : Operation 82 [1/1] (0.00ns)   --->   "%br_ln890 = br i1 %icmp_ln890_584, void %.preheader, void"   --->   Operation 82 'br' 'br_ln890' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 83 [1/1] (0.70ns)   --->   "%add_ln691_731 = add i6 %c5_V, i6 1"   --->   Operation 83 'add' 'add_ln691_731' <Predicate = (!icmp_ln890_584)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_5 : Operation 84 [1/1] (0.59ns)   --->   "%icmp_ln890_585 = icmp_eq  i7 %c6_V, i7 64"   --->   Operation 84 'icmp' 'icmp_ln890_585' <Predicate = (!icmp_ln890_584)> <Delay = 0.59> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.59> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_5 : Operation 85 [1/1] (0.29ns)   --->   "%select_ln890_527 = select i1 %icmp_ln890_585, i6 %add_ln691_731, i6 %c5_V"   --->   Operation 85 'select' 'select_ln890_527' <Predicate = (!icmp_ln890_584)> <Delay = 0.29> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_5 : Operation 86 [1/1] (0.00ns)   --->   "%zext_ln890 = zext i6 %select_ln890_527"   --->   Operation 86 'zext' 'zext_ln890' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_5 : Operation 87 [1/1] (0.00ns)   --->   "%local_A_pong_V_addr_178 = getelementptr i256 %local_A_pong_V, i64 0, i64 %zext_ln890" [./dut.cpp:401]   --->   Operation 87 'getelementptr' 'local_A_pong_V_addr_178' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_5 : Operation 88 [1/1] (0.00ns)   --->   "%tmp = bitconcatenate i64 @_ssdm_op_BitConcatenate.i64.i58.i6, i58 1, i6 %select_ln890_527" [./dut.cpp:401]   --->   Operation 88 'bitconcatenate' 'tmp' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_5 : Operation 89 [1/1] (0.00ns)   --->   "%local_A_pong_V_addr_180 = getelementptr i256 %local_A_pong_V, i64 0, i64 %tmp" [./dut.cpp:401]   --->   Operation 89 'getelementptr' 'local_A_pong_V_addr_180' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_5 : Operation 90 [2/2] (1.20ns)   --->   "%local_A_pong_V_load = load i9 %local_A_pong_V_addr_178" [./dut.cpp:401]   --->   Operation 90 'load' 'local_A_pong_V_load' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_5 : Operation 91 [2/2] (1.20ns)   --->   "%local_A_pong_V_load_2 = load i9 %local_A_pong_V_addr_180" [./dut.cpp:401]   --->   Operation 91 'load' 'local_A_pong_V_load_2' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_5 : Operation 92 [1/1] (0.70ns)   --->   "%add_ln691_732 = add i7 %c6_V, i7 1"   --->   Operation 92 'add' 'add_ln691_732' <Predicate = (!icmp_ln890_584)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_5 : Operation 93 [1/1] (0.30ns)   --->   "%select_ln691 = select i1 %icmp_ln890_585, i7 1, i7 %add_ln691_732"   --->   Operation 93 'select' 'select_ln691' <Predicate = (!icmp_ln890_584)> <Delay = 0.30> <CoreInst = "Sel">   --->   Core 73 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+
+State 6 <SV = 4> <Delay = 2.41>
+ST_6 : Operation 94 [1/1] (0.00ns)   --->   "%zext_ln401_1 = zext i6 %select_ln890_527" [./dut.cpp:401]   --->   Operation 94 'zext' 'zext_ln401_1' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_6 : Operation 95 [1/1] (0.00ns)   --->   "%zext_ln401_2 = zext i6 %select_ln890_527" [./dut.cpp:401]   --->   Operation 95 'zext' 'zext_ln401_2' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_6 : Operation 96 [1/1] (0.70ns)   --->   "%add_ln401 = add i7 %zext_ln401_2, i7 32" [./dut.cpp:401]   --->   Operation 96 'add' 'add_ln401' <Predicate = (!icmp_ln890_584)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_6 : Operation 97 [1/1] (0.00ns)   --->   "%zext_ln401_3 = zext i7 %add_ln401" [./dut.cpp:401]   --->   Operation 97 'zext' 'zext_ln401_3' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_6 : Operation 98 [1/1] (0.00ns)   --->   "%local_A_pong_V_addr_179 = getelementptr i256 %local_A_pong_V, i64 0, i64 %zext_ln401_3" [./dut.cpp:401]   --->   Operation 98 'getelementptr' 'local_A_pong_V_addr_179' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_6 : Operation 99 [1/1] (0.70ns)   --->   "%add_ln401_1 = add i8 %zext_ln401_1, i8 96" [./dut.cpp:401]   --->   Operation 99 'add' 'add_ln401_1' <Predicate = (!icmp_ln890_584)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_6 : Operation 100 [1/1] (0.00ns)   --->   "%zext_ln401_4 = zext i8 %add_ln401_1" [./dut.cpp:401]   --->   Operation 100 'zext' 'zext_ln401_4' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_6 : Operation 101 [1/1] (0.00ns)   --->   "%local_A_pong_V_addr_181 = getelementptr i256 %local_A_pong_V, i64 0, i64 %zext_ln401_4" [./dut.cpp:401]   --->   Operation 101 'getelementptr' 'local_A_pong_V_addr_181' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_6 : Operation 102 [1/2] (1.20ns)   --->   "%local_A_pong_V_load = load i9 %local_A_pong_V_addr_178" [./dut.cpp:401]   --->   Operation 102 'load' 'local_A_pong_V_load' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_6 : Operation 103 [1/1] (1.21ns)   --->   "%write_ln174 = write void @_ssdm_op_Write.ap_fifo.volatile.i256P0A, i256 %fifo_A_PE_5_0_x031, i256 %local_A_pong_V_load" [/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174]   --->   Operation 103 'write' 'write_ln174' <Predicate = (!icmp_ln890_584)> <Delay = 1.21> <CoreInst = "FIFO_SRL">   --->   Core 81 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 1.42> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 256> <Depth = 2> <FIFO>
+ST_6 : Operation 104 [2/2] (1.20ns)   --->   "%local_A_pong_V_load_1 = load i9 %local_A_pong_V_addr_179" [./dut.cpp:401]   --->   Operation 104 'load' 'local_A_pong_V_load_1' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_6 : Operation 105 [1/2] (1.20ns)   --->   "%local_A_pong_V_load_2 = load i9 %local_A_pong_V_addr_180" [./dut.cpp:401]   --->   Operation 105 'load' 'local_A_pong_V_load_2' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_6 : Operation 106 [2/2] (1.20ns)   --->   "%local_A_pong_V_load_3 = load i9 %local_A_pong_V_addr_181" [./dut.cpp:401]   --->   Operation 106 'load' 'local_A_pong_V_load_3' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+
+State 7 <SV = 5> <Delay = 2.41>
+ST_7 : Operation 107 [1/1] (0.00ns)   --->   "%tmp_s = bitconcatenate i64 @_ssdm_op_BitConcatenate.i64.i58.i6, i58 2, i6 %select_ln890_527" [./dut.cpp:401]   --->   Operation 107 'bitconcatenate' 'tmp_s' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_7 : Operation 108 [1/1] (0.00ns)   --->   "%local_A_pong_V_addr_182 = getelementptr i256 %local_A_pong_V, i64 0, i64 %tmp_s" [./dut.cpp:401]   --->   Operation 108 'getelementptr' 'local_A_pong_V_addr_182' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_7 : Operation 109 [1/1] (0.70ns)   --->   "%add_ln401_2 = add i8 %zext_ln401_1, i8 160" [./dut.cpp:401]   --->   Operation 109 'add' 'add_ln401_2' <Predicate = (!icmp_ln890_584)> <Delay = 0.70> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_7 : Operation 110 [1/1] (0.00ns)   --->   "%zext_ln401_5 = zext i8 %add_ln401_2" [./dut.cpp:401]   --->   Operation 110 'zext' 'zext_ln401_5' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_7 : Operation 111 [1/1] (0.00ns)   --->   "%local_A_pong_V_addr_183 = getelementptr i256 %local_A_pong_V, i64 0, i64 %zext_ln401_5" [./dut.cpp:401]   --->   Operation 111 'getelementptr' 'local_A_pong_V_addr_183' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_7 : Operation 112 [1/2] (1.20ns)   --->   "%local_A_pong_V_load_1 = load i9 %local_A_pong_V_addr_179" [./dut.cpp:401]   --->   Operation 112 'load' 'local_A_pong_V_load_1' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_7 : Operation 113 [1/1] (1.21ns)   --->   "%write_ln174 = write void @_ssdm_op_Write.ap_fifo.volatile.i256P0A, i256 %fifo_A_PE_5_0_x031, i256 %local_A_pong_V_load_1" [/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174]   --->   Operation 113 'write' 'write_ln174' <Predicate = (!icmp_ln890_584)> <Delay = 1.21> <CoreInst = "FIFO_SRL">   --->   Core 81 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 1.42> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 256> <Depth = 2> <FIFO>
+ST_7 : Operation 114 [1/2] (1.20ns)   --->   "%local_A_pong_V_load_3 = load i9 %local_A_pong_V_addr_181" [./dut.cpp:401]   --->   Operation 114 'load' 'local_A_pong_V_load_3' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_7 : Operation 115 [2/2] (1.20ns)   --->   "%local_A_pong_V_load_4 = load i9 %local_A_pong_V_addr_182" [./dut.cpp:401]   --->   Operation 115 'load' 'local_A_pong_V_load_4' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_7 : Operation 116 [2/2] (1.20ns)   --->   "%local_A_pong_V_load_5 = load i9 %local_A_pong_V_addr_183" [./dut.cpp:401]   --->   Operation 116 'load' 'local_A_pong_V_load_5' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+
+State 8 <SV = 6> <Delay = 1.91>
+ST_8 : Operation 117 [1/1] (0.00ns)   --->   "%zext_ln401 = zext i6 %select_ln890_527" [./dut.cpp:401]   --->   Operation 117 'zext' 'zext_ln401' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_8 : Operation 118 [1/1] (0.00ns)   --->   "%tmp_1668 = bitconcatenate i64 @_ssdm_op_BitConcatenate.i64.i58.i6, i58 3, i6 %select_ln890_527" [./dut.cpp:401]   --->   Operation 118 'bitconcatenate' 'tmp_1668' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_8 : Operation 119 [1/1] (0.00ns)   --->   "%local_A_pong_V_addr_184 = getelementptr i256 %local_A_pong_V, i64 0, i64 %tmp_1668" [./dut.cpp:401]   --->   Operation 119 'getelementptr' 'local_A_pong_V_addr_184' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_8 : Operation 120 [1/1] (0.71ns)   --->   "%add_ln401_3 = add i9 %zext_ln401, i9 224" [./dut.cpp:401]   --->   Operation 120 'add' 'add_ln401_3' <Predicate = (!icmp_ln890_584)> <Delay = 0.71> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_8 : Operation 121 [1/1] (0.00ns)   --->   "%zext_ln401_6 = zext i9 %add_ln401_3" [./dut.cpp:401]   --->   Operation 121 'zext' 'zext_ln401_6' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_8 : Operation 122 [1/1] (0.00ns)   --->   "%local_A_pong_V_addr_185 = getelementptr i256 %local_A_pong_V, i64 0, i64 %zext_ln401_6" [./dut.cpp:401]   --->   Operation 122 'getelementptr' 'local_A_pong_V_addr_185' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_8 : Operation 123 [1/1] (1.21ns)   --->   "%write_ln174 = write void @_ssdm_op_Write.ap_fifo.volatile.i256P0A, i256 %fifo_A_PE_5_0_x031, i256 %local_A_pong_V_load_2" [/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174]   --->   Operation 123 'write' 'write_ln174' <Predicate = (!icmp_ln890_584)> <Delay = 1.21> <CoreInst = "FIFO_SRL">   --->   Core 81 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 1.42> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 256> <Depth = 2> <FIFO>
+ST_8 : Operation 124 [1/2] (1.20ns)   --->   "%local_A_pong_V_load_4 = load i9 %local_A_pong_V_addr_182" [./dut.cpp:401]   --->   Operation 124 'load' 'local_A_pong_V_load_4' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_8 : Operation 125 [1/2] (1.20ns)   --->   "%local_A_pong_V_load_5 = load i9 %local_A_pong_V_addr_183" [./dut.cpp:401]   --->   Operation 125 'load' 'local_A_pong_V_load_5' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_8 : Operation 126 [2/2] (1.20ns)   --->   "%local_A_pong_V_load_6 = load i9 %local_A_pong_V_addr_184" [./dut.cpp:401]   --->   Operation 126 'load' 'local_A_pong_V_load_6' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_8 : Operation 127 [2/2] (1.20ns)   --->   "%local_A_pong_V_load_7 = load i9 %local_A_pong_V_addr_185" [./dut.cpp:401]   --->   Operation 127 'load' 'local_A_pong_V_load_7' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+
+State 9 <SV = 7> <Delay = 1.91>
+ST_9 : Operation 128 [1/1] (0.00ns)   --->   "%tmp_1669 = bitconcatenate i64 @_ssdm_op_BitConcatenate.i64.i58.i6, i58 4, i6 %select_ln890_527" [./dut.cpp:401]   --->   Operation 128 'bitconcatenate' 'tmp_1669' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_9 : Operation 129 [1/1] (0.00ns)   --->   "%local_A_pong_V_addr_186 = getelementptr i256 %local_A_pong_V, i64 0, i64 %tmp_1669" [./dut.cpp:401]   --->   Operation 129 'getelementptr' 'local_A_pong_V_addr_186' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_9 : Operation 130 [1/1] (0.71ns)   --->   "%add_ln401_4 = add i9 %zext_ln401, i9 288" [./dut.cpp:401]   --->   Operation 130 'add' 'add_ln401_4' <Predicate = (!icmp_ln890_584)> <Delay = 0.71> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_9 : Operation 131 [1/1] (0.00ns)   --->   "%zext_ln401_7 = zext i9 %add_ln401_4" [./dut.cpp:401]   --->   Operation 131 'zext' 'zext_ln401_7' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_9 : Operation 132 [1/1] (0.00ns)   --->   "%local_A_pong_V_addr_187 = getelementptr i256 %local_A_pong_V, i64 0, i64 %zext_ln401_7" [./dut.cpp:401]   --->   Operation 132 'getelementptr' 'local_A_pong_V_addr_187' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_9 : Operation 133 [1/1] (1.21ns)   --->   "%write_ln174 = write void @_ssdm_op_Write.ap_fifo.volatile.i256P0A, i256 %fifo_A_PE_5_0_x031, i256 %local_A_pong_V_load_3" [/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174]   --->   Operation 133 'write' 'write_ln174' <Predicate = (!icmp_ln890_584)> <Delay = 1.21> <CoreInst = "FIFO_SRL">   --->   Core 81 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 1.42> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 256> <Depth = 2> <FIFO>
+ST_9 : Operation 134 [1/2] (1.20ns)   --->   "%local_A_pong_V_load_6 = load i9 %local_A_pong_V_addr_184" [./dut.cpp:401]   --->   Operation 134 'load' 'local_A_pong_V_load_6' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_9 : Operation 135 [1/2] (1.20ns)   --->   "%local_A_pong_V_load_7 = load i9 %local_A_pong_V_addr_185" [./dut.cpp:401]   --->   Operation 135 'load' 'local_A_pong_V_load_7' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_9 : Operation 136 [2/2] (1.20ns)   --->   "%local_A_pong_V_load_8 = load i9 %local_A_pong_V_addr_186" [./dut.cpp:401]   --->   Operation 136 'load' 'local_A_pong_V_load_8' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_9 : Operation 137 [2/2] (1.20ns)   --->   "%local_A_pong_V_load_9 = load i9 %local_A_pong_V_addr_187" [./dut.cpp:401]   --->   Operation 137 'load' 'local_A_pong_V_load_9' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+
+State 10 <SV = 8> <Delay = 1.91>
+ST_10 : Operation 138 [1/1] (0.00ns)   --->   "%tmp_1670 = bitconcatenate i64 @_ssdm_op_BitConcatenate.i64.i58.i6, i58 5, i6 %select_ln890_527" [./dut.cpp:401]   --->   Operation 138 'bitconcatenate' 'tmp_1670' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_10 : Operation 139 [1/1] (0.00ns)   --->   "%local_A_pong_V_addr_188 = getelementptr i256 %local_A_pong_V, i64 0, i64 %tmp_1670" [./dut.cpp:401]   --->   Operation 139 'getelementptr' 'local_A_pong_V_addr_188' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_10 : Operation 140 [1/1] (0.71ns)   --->   "%add_ln401_5 = add i9 %zext_ln401, i9 352" [./dut.cpp:401]   --->   Operation 140 'add' 'add_ln401_5' <Predicate = (!icmp_ln890_584)> <Delay = 0.71> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.70> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_10 : Operation 141 [1/1] (0.00ns)   --->   "%zext_ln401_8 = zext i9 %add_ln401_5" [./dut.cpp:401]   --->   Operation 141 'zext' 'zext_ln401_8' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_10 : Operation 142 [1/1] (0.00ns)   --->   "%local_A_pong_V_addr_189 = getelementptr i256 %local_A_pong_V, i64 0, i64 %zext_ln401_8" [./dut.cpp:401]   --->   Operation 142 'getelementptr' 'local_A_pong_V_addr_189' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_10 : Operation 143 [1/1] (1.21ns)   --->   "%write_ln174 = write void @_ssdm_op_Write.ap_fifo.volatile.i256P0A, i256 %fifo_A_PE_5_0_x031, i256 %local_A_pong_V_load_4" [/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174]   --->   Operation 143 'write' 'write_ln174' <Predicate = (!icmp_ln890_584)> <Delay = 1.21> <CoreInst = "FIFO_SRL">   --->   Core 81 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 1.42> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 256> <Depth = 2> <FIFO>
+ST_10 : Operation 144 [1/2] (1.20ns)   --->   "%local_A_pong_V_load_8 = load i9 %local_A_pong_V_addr_186" [./dut.cpp:401]   --->   Operation 144 'load' 'local_A_pong_V_load_8' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_10 : Operation 145 [1/2] (1.20ns)   --->   "%local_A_pong_V_load_9 = load i9 %local_A_pong_V_addr_187" [./dut.cpp:401]   --->   Operation 145 'load' 'local_A_pong_V_load_9' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_10 : Operation 146 [2/2] (1.20ns)   --->   "%local_A_pong_V_load_10 = load i9 %local_A_pong_V_addr_188" [./dut.cpp:401]   --->   Operation 146 'load' 'local_A_pong_V_load_10' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_10 : Operation 147 [2/2] (1.20ns)   --->   "%local_A_pong_V_load_11 = load i9 %local_A_pong_V_addr_189" [./dut.cpp:401]   --->   Operation 147 'load' 'local_A_pong_V_load_11' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+
+State 11 <SV = 9> <Delay = 1.21>
+ST_11 : Operation 148 [1/1] (0.00ns)   --->   "%tmp_1671 = bitconcatenate i64 @_ssdm_op_BitConcatenate.i64.i58.i6, i58 6, i6 %select_ln890_527" [./dut.cpp:401]   --->   Operation 148 'bitconcatenate' 'tmp_1671' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_11 : Operation 149 [1/1] (0.00ns)   --->   "%local_A_pong_V_addr_190 = getelementptr i256 %local_A_pong_V, i64 0, i64 %tmp_1671" [./dut.cpp:401]   --->   Operation 149 'getelementptr' 'local_A_pong_V_addr_190' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_11 : Operation 150 [1/1] (0.00ns)   --->   "%sext_ln401 = sext i8 %add_ln401_2" [./dut.cpp:401]   --->   Operation 150 'sext' 'sext_ln401' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_11 : Operation 151 [1/1] (0.00ns)   --->   "%zext_ln401_9 = zext i9 %sext_ln401" [./dut.cpp:401]   --->   Operation 151 'zext' 'zext_ln401_9' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_11 : Operation 152 [1/1] (0.00ns)   --->   "%local_A_pong_V_addr_191 = getelementptr i256 %local_A_pong_V, i64 0, i64 %zext_ln401_9" [./dut.cpp:401]   --->   Operation 152 'getelementptr' 'local_A_pong_V_addr_191' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_11 : Operation 153 [1/1] (1.21ns)   --->   "%write_ln174 = write void @_ssdm_op_Write.ap_fifo.volatile.i256P0A, i256 %fifo_A_PE_5_0_x031, i256 %local_A_pong_V_load_5" [/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174]   --->   Operation 153 'write' 'write_ln174' <Predicate = (!icmp_ln890_584)> <Delay = 1.21> <CoreInst = "FIFO_SRL">   --->   Core 81 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 1.42> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 256> <Depth = 2> <FIFO>
+ST_11 : Operation 154 [1/2] (1.20ns)   --->   "%local_A_pong_V_load_10 = load i9 %local_A_pong_V_addr_188" [./dut.cpp:401]   --->   Operation 154 'load' 'local_A_pong_V_load_10' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_11 : Operation 155 [1/2] (1.20ns)   --->   "%local_A_pong_V_load_11 = load i9 %local_A_pong_V_addr_189" [./dut.cpp:401]   --->   Operation 155 'load' 'local_A_pong_V_load_11' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_11 : Operation 156 [2/2] (1.20ns)   --->   "%local_A_pong_V_load_12 = load i9 %local_A_pong_V_addr_190" [./dut.cpp:401]   --->   Operation 156 'load' 'local_A_pong_V_load_12' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_11 : Operation 157 [2/2] (1.20ns)   --->   "%local_A_pong_V_load_13 = load i9 %local_A_pong_V_addr_191" [./dut.cpp:401]   --->   Operation 157 'load' 'local_A_pong_V_load_13' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+
+State 12 <SV = 10> <Delay = 1.32>
+ST_12 : Operation 158 [1/1] (0.00ns)   --->   "%tmp_1672 = bitconcatenate i64 @_ssdm_op_BitConcatenate.i64.i58.i6, i58 7, i6 %select_ln890_527" [./dut.cpp:401]   --->   Operation 158 'bitconcatenate' 'tmp_1672' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_12 : Operation 159 [1/1] (0.00ns)   --->   "%local_A_pong_V_addr_192 = getelementptr i256 %local_A_pong_V, i64 0, i64 %tmp_1672" [./dut.cpp:401]   --->   Operation 159 'getelementptr' 'local_A_pong_V_addr_192' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_12 : Operation 160 [1/1] (0.12ns)   --->   "%xor_ln401 = xor i6 %select_ln890_527, i6 32" [./dut.cpp:401]   --->   Operation 160 'xor' 'xor_ln401' <Predicate = (!icmp_ln890_584)> <Delay = 0.12> <CoreInst = "LogicGate">   --->   Core 74 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_12 : Operation 161 [1/1] (0.00ns)   --->   "%sext_ln401_1 = sext i6 %xor_ln401" [./dut.cpp:401]   --->   Operation 161 'sext' 'sext_ln401_1' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_12 : Operation 162 [1/1] (0.00ns)   --->   "%zext_ln401_10 = zext i9 %sext_ln401_1" [./dut.cpp:401]   --->   Operation 162 'zext' 'zext_ln401_10' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_12 : Operation 163 [1/1] (0.00ns)   --->   "%local_A_pong_V_addr_193 = getelementptr i256 %local_A_pong_V, i64 0, i64 %zext_ln401_10" [./dut.cpp:401]   --->   Operation 163 'getelementptr' 'local_A_pong_V_addr_193' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_12 : Operation 164 [1/1] (1.21ns)   --->   "%write_ln174 = write void @_ssdm_op_Write.ap_fifo.volatile.i256P0A, i256 %fifo_A_PE_5_0_x031, i256 %local_A_pong_V_load_6" [/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174]   --->   Operation 164 'write' 'write_ln174' <Predicate = (!icmp_ln890_584)> <Delay = 1.21> <CoreInst = "FIFO_SRL">   --->   Core 81 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 1.42> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 256> <Depth = 2> <FIFO>
+ST_12 : Operation 165 [1/2] (1.20ns)   --->   "%local_A_pong_V_load_12 = load i9 %local_A_pong_V_addr_190" [./dut.cpp:401]   --->   Operation 165 'load' 'local_A_pong_V_load_12' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_12 : Operation 166 [1/2] (1.20ns)   --->   "%local_A_pong_V_load_13 = load i9 %local_A_pong_V_addr_191" [./dut.cpp:401]   --->   Operation 166 'load' 'local_A_pong_V_load_13' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_12 : Operation 167 [2/2] (1.20ns)   --->   "%local_A_pong_V_load_14 = load i9 %local_A_pong_V_addr_192" [./dut.cpp:401]   --->   Operation 167 'load' 'local_A_pong_V_load_14' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_12 : Operation 168 [2/2] (1.20ns)   --->   "%local_A_pong_V_load_15 = load i9 %local_A_pong_V_addr_193" [./dut.cpp:401]   --->   Operation 168 'load' 'local_A_pong_V_load_15' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+
+State 13 <SV = 11> <Delay = 1.21>
+ST_13 : Operation 169 [1/1] (1.21ns)   --->   "%write_ln174 = write void @_ssdm_op_Write.ap_fifo.volatile.i256P0A, i256 %fifo_A_PE_5_0_x031, i256 %local_A_pong_V_load_7" [/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174]   --->   Operation 169 'write' 'write_ln174' <Predicate = (!icmp_ln890_584)> <Delay = 1.21> <CoreInst = "FIFO_SRL">   --->   Core 81 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 1.42> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 256> <Depth = 2> <FIFO>
+ST_13 : Operation 170 [1/2] (1.20ns)   --->   "%local_A_pong_V_load_14 = load i9 %local_A_pong_V_addr_192" [./dut.cpp:401]   --->   Operation 170 'load' 'local_A_pong_V_load_14' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+ST_13 : Operation 171 [1/2] (1.20ns)   --->   "%local_A_pong_V_load_15 = load i9 %local_A_pong_V_addr_193" [./dut.cpp:401]   --->   Operation 171 'load' 'local_A_pong_V_load_15' <Predicate = (!icmp_ln890_584)> <Delay = 1.20> <CoreInst = "RAM_2P_BRAM">   --->   Core 94 'RAM_2P_BRAM' <Latency = 1> <II = 1> <Delay = 1.20> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 256> <Depth = 512> <RAM>
+
+State 14 <SV = 12> <Delay = 1.21>
+ST_14 : Operation 172 [1/1] (1.21ns)   --->   "%write_ln174 = write void @_ssdm_op_Write.ap_fifo.volatile.i256P0A, i256 %fifo_A_PE_5_0_x031, i256 %local_A_pong_V_load_8" [/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174]   --->   Operation 172 'write' 'write_ln174' <Predicate = (!icmp_ln890_584)> <Delay = 1.21> <CoreInst = "FIFO_SRL">   --->   Core 81 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 1.42> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 256> <Depth = 2> <FIFO>
+
+State 15 <SV = 13> <Delay = 1.21>
+ST_15 : Operation 173 [1/1] (1.21ns)   --->   "%write_ln174 = write void @_ssdm_op_Write.ap_fifo.volatile.i256P0A, i256 %fifo_A_PE_5_0_x031, i256 %local_A_pong_V_load_9" [/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174]   --->   Operation 173 'write' 'write_ln174' <Predicate = (!icmp_ln890_584)> <Delay = 1.21> <CoreInst = "FIFO_SRL">   --->   Core 81 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 1.42> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 256> <Depth = 2> <FIFO>
+
+State 16 <SV = 14> <Delay = 1.21>
+ST_16 : Operation 174 [1/1] (1.21ns)   --->   "%write_ln174 = write void @_ssdm_op_Write.ap_fifo.volatile.i256P0A, i256 %fifo_A_PE_5_0_x031, i256 %local_A_pong_V_load_10" [/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174]   --->   Operation 174 'write' 'write_ln174' <Predicate = (!icmp_ln890_584)> <Delay = 1.21> <CoreInst = "FIFO_SRL">   --->   Core 81 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 1.42> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 256> <Depth = 2> <FIFO>
+
+State 17 <SV = 15> <Delay = 1.21>
+ST_17 : Operation 175 [1/1] (1.21ns)   --->   "%write_ln174 = write void @_ssdm_op_Write.ap_fifo.volatile.i256P0A, i256 %fifo_A_PE_5_0_x031, i256 %local_A_pong_V_load_11" [/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174]   --->   Operation 175 'write' 'write_ln174' <Predicate = (!icmp_ln890_584)> <Delay = 1.21> <CoreInst = "FIFO_SRL">   --->   Core 81 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 1.42> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 256> <Depth = 2> <FIFO>
+
+State 18 <SV = 16> <Delay = 1.21>
+ST_18 : Operation 176 [1/1] (1.21ns)   --->   "%write_ln174 = write void @_ssdm_op_Write.ap_fifo.volatile.i256P0A, i256 %fifo_A_PE_5_0_x031, i256 %local_A_pong_V_load_12" [/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174]   --->   Operation 176 'write' 'write_ln174' <Predicate = (!icmp_ln890_584)> <Delay = 1.21> <CoreInst = "FIFO_SRL">   --->   Core 81 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 1.42> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 256> <Depth = 2> <FIFO>
+
+State 19 <SV = 17> <Delay = 1.21>
+ST_19 : Operation 177 [1/1] (1.21ns)   --->   "%write_ln174 = write void @_ssdm_op_Write.ap_fifo.volatile.i256P0A, i256 %fifo_A_PE_5_0_x031, i256 %local_A_pong_V_load_13" [/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174]   --->   Operation 177 'write' 'write_ln174' <Predicate = (!icmp_ln890_584)> <Delay = 1.21> <CoreInst = "FIFO_SRL">   --->   Core 81 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 1.42> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 256> <Depth = 2> <FIFO>
+
+State 20 <SV = 18> <Delay = 1.21>
+ST_20 : Operation 178 [1/1] (1.21ns)   --->   "%write_ln174 = write void @_ssdm_op_Write.ap_fifo.volatile.i256P0A, i256 %fifo_A_PE_5_0_x031, i256 %local_A_pong_V_load_14" [/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174]   --->   Operation 178 'write' 'write_ln174' <Predicate = (!icmp_ln890_584)> <Delay = 1.21> <CoreInst = "FIFO_SRL">   --->   Core 81 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 1.42> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 256> <Depth = 2> <FIFO>
+
+State 21 <SV = 19> <Delay = 1.21>
+ST_21 : Operation 179 [1/1] (0.00ns)   --->   "%specloopname_ln0 = specloopname void @_ssdm_op_SpecLoopName, void @A_IO_L2_in_5_x0_loop_4_A_IO_L2_in_5_x0_loop_5_str"   --->   Operation 179 'specloopname' 'specloopname_ln0' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_21 : Operation 180 [1/1] (0.00ns)   --->   "%speclooptripcount_ln0 = speclooptripcount void @_ssdm_op_SpecLoopTripCount, i64 2048, i64 2048, i64 2048"   --->   Operation 180 'speclooptripcount' 'speclooptripcount_ln0' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_21 : Operation 181 [1/1] (0.00ns)   --->   "%specpipeline_ln396 = specpipeline void @_ssdm_op_SpecPipeline, i32 16, i32 0, i32 0, i32 0, void @empty_647" [./dut.cpp:396]   --->   Operation 181 'specpipeline' 'specpipeline_ln396' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_21 : Operation 182 [1/1] (0.00ns)   --->   "%specloopname_ln396 = specloopname void @_ssdm_op_SpecLoopName, void @empty_532" [./dut.cpp:396]   --->   Operation 182 'specloopname' 'specloopname_ln396' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+ST_21 : Operation 183 [1/1] (1.21ns)   --->   "%write_ln174 = write void @_ssdm_op_Write.ap_fifo.volatile.i256P0A, i256 %fifo_A_PE_5_0_x031, i256 %local_A_pong_V_load_15" [/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174]   --->   Operation 183 'write' 'write_ln174' <Predicate = (!icmp_ln890_584)> <Delay = 1.21> <CoreInst = "FIFO_SRL">   --->   Core 81 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 1.42> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 256> <Depth = 2> <FIFO>
+ST_21 : Operation 184 [1/1] (0.00ns)   --->   "%br_ln0 = br void %.preheader.preheader"   --->   Operation 184 'br' 'br_ln0' <Predicate = (!icmp_ln890_584)> <Delay = 0.00>
+
+State 22 <SV = 4> <Delay = 0.00>
+ST_22 : Operation 185 [1/1] (0.00ns)   --->   "%ret_ln406 = ret" [./dut.cpp:406]   --->   Operation 185 'ret' 'ret_ln406' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 3.33ns, clock uncertainty: 0.9ns.
+
+ <State 1>: 0.387ns
+The critical path consists of the following:
+	multiplexor before 'phi' operation ('indvar_flatten13') with incoming values : ('add_ln890_212') [12]  (0.387 ns)
+
+ <State 2>: 2.32ns
+The critical path consists of the following:
+	'phi' operation ('indvar_flatten') with incoming values : ('select_ln890_528') [14]  (0 ns)
+	'icmp' operation ('icmp_ln890_583') [24]  (0.617 ns)
+	'select' operation ('select_ln375', ./dut.cpp:375) [25]  (0.278 ns)
+	'add' operation ('add_ln691_730') [33]  (0.707 ns)
+	'select' operation ('select_ln890_525') [40]  (0 ns)
+	'add' operation ('add_ln384', ./dut.cpp:384) [44]  (0.715 ns)
+
+ <State 3>: 2.43ns
+The critical path consists of the following:
+	fifo read on port 'fifo_A_A_IO_L2_in_5_x06' (/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:145) [49]  (1.22 ns)
+	fifo write on port 'fifo_A_A_IO_L2_in_6_x07' (/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174) [52]  (1.22 ns)
+
+ <State 4>: 0.387ns
+The critical path consists of the following:
+	multiplexor before 'phi' operation ('indvar_flatten37') with incoming values : ('add_ln890') [65]  (0.387 ns)
+
+ <State 5>: 2.2ns
+The critical path consists of the following:
+	'phi' operation ('c5.V') with incoming values : ('select_ln890_527') [66]  (0 ns)
+	'add' operation ('add_ln691_731') [72]  (0.706 ns)
+	'select' operation ('select_ln890_527') [76]  (0.293 ns)
+	'getelementptr' operation ('local_A_pong_V_addr_178', ./dut.cpp:401) [81]  (0 ns)
+	'load' operation ('local_A_pong_V_load', ./dut.cpp:401) on array 'local_A_pong.V', ./dut.cpp:368 [123]  (1.2 ns)
+
+ <State 6>: 2.42ns
+The critical path consists of the following:
+	'load' operation ('local_A_pong_V_load', ./dut.cpp:401) on array 'local_A_pong.V', ./dut.cpp:368 [123]  (1.2 ns)
+	fifo write on port 'fifo_A_PE_5_0_x031' (/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174) [124]  (1.22 ns)
+
+ <State 7>: 2.42ns
+The critical path consists of the following:
+	'load' operation ('local_A_pong_V_load_1', ./dut.cpp:401) on array 'local_A_pong.V', ./dut.cpp:368 [125]  (1.2 ns)
+	fifo write on port 'fifo_A_PE_5_0_x031' (/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174) [126]  (1.22 ns)
+
+ <State 8>: 1.92ns
+The critical path consists of the following:
+	'add' operation ('add_ln401_3', ./dut.cpp:401) [97]  (0.715 ns)
+	'getelementptr' operation ('local_A_pong_V_addr_185', ./dut.cpp:401) [99]  (0 ns)
+	'load' operation ('local_A_pong_V_load_7', ./dut.cpp:401) on array 'local_A_pong.V', ./dut.cpp:368 [137]  (1.2 ns)
+
+ <State 9>: 1.92ns
+The critical path consists of the following:
+	'add' operation ('add_ln401_4', ./dut.cpp:401) [102]  (0.715 ns)
+	'getelementptr' operation ('local_A_pong_V_addr_187', ./dut.cpp:401) [104]  (0 ns)
+	'load' operation ('local_A_pong_V_load_9', ./dut.cpp:401) on array 'local_A_pong.V', ./dut.cpp:368 [141]  (1.2 ns)
+
+ <State 10>: 1.92ns
+The critical path consists of the following:
+	'add' operation ('add_ln401_5', ./dut.cpp:401) [107]  (0.715 ns)
+	'getelementptr' operation ('local_A_pong_V_addr_189', ./dut.cpp:401) [109]  (0 ns)
+	'load' operation ('local_A_pong_V_load_11', ./dut.cpp:401) on array 'local_A_pong.V', ./dut.cpp:368 [145]  (1.2 ns)
+
+ <State 11>: 1.22ns
+The critical path consists of the following:
+	fifo write on port 'fifo_A_PE_5_0_x031' (/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174) [134]  (1.22 ns)
+
+ <State 12>: 1.32ns
+The critical path consists of the following:
+	'xor' operation ('xor_ln401', ./dut.cpp:401) [117]  (0.12 ns)
+	'getelementptr' operation ('local_A_pong_V_addr_193', ./dut.cpp:401) [120]  (0 ns)
+	'load' operation ('local_A_pong_V_load_15', ./dut.cpp:401) on array 'local_A_pong.V', ./dut.cpp:368 [153]  (1.2 ns)
+
+ <State 13>: 1.22ns
+The critical path consists of the following:
+	fifo write on port 'fifo_A_PE_5_0_x031' (/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174) [138]  (1.22 ns)
+
+ <State 14>: 1.22ns
+The critical path consists of the following:
+	fifo write on port 'fifo_A_PE_5_0_x031' (/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174) [140]  (1.22 ns)
+
+ <State 15>: 1.22ns
+The critical path consists of the following:
+	fifo write on port 'fifo_A_PE_5_0_x031' (/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174) [142]  (1.22 ns)
+
+ <State 16>: 1.22ns
+The critical path consists of the following:
+	fifo write on port 'fifo_A_PE_5_0_x031' (/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174) [144]  (1.22 ns)
+
+ <State 17>: 1.22ns
+The critical path consists of the following:
+	fifo write on port 'fifo_A_PE_5_0_x031' (/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174) [146]  (1.22 ns)
+
+ <State 18>: 1.22ns
+The critical path consists of the following:
+	fifo write on port 'fifo_A_PE_5_0_x031' (/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174) [148]  (1.22 ns)
+
+ <State 19>: 1.22ns
+The critical path consists of the following:
+	fifo write on port 'fifo_A_PE_5_0_x031' (/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174) [150]  (1.22 ns)
+
+ <State 20>: 1.22ns
+The critical path consists of the following:
+	fifo write on port 'fifo_A_PE_5_0_x031' (/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174) [152]  (1.22 ns)
+
+ <State 21>: 1.22ns
+The critical path consists of the following:
+	fifo write on port 'fifo_A_PE_5_0_x031' (/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174) [154]  (1.22 ns)
+
+ <State 22>: 0ns
+The critical path consists of the following:
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+	State 3
+	State 4
+	State 5
+	State 6
+	State 7
+	State 8
+	State 9
+	State 10
+	State 11
+	State 12
+	State 13
+	State 14
+	State 15
+	State 16
+	State 17
+	State 18
+	State 19
+	State 20
+	State 21
+	State 22
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A

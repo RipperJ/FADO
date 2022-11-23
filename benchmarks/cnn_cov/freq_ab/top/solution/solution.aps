@@ -1,0 +1,29 @@
+<AutoPilot:solution xmlns:AutoPilot="com.autoesl.autopilot.solution">
+    <config>
+        <config_compile complex-mul-dsp="0" pipeline_loops="0"/>
+        <config_dataflow strict_mode="warning"/>
+        <config_interface m_axi_addr64="1" m_axi_conservative_mode="1" m_axi_latency="64" m_axi_alignment_byte_size="64" m_axi_max_widen_bitwidth="512" default_interface="kernel" m_axi_offset="slave"/>
+        <config_rtl register_reset_num="3"/>
+        <config_export format="xo" output="XO.xo" rtl="verilog"/>
+    </config>
+    <ExportDesign askAgain="true" evaluate="false" rtl="verilog" formatName="xo">
+        <Format formatName="xo"/>
+    </ExportDesign>
+    <clockList>
+        <clock default="false" name="default" uncertainty="27.000000%" period="300MHz"/>
+    </clockList>
+    <name>
+        <value string="solution"/>
+    </name>
+    <project>
+        <value string="top"/>
+    </project>
+    <targetInfo>
+        <TargetInfo value="xcu250:-figd2104:-2L-e"/>
+    </targetInfo>
+    <libraryList>
+        <library value="xilinx/virtexuplus/virtexuplus" name="DefaultPlatform"/>
+    </libraryList>
+    <flowTarget value="vitis"/>
+</AutoPilot:solution>
+
