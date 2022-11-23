@@ -1,0 +1,547 @@
+
+
+================================================================
+== Vitis HLS Report for 'A_IO_L3_in_serialize_x0'
+================================================================
+* Date:           Mon Jul 25 22:18:11 2022
+
+* Version:        2020.2 (Build 3064766 on Wed Nov 18 09:12:47 MST 2020)
+* Project:        top
+* Solution:       solution (Vitis Kernel Flow Target)
+* Product family: virtexuplus
+* Target device:  xcu250-figd2104-2L-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  3.33 ns|  1.645 ns|     0.90 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+-----------+-----------+-------+-------+---------+
+    |  Latency (cycles) |   Latency (absolute)  |    Interval   | Pipeline|
+    |   min   |   max   |    min    |    max    |  min  |  max  |   Type  |
+    +---------+---------+-----------+-----------+-------+-------+---------+
+    |    12289|    12289|  40.959 us|  40.959 us|  12289|  12289|     none|
+    +---------+---------+-----------+-----------+-------+-------+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +----------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |                                  |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        |             Loop Name            |   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +----------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |- A_IO_L3_in_serialize_x0_loop_1  |    12288|    12288|         3|          -|          -|  4096|        no|
+        +----------------------------------+---------+---------+----------+-----------+-----------+------+----------+
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 0
+ResetActiveHigh: 1
+IsCombinational: 2
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 0
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 4
+* Pipeline : 0
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 3 
+3 --> 4 
+4 --> 2 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 0.38>
+ST_1 : Operation 5 [1/1] (0.00ns)   --->   "%specinterface_ln0 = specinterface void @_ssdm_op_SpecInterface, i512 %fifo_A_A_IO_L3_in_serialize_x01, void @empty_72, i32 0, i32 0, void @empty_1243, i32 0, i32 0, void @empty_1243, void @empty_1243, void @empty_1243, i32 0, i32 0, i32 0, i32 0, void @empty_1243, void @empty_1243"   --->   Operation 5 'specinterface' 'specinterface_ln0' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 6 [1/1] (0.38ns)   --->   "%br_ln138 = br void" [./dut.cpp:138]   --->   Operation 6 'br' 'br_ln138' <Predicate = true> <Delay = 0.38>
+
+State 2 <SV = 1> <Delay = 1.64>
+ST_2 : Operation 7 [1/1] (0.00ns)   --->   "%i_V = phi i13 0, void, i13 %i_V_3, void %.split"   --->   Operation 7 'phi' 'i_V' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 8 [1/1] (0.75ns)   --->   "%i_V_3 = add i13 %i_V, i13 1"   --->   Operation 8 'add' 'i_V_3' <Predicate = true> <Delay = 0.75> <CoreInst = "Adder">   --->   Core 1 'Adder' <Latency = 0> <II = 1> <Delay = 0.75> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 9 [1/1] (0.64ns)   --->   "%icmp_ln878 = icmp_eq  i13 %i_V, i13 4096"   --->   Operation 9 'icmp' 'icmp_ln878' <Predicate = true> <Delay = 0.64> <CoreInst = "Cmp">   --->   Core 9 'Cmp' <Latency = 0> <II = 1> <Delay = 0.64> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 10 [1/1] (0.00ns)   --->   "%speclooptripcount_ln0 = speclooptripcount void @_ssdm_op_SpecLoopTripCount, i64 4096, i64 4096, i64 4096"   --->   Operation 10 'speclooptripcount' 'speclooptripcount_ln0' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 11 [1/1] (0.00ns)   --->   "%br_ln138 = br i1 %icmp_ln878, void %.split, void" [./dut.cpp:138]   --->   Operation 11 'br' 'br_ln138' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 12 [1/1] (0.00ns)   --->   "%zext_ln534 = zext i13 %i_V"   --->   Operation 12 'zext' 'zext_ln534' <Predicate = (!icmp_ln878)> <Delay = 0.00>
+ST_2 : Operation 13 [1/1] (0.00ns)   --->   "%A_addr = getelementptr i119 %A, i64 0, i64 %zext_ln534" [./dut.cpp:140]   --->   Operation 13 'getelementptr' 'A_addr' <Predicate = (!icmp_ln878)> <Delay = 0.00>
+ST_2 : Operation 14 [2/2] (1.64ns)   --->   "%A_load = load i12 %A_addr" [./dut.cpp:140]   --->   Operation 14 'load' 'A_load' <Predicate = (!icmp_ln878)> <Delay = 1.64> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.64> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 119> <Depth = 4096> <RAM>
+ST_2 : Operation 15 [1/1] (0.00ns)   --->   "%ret_ln143 = ret" [./dut.cpp:143]   --->   Operation 15 'ret' 'ret_ln143' <Predicate = (icmp_ln878)> <Delay = 0.00>
+
+State 3 <SV = 2> <Delay = 1.64>
+ST_3 : Operation 16 [1/2] (1.64ns)   --->   "%A_load = load i12 %A_addr" [./dut.cpp:140]   --->   Operation 16 'load' 'A_load' <Predicate = true> <Delay = 1.64> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 1.64> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 119> <Depth = 4096> <RAM>
+
+State 4 <SV = 3> <Delay = 1.21>
+ST_4 : Operation 17 [1/1] (0.00ns)   --->   "%specloopname_ln138 = specloopname void @_ssdm_op_SpecLoopName, void @empty_464" [./dut.cpp:138]   --->   Operation 17 'specloopname' 'specloopname_ln138' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 18 [1/1] (0.00ns)   --->   "%A_load_cast = zext i119 %A_load" [./dut.cpp:140]   --->   Operation 18 'zext' 'A_load_cast' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 19 [1/1] (1.21ns)   --->   "%write_ln174 = write void @_ssdm_op_Write.ap_fifo.volatile.i512P0A, i512 %fifo_A_A_IO_L3_in_serialize_x01, i512 %A_load_cast" [/home/rcslfpgaserver/Softwares/Xilinx/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:174]   --->   Operation 19 'write' 'write_ln174' <Predicate = true> <Delay = 1.21> <CoreInst = "FIFO_SRL">   --->   Core 81 'FIFO_SRL' <Latency = 0> <II = 1> <Delay = 1.41> <Storage> <Opcode : 'read' 'write' 'nbread' 'nbwrite'> <Ports = 0> <Width = 512> <Depth = 2> <FIFO>
+ST_4 : Operation 20 [1/1] (0.00ns)   --->   "%br_ln0 = br void"   --->   Operation 20 'br' 'br_ln0' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+STG Binding: 
+---------------- STG Properties BEGIN ----------------
+- Is combinational: 0
+- Is one-state seq: 0
+- Is datapath-only: 0
+- Is pipelined: 0
+- Is top level: 0
+Port [ Return ] is wired: 1; IO mode=ap_ctrl_hs:ce=0
+Port [ fifo_A_A_IO_L3_in_serialize_x01]:  wired=1; compound=1; hidden=0; nouse=0; global=0; static=0; extern=0; dir=1; type=3; pingpong=0; private_global=0; IO mode=ap_fifo:ce=0
+Port [ A]:  wired=1; compound=1; hidden=0; nouse=0; global=0; static=0; extern=0; dir=0; type=1; pingpong=0; private_global=0; MemPort=[13]; IO mode=ap_memory:ce=0
+---------------- STG Properties END ------------------
+
+---------------- Datapath Model BEGIN ----------------
+
+<LifeTime>
+<method=bitvector/>
+specinterface_ln0     (specinterface    ) [ 00000]
+br_ln138              (br               ) [ 01111]
+i_V                   (phi              ) [ 00100]
+i_V_3                 (add              ) [ 01111]
+icmp_ln878            (icmp             ) [ 00111]
+speclooptripcount_ln0 (speclooptripcount) [ 00000]
+br_ln138              (br               ) [ 00000]
+zext_ln534            (zext             ) [ 00000]
+A_addr                (getelementptr    ) [ 00010]
+ret_ln143             (ret              ) [ 00000]
+A_load                (load             ) [ 00001]
+specloopname_ln138    (specloopname     ) [ 00000]
+A_load_cast           (zext             ) [ 00000]
+write_ln174           (write            ) [ 00000]
+br_ln0                (br               ) [ 01111]
+</LifeTime>
+
+<model>
+
+<comp_list>
+<comp id="0" class="1000" name="fifo_A_A_IO_L3_in_serialize_x01">
+<pin_list>
+<pin id="1" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="fifo_A_A_IO_L3_in_serialize_x01"/></StgValue>
+</bind>
+</comp>
+
+<comp id="2" class="1000" name="A">
+<pin_list>
+<pin id="3" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="A"/><MemPortTyVec>1 3 </MemPortTyVec>
+</StgValue>
+</bind>
+</comp>
+
+<comp id="4" class="1001" name="const_4">
+<pin_list>
+<pin id="5" dir="1" index="0" bw="1" slack="2147483647"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="_ssdm_op_SpecInterface"/></StgValue>
+</bind>
+</comp>
+
+<comp id="6" class="1001" name="const_6">
+<pin_list>
+<pin id="7" dir="1" index="0" bw="1" slack="2147483647"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="empty_72"/></StgValue>
+</bind>
+</comp>
+
+<comp id="8" class="1001" name="const_8">
+<pin_list>
+<pin id="9" dir="1" index="0" bw="1" slack="2147483647"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name=""/></StgValue>
+</bind>
+</comp>
+
+<comp id="10" class="1001" name="const_10">
+<pin_list>
+<pin id="11" dir="1" index="0" bw="1" slack="2147483647"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="empty_1243"/></StgValue>
+</bind>
+</comp>
+
+<comp id="12" class="1001" name="const_12">
+<pin_list>
+<pin id="13" dir="1" index="0" bw="1" slack="1"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name=""/></StgValue>
+</bind>
+</comp>
+
+<comp id="14" class="1001" name="const_14">
+<pin_list>
+<pin id="15" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name=""/></StgValue>
+</bind>
+</comp>
+
+<comp id="16" class="1001" name="const_16">
+<pin_list>
+<pin id="17" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name=""/></StgValue>
+</bind>
+</comp>
+
+<comp id="18" class="1001" name="const_18">
+<pin_list>
+<pin id="19" dir="1" index="0" bw="1" slack="2147483647"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="_ssdm_op_SpecLoopTripCount"/></StgValue>
+</bind>
+</comp>
+
+<comp id="20" class="1001" name="const_20">
+<pin_list>
+<pin id="21" dir="1" index="0" bw="1" slack="2147483647"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name=""/></StgValue>
+</bind>
+</comp>
+
+<comp id="22" class="1001" name="const_22">
+<pin_list>
+<pin id="23" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name=""/></StgValue>
+</bind>
+</comp>
+
+<comp id="24" class="1001" name="const_24">
+<pin_list>
+<pin id="25" dir="1" index="0" bw="1" slack="2147483647"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="_ssdm_op_SpecLoopName"/></StgValue>
+</bind>
+</comp>
+
+<comp id="26" class="1001" name="const_26">
+<pin_list>
+<pin id="27" dir="1" index="0" bw="1" slack="2147483647"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="empty_464"/></StgValue>
+</bind>
+</comp>
+
+<comp id="28" class="1001" name="const_28">
+<pin_list>
+<pin id="29" dir="1" index="0" bw="1" slack="0"/>
+</pin_list>
+<bind>
+<StgValue><ssdm name="_ssdm_op_Write.ap_fifo.volatile.i512P0A"/></StgValue>
+</bind>
+</comp>
+
+<comp id="30" class="1004" name="write_ln174_write_fu_30">
+<pin_list>
+<pin id="31" dir="0" index="0" bw="0" slack="0"/>
+<pin id="32" dir="0" index="1" bw="512" slack="0"/>
+<pin id="33" dir="0" index="2" bw="119" slack="0"/>
+<pin id="34" dir="1" index="3" bw="0" slack="2147483647"/>
+</pin_list>
+<bind>
+<opcode="write(1151) " fcode="write"/>
+<opset="write_ln174/4 "/>
+</bind>
+</comp>
+
+<comp id="37" class="1004" name="A_addr_gep_fu_37">
+<pin_list>
+<pin id="38" dir="0" index="0" bw="119" slack="0"/>
+<pin id="39" dir="0" index="1" bw="1" slack="0"/>
+<pin id="40" dir="0" index="2" bw="13" slack="0"/>
+<pin id="41" dir="1" index="3" bw="12" slack="0"/>
+</pin_list>
+<bind>
+<opcode="getelementptr(29) " fcode="getelementptr"/>
+<opset="A_addr/2 "/>
+</bind>
+</comp>
+
+<comp id="44" class="1004" name="grp_access_fu_44">
+<pin_list>
+<pin id="45" dir="0" index="0" bw="12" slack="0"/>
+<pin id="46" dir="0" index="1" bw="119" slack="2147483647"/>
+<pin id="47" dir="0" index="2" bw="0" slack="2147483647"/>
+<pin id="48" dir="1" index="3" bw="119" slack="1"/>
+</pin_list>
+<bind>
+<opcode="load(27) " fcode="load"/>
+<opset="A_load/2 "/>
+</bind>
+</comp>
+
+<comp id="50" class="1005" name="i_V_reg_50">
+<pin_list>
+<pin id="51" dir="0" index="0" bw="13" slack="1"/>
+<pin id="52" dir="1" index="1" bw="13" slack="1"/>
+</pin_list>
+<bind>
+<opset="i_V (phireg) "/>
+</bind>
+</comp>
+
+<comp id="54" class="1004" name="i_V_phi_fu_54">
+<pin_list>
+<pin id="55" dir="0" index="0" bw="1" slack="1"/>
+<pin id="56" dir="0" index="1" bw="0" slack="2147483647"/>
+<pin id="57" dir="0" index="2" bw="13" slack="0"/>
+<pin id="58" dir="0" index="3" bw="0" slack="2147483647"/>
+<pin id="59" dir="1" index="4" bw="13" slack="0"/>
+</pin_list>
+<bind>
+<opcode="phi(47) " fcode="phi"/>
+<opset="i_V/2 "/>
+</bind>
+</comp>
+
+<comp id="61" class="1004" name="i_V_3_fu_61">
+<pin_list>
+<pin id="62" dir="0" index="0" bw="13" slack="0"/>
+<pin id="63" dir="0" index="1" bw="1" slack="0"/>
+<pin id="64" dir="1" index="2" bw="13" slack="0"/>
+</pin_list>
+<bind>
+<opcode="add(8) " fcode="add"/>
+<opset="i_V_3/2 "/>
+</bind>
+</comp>
+
+<comp id="67" class="1004" name="icmp_ln878_fu_67">
+<pin_list>
+<pin id="68" dir="0" index="0" bw="13" slack="0"/>
+<pin id="69" dir="0" index="1" bw="13" slack="0"/>
+<pin id="70" dir="1" index="2" bw="1" slack="2147483647"/>
+</pin_list>
+<bind>
+<opcode="icmp(45) " fcode="icmp"/>
+<opset="icmp_ln878/2 "/>
+</bind>
+</comp>
+
+<comp id="73" class="1004" name="zext_ln534_fu_73">
+<pin_list>
+<pin id="74" dir="0" index="0" bw="13" slack="0"/>
+<pin id="75" dir="1" index="1" bw="64" slack="0"/>
+</pin_list>
+<bind>
+<opcode="zext(34) " fcode="zext"/>
+<opset="zext_ln534/2 "/>
+</bind>
+</comp>
+
+<comp id="78" class="1004" name="A_load_cast_fu_78">
+<pin_list>
+<pin id="79" dir="0" index="0" bw="119" slack="1"/>
+<pin id="80" dir="1" index="1" bw="512" slack="0"/>
+</pin_list>
+<bind>
+<opcode="zext(34) " fcode="zext"/>
+<opset="A_load_cast/4 "/>
+</bind>
+</comp>
+
+<comp id="82" class="1005" name="i_V_3_reg_82">
+<pin_list>
+<pin id="83" dir="0" index="0" bw="13" slack="0"/>
+<pin id="84" dir="1" index="1" bw="13" slack="0"/>
+</pin_list>
+<bind>
+<opset="i_V_3 "/>
+</bind>
+</comp>
+
+<comp id="90" class="1005" name="A_addr_reg_90">
+<pin_list>
+<pin id="91" dir="0" index="0" bw="12" slack="1"/>
+<pin id="92" dir="1" index="1" bw="12" slack="1"/>
+</pin_list>
+<bind>
+<opset="A_addr "/>
+</bind>
+</comp>
+
+<comp id="95" class="1005" name="A_load_reg_95">
+<pin_list>
+<pin id="96" dir="0" index="0" bw="119" slack="1"/>
+<pin id="97" dir="1" index="1" bw="119" slack="1"/>
+</pin_list>
+<bind>
+<opset="A_load "/>
+</bind>
+</comp>
+
+</comp_list>
+
+<net_list>
+<net id="35"><net_src comp="28" pin="0"/><net_sink comp="30" pin=0"/></net>
+
+<net id="36"><net_src comp="0" pin="0"/><net_sink comp="30" pin=1"/></net>
+
+<net id="42"><net_src comp="2" pin="0"/><net_sink comp="37" pin=0"/></net>
+
+<net id="43"><net_src comp="22" pin="0"/><net_sink comp="37" pin=1"/></net>
+
+<net id="49"><net_src comp="37" pin="3"/><net_sink comp="44" pin=0"/></net>
+
+<net id="53"><net_src comp="12" pin="0"/><net_sink comp="50" pin=0"/></net>
+
+<net id="60"><net_src comp="50" pin="1"/><net_sink comp="54" pin=0"/></net>
+
+<net id="65"><net_src comp="54" pin="4"/><net_sink comp="61" pin=0"/></net>
+
+<net id="66"><net_src comp="14" pin="0"/><net_sink comp="61" pin=1"/></net>
+
+<net id="71"><net_src comp="54" pin="4"/><net_sink comp="67" pin=0"/></net>
+
+<net id="72"><net_src comp="16" pin="0"/><net_sink comp="67" pin=1"/></net>
+
+<net id="76"><net_src comp="54" pin="4"/><net_sink comp="73" pin=0"/></net>
+
+<net id="77"><net_src comp="73" pin="1"/><net_sink comp="37" pin=2"/></net>
+
+<net id="81"><net_src comp="78" pin="1"/><net_sink comp="30" pin=2"/></net>
+
+<net id="85"><net_src comp="61" pin="2"/><net_sink comp="82" pin=0"/></net>
+
+<net id="86"><net_src comp="82" pin="1"/><net_sink comp="54" pin=2"/></net>
+
+<net id="93"><net_src comp="37" pin="3"/><net_sink comp="90" pin=0"/></net>
+
+<net id="94"><net_src comp="90" pin="1"/><net_sink comp="44" pin=0"/></net>
+
+<net id="98"><net_src comp="44" pin="3"/><net_sink comp="95" pin=0"/></net>
+
+<net id="99"><net_src comp="95" pin="1"/><net_sink comp="78" pin=0"/></net>
+
+</net_list>
+
+</model> 
+---------------- Datapath Model END ------------------
+
+* FSMD analyzer results:
+  - Output states:
+	Port: fifo_A_A_IO_L3_in_serialize_x01 | {4 }
+ - Input state : 
+	Port: A_IO_L3_in_serialize_x0 : A | {2 3 }
+  - Chain level:
+	State 1
+	State 2
+		i_V_3 : 1
+		icmp_ln878 : 1
+		br_ln138 : 2
+		zext_ln534 : 1
+		A_addr : 2
+		A_load : 3
+	State 3
+	State 4
+		write_ln174 : 1
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+
+* Functional unit list:
+|----------|-------------------------|---------|---------|
+| Operation|     Functional Unit     |    FF   |   LUT   |
+|----------|-------------------------|---------|---------|
+|    add   |       i_V_3_fu_61       |    0    |    20   |
+|----------|-------------------------|---------|---------|
+|   icmp   |     icmp_ln878_fu_67    |    0    |    12   |
+|----------|-------------------------|---------|---------|
+|   write  | write_ln174_write_fu_30 |    0    |    0    |
+|----------|-------------------------|---------|---------|
+|   zext   |     zext_ln534_fu_73    |    0    |    0    |
+|          |    A_load_cast_fu_78    |    0    |    0    |
+|----------|-------------------------|---------|---------|
+|   Total  |                         |    0    |    32   |
+|----------|-------------------------|---------|---------|
+
+Memories:
+N/A
+
+* Register list:
++-------------+--------+
+|             |   FF   |
++-------------+--------+
+|A_addr_reg_90|   12   |
+|A_load_reg_95|   119  |
+| i_V_3_reg_82|   13   |
+|  i_V_reg_50 |   13   |
++-------------+--------+
+|    Total    |   157  |
++-------------+--------+
+
+* Multiplexer (MUX) list: 
+|------------------|------|------|------|--------||---------||---------|
+|       Comp       |  Pin | Size |  BW  | S x BW ||  Delay  ||   LUT   |
+|------------------|------|------|------|--------||---------||---------|
+| grp_access_fu_44 |  p0  |   2  |  12  |   24   ||    9    |
+|------------------|------|------|------|--------||---------||---------|
+|       Total      |      |      |      |   24   ||  0.387  ||    9    |
+|------------------|------|------|------|--------||---------||---------|
+
+
+
+* Summary:
++-----------+--------+--------+--------+
+|           |  Delay |   FF   |   LUT  |
++-----------+--------+--------+--------+
+|  Function |    -   |    0   |   32   |
+|   Memory  |    -   |    -   |    -   |
+|Multiplexer|    0   |    -   |    9   |
+|  Register |    -   |   157  |    -   |
++-----------+--------+--------+--------+
+|   Total   |    0   |   157  |   41   |
++-----------+--------+--------+--------+
