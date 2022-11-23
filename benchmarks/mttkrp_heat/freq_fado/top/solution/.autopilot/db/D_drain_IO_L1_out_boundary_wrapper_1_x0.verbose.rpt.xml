@@ -1,0 +1,179 @@
+<profile>
+
+<section name = "Vitis HLS Report for 'D_drain_IO_L1_out_boundary_wrapper_1_x0'" level="0">
+<item name = "Date">Sun Sep  4 23:21:20 2022
+</item>
+<item name = "Version">2020.2 (Build 3064766 on Wed Nov 18 09:12:47 MST 2020)</item>
+<item name = "Project">top</item>
+<item name = "Solution">solution (Vitis Kernel Flow Target)</item>
+<item name = "Product family">virtexuplus</item>
+<item name = "Target device">xcu250-figd2104-2L-e</item>
+</section>
+
+<section name = "Performance Estimates" level="0">
+<item name = "Timing">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="4">Clock, Target, Estimated, Uncertainty</keys>
+<column name="ap_clk">3.33 ns, 1.947 ns, 0.90 ns</column>
+</table>
+</item>
+</section>
+</item>
+<item name = "Latency">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="8">, min, max, min, max, min, max, Type</keys>
+<column name="">33489, 33489, 0.112 ms, 0.112 ms, 33489, 33489, none</column>
+</table>
+</item>
+<item name = "Detail">
+<section name = "" level="1">
+<item name = "Instance"><table name="" hasTotal="0">
+<keys size="9">Instance, Module, min, max, min, max, min, max, Type</keys>
+</table>
+</item>
+<item name = "Loop"><table name="" hasTotal="0">
+<keys size="8">Loop Name, min, max, Latency, achieved, target, Count, Pipelined</keys>
+<column name="- D_drain_IO_L1_out_boundary_wrapper_1_x0_loop_1">33488, 33488, 8372, -, -, 4, no</column>
+<column name=" + D_drain_IO_L1_out_boundary_wrapper_1_x0_loop_2">8370, 8370, 1395, -, -, 6, no</column>
+<column name="  ++ D_drain_IO_L1_out_boundary_wrapper_1_x0_loop_3">1296, 1296, 162, -, -, 8, no</column>
+<column name="   +++ D_drain_IO_L1_out_boundary_wrapper_1_x0_loop_4">160, 160, 10, -, -, 16, no</column>
+<column name="    ++++ D_drain_IO_L1_out_boundary_wrapper_1_x0_loop_5">4, 4, 1, -, -, 4, no</column>
+<column name="  ++ D_drain_IO_L1_out_boundary_wrapper_1_x0_loop_7">96, 96, 6, -, -, 16, no</column>
+<column name="   +++ D_drain_IO_L1_out_boundary_wrapper_1_x0_loop_8">4, 4, 2, -, -, 2, no</column>
+</table>
+</item>
+</section>
+</item>
+</section>
+</item>
+</section>
+
+<section name = "Utilization Estimates" level="0">
+<item name = "Summary"><table name="" hasTotal="1">
+<keys size="6">Name, BRAM_18K, DSP, FF, LUT, URAM</keys>
+<column name="DSP">-, -, -, -, -</column>
+<column name="Expression">-, -, 0, 152, -</column>
+<column name="FIFO">-, -, -, -, -</column>
+<column name="Instance">-, -, -, -, -</column>
+<column name="Memory">0, -, 160, 162, -</column>
+<column name="Multiplexer">-, -, -, 238, -</column>
+<column name="Register">-, -, 297, -, -</column>
+<specialColumn name="Available SLR">1344, 3072, 864000, 432000, 320</specialColumn>
+<specialColumn name="Utilization SLR (%)">0, 0, ~0, ~0, 0</specialColumn>
+<specialColumn name="Available">5376, 12288, 3456000, 1728000, 1280</specialColumn>
+<specialColumn name="Utilization (%)">0, 0, ~0, ~0, 0</specialColumn>
+</table>
+</item>
+<item name = "Detail">
+<section name = "" level="1">
+<item name = "Instance"><table name="" hasTotal="1">
+<keys size="7">Instance, Module, BRAM_18K, DSP, FF, LUT, URAM</keys>
+</table>
+</item>
+<item name = "DSP"><table name="" hasTotal="0">
+<keys size="3">Instance, Module, Expression</keys>
+</table>
+</item>
+<item name = "Memory"><table name="" hasTotal="1">
+<keys size="10">Memory, Module, BRAM_18K, FF, LUT, URAM, Words, Bits, Banks, W*Bits*Banks</keys>
+<column name="data_split_V_U">D_drain_IO_L1_out_boundary_wrapper_0_x0_data_split_V, 0, 32, 33, 0, 4, 32, 1, 128</column>
+<column name="local_D_V_U">D_drain_IO_L1_out_boundary_wrapper_0_x0_local_D_V, 0, 128, 129, 0, 32, 128, 1, 4096</column>
+</table>
+</item>
+<item name = "FIFO"><table name="" hasTotal="1">
+<keys size="8">Name, BRAM_18K, FF, LUT, URAM, Depth, Bits, Size:D*B</keys>
+</table>
+</item>
+<item name = "Expression"><table name="" hasTotal="1">
+<keys size="7">Variable Name, Operation, DSP, FF, LUT, Bitwidth P0, Bitwidth P1</keys>
+<column name="add_ln11169_fu_431_p2">+, 0, 0, 12, 5, 5</column>
+<column name="add_ln691_1000_fu_356_p2">+, 0, 0, 10, 3, 1</column>
+<column name="add_ln691_995_fu_291_p2">+, 0, 0, 10, 3, 1</column>
+<column name="add_ln691_996_fu_303_p2">+, 0, 0, 12, 4, 1</column>
+<column name="add_ln691_997_fu_403_p2">+, 0, 0, 12, 5, 1</column>
+<column name="add_ln691_998_fu_421_p2">+, 0, 0, 9, 2, 1</column>
+<column name="add_ln691_999_fu_332_p2">+, 0, 0, 12, 5, 1</column>
+<column name="add_ln691_fu_279_p2">+, 0, 0, 10, 3, 1</column>
+<column name="icmp_ln878_fu_367_p2">icmp, 0, 0, 9, 3, 4</column>
+<column name="icmp_ln890_1047_fu_297_p2">icmp, 0, 0, 8, 3, 3</column>
+<column name="icmp_ln890_1048_fu_309_p2">icmp, 0, 0, 9, 4, 5</column>
+<column name="icmp_ln890_1049_fu_415_p2">icmp, 0, 0, 10, 5, 6</column>
+<column name="icmp_ln890_1050_fu_350_p2">icmp, 0, 0, 10, 5, 6</column>
+<column name="icmp_ln890_1051_fu_441_p2">icmp, 0, 0, 8, 2, 3</column>
+<column name="icmp_ln890_fu_285_p2">icmp, 0, 0, 9, 3, 4</column>
+<column name="ap_block_state1">or, 0, 0, 2, 1, 1</column>
+</table>
+</item>
+<item name = "Multiplexer"><table name="" hasTotal="1">
+<keys size="5">Name, LUT, Input Size, Bits, Total Bits</keys>
+<column name="ap_NS_fsm">65, 14, 1, 14</column>
+<column name="ap_done">9, 2, 1, 2</column>
+<column name="c0_V_reg_193">9, 2, 3, 6</column>
+<column name="c1_V_reg_204">9, 2, 3, 6</column>
+<column name="c5_V_reg_257">9, 2, 5, 10</column>
+<column name="c6_V_reg_268">9, 2, 2, 4</column>
+<column name="c7_V_reg_215">9, 2, 4, 8</column>
+<column name="c8_V_reg_226">9, 2, 5, 10</column>
+<column name="data_split_V_address0">26, 5, 2, 10</column>
+<column name="data_split_V_address1">14, 3, 2, 6</column>
+<column name="data_split_V_d0">14, 3, 32, 96</column>
+<column name="fifo_D_drain_D_drain_IO_L1_out_1_3_x0180_blk_n">9, 2, 1, 2</column>
+<column name="fifo_D_drain_PE_3_1_x0148_blk_n">9, 2, 1, 2</column>
+<column name="local_D_V_address0">20, 4, 5, 20</column>
+<column name="n_V_reg_237">9, 2, 3, 6</column>
+<column name="p_Val2_s_reg_248">9, 2, 128, 256</column>
+</table>
+</item>
+<item name = "Register"><table name="" hasTotal="1">
+<keys size="5">Name, FF, LUT, Bits, Const Bits</keys>
+<column name="add_ln691_995_reg_475">3, 0, 3, 0</column>
+<column name="add_ln691_996_reg_483">4, 0, 4, 0</column>
+<column name="add_ln691_997_reg_547">5, 0, 5, 0</column>
+<column name="add_ln691_998_reg_560">2, 0, 2, 0</column>
+<column name="add_ln691_999_reg_501">5, 0, 5, 0</column>
+<column name="add_ln691_reg_467">3, 0, 3, 0</column>
+<column name="ap_CS_fsm">13, 0, 13, 0</column>
+<column name="ap_done_reg">1, 0, 1, 0</column>
+<column name="c0_V_reg_193">3, 0, 3, 0</column>
+<column name="c1_V_reg_204">3, 0, 3, 0</column>
+<column name="c5_V_reg_257">5, 0, 5, 0</column>
+<column name="c6_V_reg_268">2, 0, 2, 0</column>
+<column name="c7_V_reg_215">4, 0, 4, 0</column>
+<column name="c8_V_reg_226">5, 0, 5, 0</column>
+<column name="data_split_V_addr_309_reg_496">2, 0, 2, 0</column>
+<column name="local_D_V_addr_reg_506">5, 0, 5, 0</column>
+<column name="n_V_reg_237">3, 0, 3, 0</column>
+<column name="p_Val2_s_reg_248">128, 0, 128, 0</column>
+<column name="shl_ln890_reg_552">4, 0, 5, 1</column>
+<column name="tmp_374_reg_514">32, 0, 32, 0</column>
+<column name="tmp_reg_491">1, 0, 1, 0</column>
+<column name="v2_V_1162_reg_542">32, 0, 32, 0</column>
+<column name="v2_V_reg_537">32, 0, 32, 0</column>
+</table>
+</item>
+</section>
+</item>
+</section>
+
+<section name = "Interface" level="0">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="6">RTL Ports, Dir, Bits, Protocol, Source Object, C Type</keys>
+<column name="ap_clk">in, 1, ap_ctrl_hs, D_drain_IO_L1_out_boundary_wrapper_1_x0, return value</column>
+<column name="ap_rst">in, 1, ap_ctrl_hs, D_drain_IO_L1_out_boundary_wrapper_1_x0, return value</column>
+<column name="ap_start">in, 1, ap_ctrl_hs, D_drain_IO_L1_out_boundary_wrapper_1_x0, return value</column>
+<column name="ap_done">out, 1, ap_ctrl_hs, D_drain_IO_L1_out_boundary_wrapper_1_x0, return value</column>
+<column name="ap_continue">in, 1, ap_ctrl_hs, D_drain_IO_L1_out_boundary_wrapper_1_x0, return value</column>
+<column name="ap_idle">out, 1, ap_ctrl_hs, D_drain_IO_L1_out_boundary_wrapper_1_x0, return value</column>
+<column name="ap_ready">out, 1, ap_ctrl_hs, D_drain_IO_L1_out_boundary_wrapper_1_x0, return value</column>
+<column name="fifo_D_drain_D_drain_IO_L1_out_1_3_x0180_din">out, 128, ap_fifo, fifo_D_drain_D_drain_IO_L1_out_1_3_x0180, pointer</column>
+<column name="fifo_D_drain_D_drain_IO_L1_out_1_3_x0180_full_n">in, 1, ap_fifo, fifo_D_drain_D_drain_IO_L1_out_1_3_x0180, pointer</column>
+<column name="fifo_D_drain_D_drain_IO_L1_out_1_3_x0180_write">out, 1, ap_fifo, fifo_D_drain_D_drain_IO_L1_out_1_3_x0180, pointer</column>
+<column name="fifo_D_drain_PE_3_1_x0148_dout">in, 32, ap_fifo, fifo_D_drain_PE_3_1_x0148, pointer</column>
+<column name="fifo_D_drain_PE_3_1_x0148_empty_n">in, 1, ap_fifo, fifo_D_drain_PE_3_1_x0148, pointer</column>
+<column name="fifo_D_drain_PE_3_1_x0148_read">out, 1, ap_fifo, fifo_D_drain_PE_3_1_x0148, pointer</column>
+</table>
+</item>
+</section>
+</profile>
