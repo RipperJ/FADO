@@ -107,7 +107,6 @@ To reproduce the results shown in the FADO paper, to be specific, mainly the ***
                 > &nbsp;  Resource: 63.45%, Latency (thousand cycles): 101763.6  
                 > Stage 3: Online+Offline+Ahead+Back  
                 > &nbsp;  Resource: 64.39%, Latency (thousand cycles): 101755.4  
-
                 or
                 > 
                 > ======== DSE Stages (Table 6) MTTKRP\*2+COV\*2 ========  
