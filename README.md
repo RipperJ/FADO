@@ -1,6 +1,6 @@
 # FADO
 
-<!-- [![DOI](https://zenodo.org/badge/540762730.svg)](https://zenodo.org/badge/latestdoi/540762730) -->
+[![DOI](https://zenodo.org/badge/540762730.svg)](https://zenodo.org/badge/latestdoi/540762730)
 
 Floorplan-Aware Directive Optimization for HLS designs on Multi-die FPGAs
 
