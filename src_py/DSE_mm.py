@@ -24,7 +24,7 @@ from HLSUtils import dump_directives_to_tcl, run_hls
 import matplotlib.pyplot as plt
 import oapackage
 
-class DSE:
+class DSE_mm:
     def __init__(self, board:DeviceBase, top_rtl_parser:TopRTLParser, slot_manager:SlotManager, floorplan:Floorplanner, graph:DataflowGraph, DSE_LIB_JSON, PREFIX_REGEXS_TO_FUNC_LIBNAME, AreaUtilizationRatio, sub_rtl_paths, LAnum, floorplanmethod):
         self.board = board
         self.top_rtl_parser = top_rtl_parser
@@ -61,7 +61,7 @@ class DSE:
         self.s2totalarea = {_:_.getArea() for _ in self.s2util.keys()}
         # e.g., "('CR_X4Y0_To_CR_X7Y3', {'BRAM': 240, 'DSP': 1056, 'FF': 240960, 'LUT': 120480, 'URAM': 144})"
         
-        self.look_ahead_num = LAnum if LAnum > 0 else 100
+        self.look_ahead_num = LAnum
         self.floorplanmethod = floorplanmethod
     
     def snapshot_lat_resource(self, type):
@@ -75,27 +75,37 @@ class DSE:
         kernel1_count = 0
         nondf_count = 0
         for vname in self.new_vname_to_all.keys():
-            if re.search("_x0", vname):
+            if re.search("_x0", vname) and not re.search("nondf_", vname):
                 snapshot_list[0]["latency"] = max(self.new_vname_to_all[vname]["latency"], snapshot_list[0]["latency"])
                 for r in RESOURCE_TYPES:
                     snapshot_list[0]["area"][r] += self.new_vname_to_all[vname][r]
                 kernel0_count += 1
-            elif re.search("_x1", vname):
-                snapshot_list[1]["latency"] = max(self.new_vname_to_all[vname]["latency"], snapshot_list[1]["latency"])
-                for r in RESOURCE_TYPES:
-                    snapshot_list[1]["area"][r] += self.new_vname_to_all[vname][r]
-                kernel1_count += 1
+            # elif re.search("_x1", vname) and not re.search("nondf_", vname):
+            #     snapshot_list[1]["latency"] = max(self.new_vname_to_all[vname]["latency"], snapshot_list[1]["latency"])
+            #     for r in RESOURCE_TYPES:
+            #         snapshot_list[1]["area"][r] += self.new_vname_to_all[vname][r]
+            #     kernel1_count += 1
             elif re.search("nondf_", vname):
+                logging.info("snapshot nondf vname: {}".format(vname))
                 snapshot_list[2]["latency"] = max(self.new_vname_to_all[vname]["latency"], snapshot_list[2]["latency"])
                 for r in RESOURCE_TYPES:
                     snapshot_list[2]["area"][r] += self.new_vname_to_all[vname][r]
                 nondf_count += 1
-                
-        logging.error((kernel0_count, kernel1_count, nondf_count))
-        self.snapshots_resource.append(max([sum([_["area"][__] for _ in snapshot_list])/TOTAL_AREA[__] for __ in RESOURCE_TYPES]))
+            else:
+                logging.error("Unexpected vname: {}".format(vname))
+                exit(1)
+        
+        resource_consumed = max([sum([_["area"][__] for _ in snapshot_list])/TOTAL_AREA[__] for __ in RESOURCE_TYPES])
+        if resource_consumed > self.AreaUtilizationRatio:
+            return
+        logging.error((kernel0_count, nondf_count))
+        self.snapshots_resource.append(resource_consumed)
         self.snapshots_latency.append(sum([_["latency"] for _ in snapshot_list]))
         logging.info("Post snapshot:\nLatency: {}, Resource: {}".format(self.snapshots_latency[-1], self.snapshots_resource[-1]))
+        # logging.info("df resource: {}".format(snapshot_list[-2]))
         self.snapshots_type.append(type)
+        # logging.info("Nondf resource: {}".format(snapshot_list[-1]))
+        # self.snapshots_type.append(type)
     
     def balance_bram_uram(self, new_design_point_bram, dse_lib_uram_dict, bram_util, bram_total, uram_util, uram_total, alpha, curr_libname):
         success = 0
@@ -176,6 +186,11 @@ class DSE:
     
     # 2. find the topological order in each group, # ! Currently topological order is not yet used.
     def _2_group_by_kernels(self):
+        with open(self.DSE_LIB_JSON, "r") as dse_lib_f:
+            data_temp = json.load(dse_lib_f)
+        # for each_func in data_temp.keys():
+        #     logging.info(data_temp[each_func][0])
+        # exit(0)
         self.floorplan.topologicalSort() # generate self.floorplan.topostack
         # self.vname_all_topoorder = defaultlist() # ! topological sort is not yet used.
         self.vname_grouped_topoorder = defaultlist(list)    # group_list of vertex_list of (latency, name)
@@ -184,10 +199,11 @@ class DSE:
         for i in range(len(self.floorplan.topostack)):
             vf_name = self.floorplan.topostack[i]
             if vf_name in self.vname_to_libname.keys():
-                if re.search("_x(\d+)", vf_name):
+                if re.search("_x(\d+)", vf_name) and not re.search(r"nondf_", vf_name):
                     kernel_index = re.search("_x(\d+)", vf_name).group(1)
                     # self.vname_all_topoorder.append((self.graph.getVertex(vf_name).getLatency(), self.graph.getVertex(vf_name).getArea(), vf_name, kernel_index))
-                    self.vname_grouped_topoorder[int(kernel_index)].append([self.graph.getVertex(vf_name).getLatency(), self.graph.getVertex(vf_name).getArea(), vf_name])
+                    # self.vname_grouped_topoorder[int(kernel_index)].append([self.graph.getVertex(vf_name).getLatency(), self.graph.getVertex(vf_name).getArea(), vf_name])
+                    '''
                     self.new_vname_to_all[vf_name] = {
                         "drctv": {
                             "unroll": [],
@@ -202,7 +218,9 @@ class DSE:
                         "FF": self.graph.getVertex(vf_name).getArea()["FF"],
                         "LUT": self.graph.getVertex(vf_name).getArea()["LUT"],
                         "URAM": self.graph.getVertex(vf_name).getArea()["URAM"]
-                    }
+                    }'''
+                    self.vname_grouped_topoorder[int(kernel_index)].append([data_temp[self.vname_to_libname[vf_name]][0]["latency"], {_:data_temp[self.vname_to_libname[vf_name]][0][_] for _ in RESOURCE_TYPES}, vf_name])
+                    self.new_vname_to_all[vf_name] = data_temp[self.vname_to_libname[vf_name]][0]
                     # if kernel_index not in self.best_longest_latency_bygroup.keys():
                     #     self.best_longest_latency_bygroup[kernel_index] = -1
                 else:
@@ -214,7 +232,9 @@ class DSE:
             vf_name = self.floorplan.topostack[i]
             if vf_name in self.vname_to_libname.keys():
                 if re.search(r"nondf_", vf_name):
-                    self.vname_grouped_topoorder.append([[self.graph.getVertex(vf_name).getLatency(), self.graph.getVertex(vf_name).getArea(), vf_name]])
+                    logging.info("vf_name: {}".format(vf_name))
+                    # self.vname_grouped_topoorder.append([[self.graph.getVertex(vf_name).getLatency(), self.graph.getVertex(vf_name).getArea(), vf_name]])
+                    '''
                     self.new_vname_to_all[vf_name] = {
                         "drctv": {
                             "unroll": [],
@@ -229,13 +249,17 @@ class DSE:
                         "FF": self.graph.getVertex(vf_name).getArea()["FF"],
                         "LUT": self.graph.getVertex(vf_name).getArea()["LUT"],
                         "URAM": self.graph.getVertex(vf_name).getArea()["URAM"]
-                    }
-        
+                    }'''
+                    self.vname_grouped_topoorder.append([[data_temp[self.vname_to_libname[vf_name]][0]["latency"], {_:data_temp[self.vname_to_libname[vf_name]][0][_] for _ in RESOURCE_TYPES}, vf_name]])
+                    self.new_vname_to_all[vf_name] = data_temp[self.vname_to_libname[vf_name]][0]
+        logging.info("{} {}".format( self.vname_grouped_topoorder, self.vname_to_libname.items()))
         assert sum([len(_) for _ in self.vname_grouped_topoorder]) == len(self.vname_to_libname), "{} {}".format(sum([len(_) for _ in self.vname_grouped_topoorder]), len(self.vname_to_libname))
         
         for i in range(len(self.vname_grouped_topoorder)):
             self.vname_grouped_topoorder[i].sort(key = lambda x: (-x[0], x[2]))  # sorted by latency (and alphabetically) within each group
         # logging.info(self.vname_grouped_topoorder)
+        # logging.info(self.new_vname_to_all)
+        # exit()
         
         # print(graph.top_rtl_parser.getStrictGroupingConstraints())
         # print(len(graph.top_rtl_parser.getStrictGroupingConstraints()))
@@ -580,9 +604,13 @@ class DSE:
             assert longest_func_latency != -1 and longest_func_kernel_index != -1 and longest_func, "vname_grouped_topoorder: {}".format(self.vname_grouped_topoorder)
             logging.info("Longest func: {}".format(longest_func))
             
+            curr_libname = self.vname_to_libname[longest_func[NAME]]    # function name in the DSE lib (without kernel index r"_x\d+")
+            assert self.dse_lib_dict[curr_libname], "design space for {} function not found!".format(longest_func[NAME])
+            design_points_pruning_index = 0
+            
             # 1.2 Find the set of longest functions in that kernel with the same length
             for i in range(len(self.vname_grouped_topoorder[longest_func_kernel_index])):
-                if self.vname_grouped_topoorder[longest_func_kernel_index][i][LAT] == longest_func_latency:
+                if self.vname_grouped_topoorder[longest_func_kernel_index][i][LAT] == longest_func_latency and self.vname_grouped_topoorder[longest_func_kernel_index][i][NAME].find(curr_libname) != -1:
                     longest_func_index_list.append(i)
                 else:
                     break
@@ -604,11 +632,14 @@ class DSE:
                         break
             if not second_longest_func_latency_list:
                 logging.warning("Second-Longest Function not found, DSE ends.")
-                break
+                # break
+                logging.info(self.new_vname_to_all)
+                second_longest_func_latency = longest_func[LAT] - 1
+            else:
+                second_longest_func_latency = max(second_longest_func_latency_list)
+                logging.info("Second-longest latency in each kernel: {}".format(second_longest_func_latency_list))
+                logging.info("Second-longest latency = {}".format(second_longest_func_latency))
             # assert second_longest_func_latency_list, "vname_grouped_topoorder: {}".format(self.vname_grouped_topoorder)
-            second_longest_func_latency = max(second_longest_func_latency_list)
-            logging.info("Second-longest latency in each kernel: {}".format(second_longest_func_latency_list))
-            logging.info("Second-longest latency = {}".format(second_longest_func_latency))
             
             # 3. Find a new design point for bottleneck vertex satisfying (1) and (2):
             #   # (1) Latency smaller than the second-longest vertex
@@ -619,9 +650,6 @@ class DSE:
             #   #     TODO: Mix global floorplanning here for a batch-update of longest functions could probably improve the QoR.
             
             # Pruning DSE lib by removing
-            curr_libname = self.vname_to_libname[longest_func[NAME]]    # function name in the DSE lib (without kernel index r"_x\d+")
-            assert self.dse_lib_dict[curr_libname], "design space for {} function not found!".format(longest_func[NAME])
-            design_points_pruning_index = 0
             # logging.info("Pre design-space pruning, len = {}".format(len(self.dse_lib_dict[curr_libname])))
             while design_points_pruning_index < len(self.dse_lib_dict[curr_libname]):
                 if longest_func[LAT] > self.dse_lib_dict[curr_libname][design_points_pruning_index]["latency"]:
@@ -791,7 +819,14 @@ class DSE:
                         else:
                             # self.floorplan.printFloorplan()
                             dse_stop = True
-                            
+            
+            if dse_stop == True and any(self.vname_grouped_topoorder):
+                # logging.info("{}".format(self.vname_grouped_topoorder[0]))
+                logging.info("Deleting index {} fromm vname_group_topoorder".format(longest_func_kernel_index))
+                del self.vname_grouped_topoorder[longest_func_kernel_index]
+                logging.info("{}".format(self.vname_grouped_topoorder))
+                dse_stop = False
+            
             # if dse_stop == True or if all vertices best (removed from `self.vname_grouped_topoorder`)
             if dse_stop or not any(self.vname_grouped_topoorder):   
                 break
@@ -917,9 +952,13 @@ class DSE:
             assert longest_func_latency != -1 and longest_func_kernel_index != -1 and longest_func, "vname_grouped_topoorder: {}".format(self.vname_grouped_topoorder)
             logging.info("Longest func: {}".format(longest_func))
             
+            curr_libname = self.vname_to_libname[longest_func[NAME]]    # function name in the DSE lib (without kernel index r"_x\d+")
+            assert self.dse_lib_dict[curr_libname], "design space for {} function not found!".format(longest_func[NAME])
+            design_points_pruning_index = 0
+            
             # 1.2 Find the set of longest functions in that kernel with the same length
             for i in range(len(self.vname_grouped_topoorder[longest_func_kernel_index])):
-                if self.vname_grouped_topoorder[longest_func_kernel_index][i][LAT] == longest_func_latency:
+                if self.vname_grouped_topoorder[longest_func_kernel_index][i][LAT] == longest_func_latency and self.vname_grouped_topoorder[longest_func_kernel_index][i][NAME].find(curr_libname) != -1:
                     longest_func_index_list.append(i)
                 else:
                     break
@@ -956,9 +995,6 @@ class DSE:
             #   #     TODO: Mix global floorplanning here for a batch-update of longest functions could probably improve the QoR.
             
             # Pruning DSE lib by removing
-            curr_libname = self.vname_to_libname[longest_func[NAME]]    # function name in the DSE lib (without kernel index r"_x\d+")
-            assert self.dse_lib_dict[curr_libname], "design space for {} function not found!".format(longest_func[NAME])
-            design_points_pruning_index = 0
             # logging.info("Pre design-space pruning, len = {}".format(len(self.dse_lib_dict[curr_libname])))
             while design_points_pruning_index < len(self.dse_lib_dict[curr_libname]):
                 if longest_func[LAT] > self.dse_lib_dict[curr_libname][design_points_pruning_index]["latency"]:
@@ -1021,16 +1057,18 @@ class DSE:
                 break
             
     def dse_step_global_fp(self, kernel_index, func_index_list, design_point):
-        temp_new_vname_to_drctvs = copy.deepcopy(self.new_vname_to_drctvs)        
+        temp_new_vname_to_drctvs = copy.deepcopy(self.new_vname_to_drctvs)
         curr_vname = self.vname_grouped_topoorder[kernel_index][0][2]    # NAME
         curr_libname = self.vname_to_libname[curr_vname]
+        old_latency = {}
+        old_area = {}
         for func_index in func_index_list:
-            self.vname_grouped_topoorder[kernel_index][func_index][0] = design_point["latency"]
-            self.vname_grouped_topoorder[kernel_index][func_index][1] = {_:design_point[_] for _ in RESOURCE_TYPES}
             # Remember to change the latency and area in DataflowGraph as well:
+            old_latency[func_index] = copy.deepcopy(self.graph.vertices[self.vname_grouped_topoorder[kernel_index][func_index][2]].latency)
+            old_area[func_index] = copy.deepcopy(self.graph.vertices[self.vname_grouped_topoorder[kernel_index][func_index][2]].area)
             self.graph.vertices[self.vname_grouped_topoorder[kernel_index][func_index][2]].latency = design_point["latency"]
             self.graph.vertices[self.vname_grouped_topoorder[kernel_index][func_index][2]].area = {_:design_point[_] for _ in RESOURCE_TYPES}
-
+        
         if self.floorplanmethod == 'IterativeDivisionToHalfSLR':
             fp_success = self.floorplan.coarseGrainedFloorplan()
         elif self.floorplanmethod == 'EightWayDivisionToHalfSLR':
@@ -1049,9 +1087,16 @@ class DSE:
             logging.info(type(max_s2util))
             fp_success &= (max_s2util <= self.AreaUtilizationRatio)
         if not fp_success:
+            # Recovering old dataflowgraph
+            for func_index in func_index_list:
+                self.graph.vertices[self.vname_grouped_topoorder[kernel_index][func_index][2]].latency = old_latency[func_index]
+                self.graph.vertices[self.vname_grouped_topoorder[kernel_index][func_index][2]].area = old_area[func_index]
+            self.floorplan.coarseGrainedFloorplan()
             logging.info("Ouch")
             return False, {}
         for func_index in func_index_list:
+            self.vname_grouped_topoorder[kernel_index][func_index][0] = design_point["latency"]
+            self.vname_grouped_topoorder[kernel_index][func_index][1] = {_:design_point[_] for _ in RESOURCE_TYPES}
             curr_vname = self.vname_grouped_topoorder[kernel_index][func_index][2]    # NAME
             self.new_vname_to_all[curr_vname] = copy.deepcopy(design_point)
 
@@ -1105,9 +1150,13 @@ class DSE:
             assert longest_func_latency != -1 and longest_func_kernel_index != -1 and longest_func, "vname_grouped_topoorder: {}".format(self.vname_grouped_topoorder)
             logging.info("Longest func: {}".format(longest_func))
             
+            curr_libname = self.vname_to_libname[longest_func[NAME]]    # function name in the DSE lib (without kernel index r"_x\d+")
+            assert self.dse_lib_dict[curr_libname], "design space for {} function not found!".format(longest_func[NAME])
+            design_points_pruning_index = 0
+            
             # 1.2 Find the set of longest functions in that kernel with the same length
             for i in range(len(self.vname_grouped_topoorder[longest_func_kernel_index])):
-                if self.vname_grouped_topoorder[longest_func_kernel_index][i][LAT] == longest_func_latency:
+                if self.vname_grouped_topoorder[longest_func_kernel_index][i][LAT] == longest_func_latency and self.vname_grouped_topoorder[longest_func_kernel_index][i][NAME].find(curr_libname) != -1:
                     longest_func_index_list.append(i)
                 else:
                     break
@@ -1127,13 +1176,23 @@ class DSE:
                     if self.vname_grouped_topoorder[kernel_index][func_index][LAT] < longest_func_latency:
                         second_longest_func_latency_list.append(self.vname_grouped_topoorder[kernel_index][func_index][LAT])
                         break
+            # if not second_longest_func_latency_list:
+            #     logging.warning("Second-Longest Function not found, DSE ends.")
+            #     break
+            # # assert second_longest_func_latency_list, "vname_grouped_topoorder: {}".format(self.vname_grouped_topoorder)
+            # second_longest_func_latency = max(second_longest_func_latency_list)
+            # logging.info("Second-longest latency in each kernel: {}".format(second_longest_func_latency_list))
+            # logging.info("Second-longest latency = {}".format(second_longest_func_latency))
             if not second_longest_func_latency_list:
                 logging.warning("Second-Longest Function not found, DSE ends.")
-                break
+                # break
+                # logging.info(self.new_vname_to_all)
+                second_longest_func_latency = longest_func[LAT] - 1
+            else:
+                second_longest_func_latency = max(second_longest_func_latency_list)
+                logging.info("Second-longest latency in each kernel: {}".format(second_longest_func_latency_list))
+                logging.info("Second-longest latency = {}".format(second_longest_func_latency))
             # assert second_longest_func_latency_list, "vname_grouped_topoorder: {}".format(self.vname_grouped_topoorder)
-            second_longest_func_latency = max(second_longest_func_latency_list)
-            logging.info("Second-longest latency in each kernel: {}".format(second_longest_func_latency_list))
-            logging.info("Second-longest latency = {}".format(second_longest_func_latency))
             
             # 3. Find a new design point for bottleneck vertex satisfying (1) and (2):
             #   # (1) Latency smaller than the second-longest vertex
@@ -1144,9 +1203,6 @@ class DSE:
             #   #     TODO: Mix global floorplanning here for a batch-update of longest functions could probably improve the QoR.
             
             # Pruning DSE lib by removing
-            curr_libname = self.vname_to_libname[longest_func[NAME]]    # function name in the DSE lib (without kernel index r"_x\d+")
-            assert self.dse_lib_dict[curr_libname], "design space for {} function not found!".format(longest_func[NAME])
-            design_points_pruning_index = 0
             # logging.info("Pre design-space pruning, len = {}".format(len(self.dse_lib_dict[curr_libname])))
             while design_points_pruning_index < len(self.dse_lib_dict[curr_libname]):
                 if longest_func[LAT] > self.dse_lib_dict[curr_libname][design_points_pruning_index]["latency"]:
@@ -1327,6 +1383,14 @@ class DSE:
                             # self.floorplan.printFloorplan()
                             dse_stop = True
                             
+                
+            if dse_stop == True and any(self.vname_grouped_topoorder):
+                # logging.info("{}".format(self.vname_grouped_topoorder[0]))
+                logging.info("Deleting index {} fromm vname_group_topoorder".format(longest_func_kernel_index))
+                del self.vname_grouped_topoorder[longest_func_kernel_index]
+                logging.info("{}".format(self.vname_grouped_topoorder))
+                dse_stop = False
+                
             # if dse_stop == True or if all vertices best (removed from `self.vname_grouped_topoorder`)
             if dse_stop or not any(self.vname_grouped_topoorder):   
                 break
@@ -1338,7 +1402,7 @@ class DSE:
         
         # TOTAL_AREA = {__:sum([self.s2totalarea[_][__] for _ in list(filter(lambda x:x.getOrigUpRightY() < 8, self.s2util.keys()))]) for __ in RESOURCE_TYPES} # ! Preferred
         # TOTAL_AREA = {_[0]:_[1]/2 for _ in self.board.getTotalAvailArea().items()}
-        TOTAL_AREA = {'BRAM': 2016, 'DSP': 5184, 'FF': 1319040, 'LUT': 659520, 'URAM': 544}
+        TOTAL_AREA = {'BRAM': 2016, 'DSP': 5184, 'FF': 1319040, 'LUT': 659520, 'URAM': 544} # ignore the right-most column for Vitis IP
         logging.info(TOTAL_AREA)
         # print(data.keys())
         # 1. Design Space extraction for A single dataflow kernel
@@ -1348,7 +1412,7 @@ class DSE:
         df_funcs = []
         funcs_count = {_:0 for _ in self.PREFIX_REGEXS_TO_FUNC_LIBNAME.values()}
         for each_func in funcs:
-            if each_func.find("_x0") == -1:
+            if each_func.find("_x0") == -1 or each_func.find("nondf_") != -1:
                 continue
             _found = False
             for each_prefix in self.PREFIX_REGEXS_TO_FUNC_LIBNAME.keys():
@@ -1359,7 +1423,7 @@ class DSE:
                 df_funcs.append(each_func)
         logging.info(df_funcs)
         logging.info(len(df_funcs))
-        
+        # exit(0)
         # Remove redundancy for each function (PE) ---------------------
         # logging.info("2. Removing non-pareto-front points of each function")
         # data_clean = defaultdict()
@@ -1383,6 +1447,7 @@ class DSE:
         #         #     last_max_resource = max([each_point[_]/TOTAL_AREA[_] for _ in RESOURCE_TYPES])
         #     data_clean[key].reverse()   # major: latency small -> large; minor: resource large -> small
         
+        # Sort dse lib dataflow functions
         for k in data.keys():
             if k.find("nondf_") != -1:
                 continue
@@ -1393,8 +1458,9 @@ class DSE:
                     -max([x[_]/TOTAL_AREA[_] for _ in RESOURCE_TYPES])
                 )
             )# major: latency small -> large; minor: resource large -> small
-        logging.info("data:\n{}\n{}".format(data, len(data)))
+        logging.info("data:\n{}\n{}".format(data.keys(), len(data)))
         # exit(0)
+        
         # Building libname_to_vname
         count = 0
         libname_to_vname = defaultdict(list)
@@ -1408,7 +1474,7 @@ class DSE:
                     break
             if matched == 0:
                 logging.warning("Function {} found no match by regex".format(v.name))
-        # logging.info("{}".format(data.keys())) # ['A_IO_L3_in', 'A_IO_L2_in', 'A_IO_L2_in_boundary', 'B_IO_L3_in', 'B_IO_L2_in', 'B_IO_L2_in_boundary', 'PE_wrapper', 'A_PE_dummy', 'B_PE_dummy', 'C_drain_IO_L1_out', 'C_drain_IO_L1_out_boundary', 'C_drain_IO_L2_out', 'C_drain_IO_L2_out_boundary', 'C_drain_IO_L3_out']
+        logging.info("{}".format(data.keys())) # ['nondf_kernel_heat', 'A_IO_L3_in', 'A_IO_L3_in_serialize', 'A_IO_L2_in', 'A_IO_L2_in_boundary', 'B_IO_L3_in', 'B_IO_L3_in_serialize', 'B_IO_L2_in', 'B_IO_L2_in_boundary', 'C_IO_L3_in', 'C_IO_L3_in_serialize', 'C_IO_L2_in', 'C_IO_L2_in_boundary', 'PE_wrapper', 'A_PE_dummy_in', 'B_PE_dummy_in', 'C_PE_dummy_in', 'D_drain_IO_L1_out_wrapper', 'D_drain_IO_L1_out_boundary_wrapper', 'D_drain_IO_L2_out', 'D_drain_IO_L2_out_boundary', 'D_drain_IO_L3_out', 'D_drain_IO_L3_out_serialize']
         
         # Finding the design point for whole dataflow kernel ---------------------
         design_space_df = list()
@@ -1431,6 +1497,7 @@ class DSE:
                     -max([x[1][-1][_]/TOTAL_AREA[_] for _ in RESOURCE_TYPES])
                 )
             ))
+            # If the largest is still the last function, stop adding to design space df.
             if last_func_name == data_list[-1][0] and last_latency == data_list[-1][1][-1]["latency"] and all([last_resource[_]==data_list[-1][1][-1][_] for _ in RESOURCE_TYPES]):
                 break
             last_func_name = data_list[-1][0]
@@ -1462,13 +1529,17 @@ class DSE:
                 del data_copy[data_list[-1][0]][-1]
                 
         logging.info(len(design_space_df))
-        logging.info(design_space_df[0])
-        logging.info(design_space_df[-1])
-        logging.info("!!!: {}".format(len(design_space_df[-1]["subarea"])))
+        logging.info("\n")
+        # logging.info(design_space_df[0]["latency"])
+        # logging.info(design_space_df[0]["area"])
+        logging.info(design_space_df[-1]["latency"])
+        logging.info(design_space_df[-1]["area"])
+        logging.info("\n".join([str((_[0], _[1].items())) for _ in design_space_df[-1]["subarea"].items()]))
+        # logging.info("!!!: {}".format(len(design_space_df[-1]["subarea"])))
         
         # 2. Design Space extraction for non-dataflow kernel
         design_space_nondf = list()
-        key = "nondf_kernel_2mm"
+        key = "nondf_kernel_cov"
         data[key] = sorted(data[key],
             key=lambda x: (
                 -x["latency"],
@@ -1484,9 +1555,12 @@ class DSE:
         design_space_nondf.reverse()   # major: latency small -> large; minor: resource large -> small
         
         logging.info(len(design_space_nondf))
-        logging.info(design_space_nondf[0])
-        logging.info(design_space_nondf[-1])
-        
+        logging.info("\n")
+        logging.info(design_space_nondf[-1]["latency"])
+        logging.info(design_space_nondf[-1]["area"])
+        # logging.info("\n")
+        # logging.info(design_space_nondf[-1])
+        # exit(0)
         # # Remember to change the latency and area in DataflowGraph as well:
         # self.graph.vertices[self.vname_grouped_topoorder[kernel_index][func_index][2]].latency = design_point["latency"]
         # self.graph.vertices[self.vname_grouped_topoorder[kernel_index][func_index][2]].area = {_:design_point[_] for _ in RESOURCE_TYPES}
@@ -1496,97 +1570,94 @@ class DSE:
         #     return False, {}
         
         # 3. The whole mixed-df-nondf design space
-        all_design_points_product = [_ for _ in itertools.product(*[design_space_df, design_space_nondf, design_space_df])]
-        logging.info("len(all_design_points_product): {}".format(len(all_design_points_product)))
+        all_design_points_product = [_ for _ in itertools.product(*[design_space_df, design_space_nondf, design_space_nondf])]
         # logging.info([len(_["subarea"]) for _ in all_design_points_product[0]])
         # exit(0)
-        
+        logging.info("len(all_design_points_product): {}".format(len(all_design_points_product)))
         logging.info("Finding Global-FP Solution...")
         all_design_points = []
         all_design_points_with_constraints = []
         count = 0
         all_records = []
+        smallest_area_list = []
+        smallest_area = math.inf
         for design_point_product in all_design_points_product:
             latency_list = [_["latency"] for _ in design_point_product]
             area_list = [_["area"] for _ in design_point_product]
+            # logging.info('{}'.format(latency_list))
+            # logging.info('{}'.format(area_list))
+            # exit(0)
             area_list = {__:sum([_[__] for _ in area_list]) for __ in RESOURCE_TYPES}
             max_area_ratio = max([area_list[_]/TOTAL_AREA[_] for _ in RESOURCE_TYPES])
+            if max_area_ratio < smallest_area:
+                smallest_area = max_area_ratio
+                smallest_area_list = [_["area"] for _ in design_point_product]
             if max_area_ratio > self.AreaUtilizationRatio:
                 continue
             all_design_points.append(
                 (
                     max_area_ratio,
-                    sum(latency_list)
+                    sum([latency_list[0], max(latency_list[1], latency_list[2])])
                 )
             )
-            # if max_area_ratio < 0.4 or sum(latency_list) > 91164 or max_area_ratio > 0.55:
+            # if max_area_ratio > 0.408 or sum([latency_list[0], max(latency_list[1], latency_list[2])]) > 1.65e6:
             #     continue
-            if sum(latency_list) >= 91164:
+            if sum([latency_list[0], max(latency_list[1], latency_list[2])]) >= 1647202:
                 continue
-            
             # Testing Global Floorplan Solution
-            
             # logging.info("Point {}".format(count))
             # subarea_list = [_["subarea"] for _ in design_point_product]
             # # logging.info(subarea_list)
-            # kernel0_subarea_list = {k:v for k, v in subarea_list[0].items() if re.search(r'_x0', k)}
-            # kernel1_subarea_list = {k:v for k, v in subarea_list[2].items() if re.search(r'_x1', k)}
-            # kernel_nondf_subarea_list = subarea_list[1]
-            # # logging.info("kernel0 subarea len: {}, list: {}".format(len(kernel0_subarea_list), kernel0_subarea_list))
-            # # logging.info("Kernel nondf subarea len: {}, list: {}".format(len(kernel_nondf_subarea_list), kernel_nondf_subarea_list))
-            # # logging.info("kernel1 subarea len: {}, list: {}".format(len(kernel1_subarea_list), kernel1_subarea_list))
-            # # input()
+            # kernel0_subarea_list = {k:v for k, v in subarea_list[0].items() if re.search(r'_x0', k) and not re.search("nondf_", k)}
+            # # kernel1_subarea_list = {k:v for k, v in subarea_list[2].items() if re.search(r'_x1', k)}
+            # kernel_nondf_subarea_list_0 = subarea_list[1]
+            # kernel_nondf_subarea_list_1 = subarea_list[2]
+            # logging.info("kernel0 subarea len: {}, list: {}".format(len(kernel0_subarea_list), kernel0_subarea_list))
+            # logging.info("Kernel nondf subarea 0 len: {}, list: {}".format(len(kernel_nondf_subarea_list_0), kernel_nondf_subarea_list_0))
+            # logging.info("Kernel nondf subarea 1 len: {}, list: {}".format(len(kernel_nondf_subarea_list_1), kernel_nondf_subarea_list_1))
             # for func_name in kernel0_subarea_list:
             #     self.graph.vertices[func_name].area = kernel0_subarea_list[func_name]
-            # for func_name in kernel1_subarea_list:
-            #     self.graph.vertices[func_name].area = kernel1_subarea_list[func_name]
-            # for func_name in kernel_nondf_subarea_list:
-            #     self.graph.vertices["grp_nondf_kernel_2mm_fu_114"].area = kernel_nondf_subarea_list[func_name]
+            # # for func_name in kernel1_subarea_list:
+            # #     self.graph.vertices[func_name].area = kernel1_subarea_list[func_name]
+            # for func_name in kernel_nondf_subarea_list_0:
+            #     self.graph.vertices["grp_nondf_kernel_cov_x0_fu_99"].area = kernel_nondf_subarea_list_0[func_name]
+            # for func_name in kernel_nondf_subarea_list_1:
+            #     self.graph.vertices["grp_nondf_kernel_cov_x1_fu_107"].area = kernel_nondf_subarea_list_1[func_name]
+            # # input("Awaiting user input 0")
                 
             # fp_success = self.floorplan.coarseGrainedFloorplan()
-            # if fp_success:
-            #     temp_s2util = self.floorplan.getUtilizationQuantity()
-            #     max_s2util = max([max([(temp_s2util[_][__]/self.s2totalarea[_][__]) for __ in RESOURCE_TYPES]) for _ in list(filter(lambda x:x.getOrigUpRightY() < 8, self.s2util.keys()))])
-            #     logging.info(max_s2util)
-            #     logging.info(type(max_s2util))
-            #     fp_success &= (max_s2util <= self.AreaUtilizationRatio)
-            
             # if not fp_success:
             #     logging.info("Fail to GlobalFP.")
             #     all_records.append((
-            #                 max_area_ratio,
-            #                 sum(latency_list),
-            #                 False
+            #         max_area_ratio,
+            #         sum([latency_list[0], max(latency_list[1], latency_list[2])]),
+            #         False
             #     ))
+            #     logging.info("fail area_list: {}".format([_["area"] for _ in design_point_product]))
+            #     logging.info("fail latency_list: {}".format([_["latency"] for _ in design_point_product]))
             # else:
-            #     logging.info("Pre v.s. Post slot util ratio = \n{}".format(
-            #         '\n'.join([
-            #             "{}\n{}".format(
-            #                 _.getRTLModuleName(),
-            #                 ["{:.4f}".format(temp_s2util[_][__]/self.s2totalarea[_][__]) for __ in RESOURCE_TYPES]
-            #             ) for _ in list(filter(lambda x:x.getOrigUpRightY() < 8, self.s2util.keys()))
-            #         ])
-            #     ))
-            #     logging.info("{}".format(max_s2util))
-            #     # input
-            #     # all_design_points_with_constraints.append(
-            #     #     (
-            #     #         max_area_ratio,
-            #     #         sum(latency_list)
-            #     #     )
-            #     # )
+            #     all_design_points_with_constraints.append(
+            #         (
+            #             max_area_ratio,
+            #             sum([latency_list[0], max(latency_list[1], latency_list[2])])
+            #         )
+            #     )
             #     all_records.append((
             #         max_area_ratio,
-            #         sum(latency_list),
+            #         sum([latency_list[0], max(latency_list[1], latency_list[2])]),
             #         True
             #     ))
+            #     logging.info("success area_list: {}".format([_["area"] for _ in design_point_product]))
+            #     logging.info("success latency_list: {}".format([_["latency"] for _ in design_point_product]))
             count += 1
+            # input("Awaiting user input 1")
         logging.info("{} points to test global floorplan.".format(count))
         logging.info("All not feasible points: {}".format([_ for _ in all_records if _[2] == False]))
         logging.info("All feasible points !!!: {}".format([_ for _ in all_records if _[2] == True]))
         
-        # exit(0)
+        exit(0)
         
+        # input("Awaiting user input 2")
         pareto = oapackage.ParetoDoubleLong()
         for i in range(len(all_design_points)):
             w = oapackage.doubleVector((-all_design_points[i][0], -all_design_points[i][1]))
@@ -1596,10 +1667,8 @@ class DSE:
         pareto_front = np.array(all_design_points)[lst,:]
         pareto_front = np.array(sorted(pareto_front, key = lambda x : x[1]))    # sorted by resource, for drawing the pareto front
         
-        x = np.array([_[0] for _ in all_design_points if _[1] >= 91164])
-        y = np.array([_[1] for _ in all_design_points if _[1] >= 91164])
-        x_illegal = np.array([_[0] for _ in all_design_points if _[1] < 91164])
-        y_illegal = np.array([_[1] for _ in all_design_points if _[1] < 91164])
+        x = np.array([_[0] for _ in all_design_points])
+        y = np.array([_[1] for _ in all_design_points])
         # x_all = np.array([_[0] for _ in all_records])
         # y_all = np.array([_[1] for _ in all_records])
         
@@ -1612,20 +1681,21 @@ class DSE:
         # pareto_front_real = np.array(all_design_points_with_constraints)[lst_real,:]
         # pareto_front_real = np.array(sorted(pareto_front_real, key = lambda x : x[1]))    # sorted by resource, for drawing the pareto front
         # logging.info("Pareto-Front Considering area constraints: {}".format(pareto_front_real))
+        logging.info("Min latency on pareto-front: {}".format(min(pareto_front[:,1])))
         
-        fig = plt.figure(figsize=(5, 5), dpi=500)
+        fig = plt.figure(dpi=500)
         ax = fig.add_subplot(111)
-        ax.scatter(x, y, s=0.1, marker=",", color="lightblue", alpha=0.5, label="The Whole Design Space")
-        ax.scatter(x_illegal, y_illegal, s=0.1, marker=",", color="gray", alpha=1.0, label="Illegal Design Points (Partial)")
-        ax.plot(pareto_front[:,0], pareto_front[:,1], markersize=1, marker="o", color="red", linewidth=0.3, label="Pareto-Front w/o Floorplan Check")
+        ax.scatter(x, y, s=0.1, marker=",", color="lightcyan", alpha=1.0, label="Non-Pareto-Front Points")
+        ax.plot(pareto_front[:,0], pareto_front[:,1], markersize=1, marker="o", color="red", linewidth=0.3, label="Pareto-Front w/o Area Constraint")
         # ax.scatter(x_all, y_all, s=0.1, marker="s", color="darkgreen", alpha=0.4, label="Local Points")
-        # ax.plot(pareto_front_real[:,0], pareto_front_real[:,1], markersize=3, marker="o", color="darkviolet", linewidth=1, label="Pareto-Front w/ Legal Floorplan (Partial)")
-        ax.plot([self.AreaUtilizationRatio, self.AreaUtilizationRatio], [0, 1e7], color="peru", linewidth=2, linestyle=":", label="Resource Constraint")
+        # ax.plot(pareto_front_real[:,0], pareto_front_real[:,1], markersize=3, marker="o", color="darkviolet", linewidth=1, label="Pareto-Front w/ Area Constraint (Partial)")
+        ax.plot([self.AreaUtilizationRatio, self.AreaUtilizationRatio], [0, 1.4e8], color="peru", linewidth=2, linestyle=":", label="Resource Constraint")
         current_largest = 0
         snapshot_type_index_list = [0]
         # logging.info("len(self.snapshots_resource): {}".format(len(self.snapshots_resource)))
         # logging.info("len(self.snapshots_latency): {}".format(len(self.snapshots_latency)))
-        # logging.info("len(self.snapshots_type): {}".format(len(self.snapshots_type)))
+        logging.info("len(self.snapshots_type): {}".format(len(self.snapshots_type)))
+        logging.info("snapshots_type: {}".format(self.snapshots_type))
         for i in range(0, len(self.snapshots_resource) - 1):
             color = "green"
             if max(self.snapshots_type[i + 1], current_largest) == 0:
@@ -1636,56 +1706,73 @@ class DSE:
                     snapshot_type_index_list.append(i + 1)
                 color = "darkorange"
             elif max(self.snapshots_type[i + 1], current_largest) == 2:
+                while len(snapshot_type_index_list) < 2:
+                    snapshot_type_index_list.append(i + 1)
                 if len(snapshot_type_index_list) == 2:
                     logging.info("Path 1 to. {} {}".format(self.snapshots_resource[i], self.snapshots_latency[i]))
                     snapshot_type_index_list.append(i + 1)
                 color = "magenta"
             elif max(self.snapshots_type[i + 1], current_largest) == 3:
+                while len(snapshot_type_index_list) < 3:
+                    snapshot_type_index_list.append(i + 1)
                 if len(snapshot_type_index_list) == 3:
                     logging.info("Path 2 to. {} {}".format(self.snapshots_resource[i], self.snapshots_latency[i]))
                     snapshot_type_index_list.append(i + 1)
                 color = "gold"
             elif max(self.snapshots_type[i + 1], current_largest) == 4:
+                while len(snapshot_type_index_list) < 4:
+                    snapshot_type_index_list.append(i + 1)
                 if len(snapshot_type_index_list) == 4:
                     snapshot_type_index_list.append(i + 1)
                     break
             current_largest = max(self.snapshots_type[i + 1], current_largest)
             ax.annotate("", xy=(self.snapshots_resource[i + 1], self.snapshots_latency[i + 1]), xytext=(self.snapshots_resource[i], self.snapshots_latency[i]), arrowprops=dict(arrowstyle="->", color=color, linewidth=1, shrinkA=0.1, shrinkB=0.1, patchA=None, patchB=None, connectionstyle="arc3,rad=0."))
+        while len(snapshot_type_index_list) < 4:
+            snapshot_type_index_list.append(len(self.snapshots_type))
         logging.info("Path 3 to. {} {}".format(self.snapshots_resource[snapshot_type_index_list[-1]-1], self.snapshots_latency[snapshot_type_index_list[-1]-1]))
-        if len(snapshot_type_index_list) == 4:
-            ax.scatter(np.array(self.snapshots_resource[0:snapshot_type_index_list[1]]), np.array(self.snapshots_latency[0:snapshot_type_index_list[1]]), s=3, marker='*', color="green", label="Path 0: Online Packing")
-            ax.scatter(np.array(self.snapshots_resource[snapshot_type_index_list[1]:snapshot_type_index_list[2]]), np.array(self.snapshots_latency[snapshot_type_index_list[1]:snapshot_type_index_list[2]]), s=3, marker='*', color="darkorange", label="Path 1: Online + Offline Re-packing")
-            ax.scatter(np.array(self.snapshots_resource[snapshot_type_index_list[2]:snapshot_type_index_list[3]]), np.array(self.snapshots_latency[snapshot_type_index_list[2]:snapshot_type_index_list[3]]), s=3, marker='*', color="magenta", label="Path 2: Online + Offline + Look-ahead")
-            ax.scatter(np.array(self.snapshots_resource[snapshot_type_index_list[3]:]), np.array(self.snapshots_latency[snapshot_type_index_list[3]:]), s=3, marker='*', color="gold", label="Path 3: Online + Offline + Look-ahead + Look-back")
+        logging.info("snapshot_type_index_list: {}".format(snapshot_type_index_list))
+        if len(snapshot_type_index_list) <= 4:
+            if 0 < snapshot_type_index_list[1]:
+                ax.scatter(np.array(self.snapshots_resource[0:snapshot_type_index_list[1]]), np.array(self.snapshots_latency[0:snapshot_type_index_list[1]]), s=3, marker='*', color="green", label="Path 0: Plain DSE + Incr Floorplan")
+            if snapshot_type_index_list[1] < snapshot_type_index_list[2]:
+                ax.scatter(np.array(self.snapshots_resource[snapshot_type_index_list[1]:snapshot_type_index_list[2]]), np.array(self.snapshots_latency[snapshot_type_index_list[1]:snapshot_type_index_list[2]]), s=3, marker='*', color="darkorange", label="Path 1: With Defragmentation")
+            if snapshot_type_index_list[2] < snapshot_type_index_list[3]:
+                ax.scatter(np.array(self.snapshots_resource[snapshot_type_index_list[2]:snapshot_type_index_list[3]]), np.array(self.snapshots_latency[snapshot_type_index_list[2]:snapshot_type_index_list[3]]), s=3, marker='*', color="magenta", label="Path 2: With Looking-Ahead")
+            if snapshot_type_index_list[3] < len(self.snapshots_type):
+                ax.scatter(np.array(self.snapshots_resource[snapshot_type_index_list[3]:]), np.array(self.snapshots_latency[snapshot_type_index_list[3]:]), s=3, marker='*', color="gold", label="Path 3: With Looking-Back")
         elif len(snapshot_type_index_list) == 5:
             for i in range(snapshot_type_index_list[-1], len(self.snapshots_resource) - 1):
                 ax.annotate("", xy=(self.snapshots_resource[i + 1], self.snapshots_latency[i + 1]), xytext=(self.snapshots_resource[i], self.snapshots_latency[i]), arrowprops=dict(arrowstyle="->", color="blue", linewidth=1, shrinkA=0.1, shrinkB=0.1, patchA=None, patchB=None, connectionstyle="arc3,rad=0.3", alpha=0.5))
-            ax.scatter(np.array(self.snapshots_resource[0:snapshot_type_index_list[1]]), np.array(self.snapshots_latency[0:snapshot_type_index_list[1]]), s=3, marker='*', color="green", label="Incr-Path 0: Online")
-            ax.scatter(np.array(self.snapshots_resource[snapshot_type_index_list[1]:snapshot_type_index_list[2]]), np.array(self.snapshots_latency[snapshot_type_index_list[1]:snapshot_type_index_list[2]]), s=3, marker='*', color="darkorange", label="Incr-Path 1: Online + Offline")
-            ax.scatter(np.array(self.snapshots_resource[snapshot_type_index_list[2]:snapshot_type_index_list[3]]), np.array(self.snapshots_latency[snapshot_type_index_list[2]:snapshot_type_index_list[3]]), s=3, marker='*', color="magenta", label="Incr-Path 2: Online + Offline + Look-ahead")
-            ax.scatter(np.array(self.snapshots_resource[snapshot_type_index_list[3]:snapshot_type_index_list[4]]), np.array(self.snapshots_latency[snapshot_type_index_list[3]:snapshot_type_index_list[4]]), s=3, marker='*', color="gold", label="Incr-Path 3: Online + Offline + Look-ahead + Look-back")
-            ax.scatter(np.array(self.snapshots_resource[snapshot_type_index_list[4]:]), np.array(self.snapshots_latency[snapshot_type_index_list[4]:]), s=3, marker='*', color="blue", label="Global-Path")
+            if 0 < snapshot_type_index_list[1]:
+                ax.scatter(np.array(self.snapshots_resource[0:snapshot_type_index_list[1]]), np.array(self.snapshots_latency[0:snapshot_type_index_list[1]]), s=3, marker='*', color="green", label="Incr-FP Path 0: Plain DSE (also No-FP Path)")
+            if snapshot_type_index_list[1] < snapshot_type_index_list[2]:
+                ax.scatter(np.array(self.snapshots_resource[snapshot_type_index_list[1]:snapshot_type_index_list[2]]), np.array(self.snapshots_latency[snapshot_type_index_list[1]:snapshot_type_index_list[2]]), s=3, marker='*', color="darkorange", label="Incr-FP Path 1: With Defragmentation")
+            if snapshot_type_index_list[2] < snapshot_type_index_list[3]:
+                ax.scatter(np.array(self.snapshots_resource[snapshot_type_index_list[2]:snapshot_type_index_list[3]]), np.array(self.snapshots_latency[snapshot_type_index_list[2]:snapshot_type_index_list[3]]), s=3, marker='*', color="magenta", label="Incr-FP Path 2: With Looking-Ahead")
+            if snapshot_type_index_list[3] < snapshot_type_index_list[4]:
+                ax.scatter(np.array(self.snapshots_resource[snapshot_type_index_list[3]:snapshot_type_index_list[4]]), np.array(self.snapshots_latency[snapshot_type_index_list[3]:snapshot_type_index_list[4]]), s=3, marker='*', color="gold", label="Incr-FP Path 3: With Looking-Back")
+            ax.scatter(np.array(self.snapshots_resource[snapshot_type_index_list[4]:]), np.array(self.snapshots_latency[snapshot_type_index_list[4]:]), s=3, marker='*', color="blue", label="Global-FP Path")
         else:
             ax.scatter(np.array(self.snapshots_resource), np.array(self.snapshots_latency), s=3, marker='*', color="green", label="Path: Plain DSE w/o Incr Floorplan")
             
         plt.gca().ticklabel_format(style="sci", scilimits=(-1,2), axis='y')
-        # plt.tight_layout()
+        
         ax.set_xlabel("Max Resource Util")
         ax.set_ylabel("Latency (Cycles)")
-        ax.set_title("DSE of \"CNN*2+2mm*1\" Benchmark")
-        # ax.legend(loc="upper right", prop=dict(size=6))
-        ax.set_xlim([0.15, 0.66])
+        ax.set_title("DSE of \"MM*1+COV*2\" Benchmark")
+        ax.legend(loc="upper right", prop=dict(size=6))
         plt.savefig("ds.png")
-        ax.set_ylim([0, 8e5])
-        ax.set_xlim([0.15, 0.66])
+        ax.set_ylim([1e6, 6e6])
+        ax.set_xlim([0.4, 0.625]) # [0.4, 0.585]
+        # ax.set_ylim([1.5e8, 2e8])
         plt.savefig("ds1.png")
-        ax.set_xlim([0.38, 0.66])
-        ax.set_ylim([8.5e4, 1.3e5])
-        plt.savefig("ds2.png")
-        ax.set_xlim([0.485, 0.56])
-        ax.set_ylim([9.05e4, 9.20e4])
+        # ax.set_xlim([0.38, 0.72])
+        # ax.set_ylim([7.5e4, 1.3e5])
+        # plt.savefig("ds2.png")
+        # ax.set_xlim([0.48, 0.57])
+        # ax.set_ylim([8.90e4, 9.05e4])
         # ax.get_legend().remove()
-        plt.savefig("ds3.png")
+        # plt.savefig("ds3.png")
 
         pass
         
@@ -1738,6 +1825,7 @@ class DSE:
                 output_f.write("Resource: {:.0f}%\n".format(resource_list[-1]*100))
                 logging.info("\n=======================\nLatency, Resource and Runtime are logged in the path {}.\n=======================".format(os.getcwd() + "/" + OUTPUT_PATH + "latency_resource_runtime.log"))
 
+                
     def dse(self, dse_type):
         self._0_load_dse_lib()      # dse lib sorted by latency (small -> large) in `self.dse_lib_dict`
         self._1_map_top_to_lib()    # `self.vname_to_libname`
@@ -1788,9 +1876,6 @@ class DSE:
             end_time = time.time()
             logging.info("DSE + Global Floorplanning time: {} seconds.".format(end_time - start_time))
             # self._4_draw_dse_path()
-            # self.floorplan.printFloorplan()
-            self.floorplan.coarseGrainedFloorplan()
-            # self.floorplan.printFloorplan()
             logging.info("self.snapshots_resource: {}".format(self.snapshots_resource)) 
             logging.info("self.snapshots_latency: {}".format(self.snapshots_latency)) 
             logging.info("self.snapshots_type: {}".format(self.snapshots_type))
@@ -1824,6 +1909,9 @@ class DSE:
             end_time = time.time()
             logging.info("DSE + Incremental Floorplanning time: {} seconds.".format(end_time - start_time))
             # self._4_draw_dse_path()
+            # self.floorplan.printFloorplan()
+            self.floorplan.coarseGrainedFloorplan()
+            # self.floorplan.printFloorplan()
             logging.info("self.snapshots_resource: {}".format(self.snapshots_resource)) 
             logging.info("self.snapshots_latency: {}".format(self.snapshots_latency)) 
             logging.info("self.snapshots_type: {}".format(self.snapshots_type))
@@ -1864,22 +1952,22 @@ class DSE:
             # start_time = time.time()
             # self._3_dse_main_algorithm()
             # end_time = time.time()
-            # logging.info("DSE + Incremental Floorplanning time: {} seconds.".format(end_time - start_time)) # 70% # _ # 65% # 2.2977
-            # logging.info(self.snapshots_resource) # 70% # [0.28273809523809523, 0.28273809523809523, 0.28273809523809523, 0.28935185185185186, 0.314429012345679, 0.3395061728395062, 0.3395061728395062, 0.3395061728395062, 0.3395061728395062, 0.3395061728395062, 0.3645833333333333, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.2638888888888889, 0.2638888888888889, 0.2638888888888889, 0.2638888888888889, 0.2638888888888889, 0.25992063492063494, 0.25595238095238093, 0.30092592592592593, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.45008642649199415, 0.4502153081028627, 0.4503441897137312, 0.4505382702571567, 0.4507323508005822, 0.45073538330907326, 0.4507384158175643, 0.45084758612324116, 0.450956756428918, 0.45115083697234354, 0.45134491751576905, 0.45611202086365843, 0.46626789180009703, 0.4673626273653566, 0.46736565987384765, 0.4673686923823387, 0.46724360140708393, 0.4671185104318292, 0.4666765223192625, 0.4662345342066958, 0.4651140223192625, 0.46397379912663755, 0.46283357593401264, 0.4639283114992722, 0.4634863233867055, 0.46304433527413874, 0.46362430252304704, 0.4638411268801553, 0.46444383794274624, 0.46520803008248424, 0.466358108927705, 0.4663323326055313, 0.4667144286754003, 0.4676552644347404, 0.467603711790393, 0.4675521591460456, 0.466805403930131, 0.46651731562348375, 0.4674710395439107, 0.4675802098495876, 0.46768938015526446, 0.46772880276564777, 0.4677682253760311, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.47916515041242114, 0.4785889737991266, 0.4780127971858321, 0.4789043546821931, 0.4797959121785541, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.47623271470160117, 0.47697871179039303, 0.4777247088791849, 0.4777247088791849, 0.4784707059679767, 0.47921670305676856, 0.4789725861232411, 0.47872846918971373, 0.47872846918971373, 0.4814941169335274, 0.4842597646773411, 0.48535146773410964, 0.48644317079087823, 0.4843279961183891, 0.4842461183891315, 0.48416424065987385, 0.4902883915574964, 0.517799308588064, 0.5453102256186317, 0.5452419941775837, 0.5451737627365356, 0.5461350679281902, 0.5470963731198447, 0.518548338185347, 0.4900003032508491, 0.49002304706453176, 0.4900457908782145, 0.4917333818534692, 0.5209364386220281, 0.550139495390587, 0.5566548398835517, 0.5605364507520622, 0.5644180616205725, 0.5615584061135371] # 65% # [0.28273809523809523, 0.28273809523809523, 0.28273809523809523, 0.28935185185185186, 0.314429012345679, 0.3395061728395062, 0.3395061728395062, 0.3395061728395062, 0.3395061728395062, 0.3395061728395062, 0.3645833333333333, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.2638888888888889, 0.2638888888888889, 0.2638888888888889, 0.2638888888888889, 0.2638888888888889, 0.25992063492063494, 0.25595238095238093, 0.30092592592592593, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.45008642649199415, 0.4502153081028627, 0.4503441897137312, 0.4505382702571567, 0.4507323508005822, 0.45073538330907326, 0.4507384158175643, 0.45084758612324116, 0.450956756428918, 0.45115083697234354, 0.45134491751576905, 0.45611202086365843, 0.46626789180009703, 0.4673626273653566, 0.46736565987384765, 0.4673686923823387, 0.46724360140708393, 0.4671185104318292, 0.4666765223192625, 0.4662345342066958, 0.4651140223192625, 0.46397379912663755, 0.46283357593401264, 0.4639283114992722, 0.4634863233867055, 0.46304433527413874, 0.46362430252304704, 0.4638411268801553, 0.46444383794274624, 0.46520803008248424, 0.466358108927705, 0.4663323326055313, 0.4667144286754003, 0.4676552644347404, 0.467603711790393, 0.4675521591460456, 0.466805403930131, 0.46651731562348375, 0.4674710395439107, 0.4675802098495876, 0.46768938015526446, 0.46772880276564777, 0.4677682253760311, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.47916515041242114, 0.4785889737991266, 0.4780127971858321, 0.4789043546821931, 0.4797959121785541, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.47623271470160117, 0.47697871179039303, 0.4777247088791849, 0.4777247088791849, 0.4784707059679767, 0.47921670305676856, 0.4789725861232411, 0.47872846918971373, 0.47872846918971373, 0.4814941169335274, 0.4842597646773411, 0.48535146773410964, 0.48644317079087823, 0.4843279961183891, 0.4842461183891315, 0.48416424065987385, 0.4902883915574964, 0.517799308588064, 0.5453102256186317, 0.5452419941775837, 0.5451737627365356, 0.5461350679281902, 0.5470963731198447, 0.518548338185347, 0.4900003032508491, 0.49002304706453176, 0.4900457908782145, 0.4917333818534692, 0.5209364386220281, 0.550139495390587, 0.5455922489082969]
-            # logging.info(self.snapshots_latency) # 70% # [8933000, 4833796, 734592, 398592, 365825, 333058, 300354, 299457, 298560, 298496, 282430, 266364, 249020, 247962, 246904, 245846, 244788, 238644, 237586, 236528, 235544, 234560, 234559, 234558, 234485, 234412, 234045, 233678, 233677, 233676, 232986, 232296, 231238, 230180, 229431, 228682, 228373, 228064, 227006, 225948, 223900, 222842, 221784, 220726, 219668, 210548, 209490, 208432, 207372, 206312, 203206, 200100, 199050, 198000, 179975, 161950, 144542, 143399, 142256, 142004, 141752, 139704, 139053, 138402, 135077, 131752, 123661, 123541, 123421, 123417, 123413, 121560, 119707, 119512, 119317, 117718, 116119, 116116, 116113, 115411, 115411, 115411, 115411, 115411, 115411, 115411, 114065, 114065, 114065, 113363, 113363, 113363, 107921, 107921, 107921, 107921, 107921, 105873, 105873, 105873, 105873, 105873, 105873, 105873, 105171, 105171, 105171, 105171, 105171, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 100172, 100172, 100172, 100172, 100172, 100172, 100172, 98672, 98672, 98672, 98672, 98672, 98380, 98380, 98380, 96689, 96689, 96689, 94641, 94641, 94641, 94641, 94641, 93939, 93939, 93939, 93939, 93939, 92700, 92700, 92700, 92081, 92081, 92081, 92081, 92081, 92081, 92081, 92081, 92081, 92081, 92081, 91384, 91384, 91384, 90289, 90289, 90289, 89372] # 65% # [8933000, 4833796, 734592, 398592, 365825, 333058, 300354, 299457, 298560, 298496, 282430, 266364, 249020, 247962, 246904, 245846, 244788, 238644, 237586, 236528, 235544, 234560, 234559, 234558, 234485, 234412, 234045, 233678, 233677, 233676, 232986, 232296, 231238, 230180, 229431, 228682, 228373, 228064, 227006, 225948, 223900, 222842, 221784, 220726, 219668, 210548, 209490, 208432, 207372, 206312, 203206, 200100, 199050, 198000, 179975, 161950, 144542, 143399, 142256, 142004, 141752, 139704, 139053, 138402, 135077, 131752, 123661, 123541, 123421, 123417, 123413, 121560, 119707, 119512, 119317, 117718, 116119, 116116, 116113, 115411, 115411, 115411, 115411, 115411, 115411, 115411, 114065, 114065, 114065, 113363, 113363, 113363, 107921, 107921, 107921, 107921, 107921, 105873, 105873, 105873, 105873, 105873, 105873, 105873, 105171, 105171, 105171, 105171, 105171, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 100172, 100172, 100172, 100172, 100172, 100172, 100172, 98672, 98672, 98672, 98672, 98672, 98380, 98380, 98380, 96689, 96689, 96689, 94641, 94641, 94641, 94641, 94641, 93939, 93939, 93939, 93939, 93939, 92700, 92700, 92700, 92081, 92081, 92081, 92081, 92081, 92081, 92081, 92081, 92081, 92081, 92081, 91384, 91384, 91384, 91164]
-            # logging.info(self.snapshots_type) # 70% # [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 3] # 65% # [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3]
+            # logging.info("DSE + Incremental Floorplanning time: {} seconds.".format(end_time - start_time)) # 0.9751691818237305
+            # logging.info(self.snapshots_resource) # [0.20348586851043182, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.41242283950617287, 0.4182098765432099, 0.4182098765432099, 0.4411764705882353, 0.4485294117647059, 0.45588235294117646, 0.45588235294117646, 0.45588235294117646, 0.45588235294117646, 0.45588235294117646, 0.44135802469135804, 0.44135802469135804, 0.44135802469135804, 0.44135802469135804, 0.44135802469135804, 0.44135802469135804, 0.44135802469135804, 0.4852941176470588, 0.4632352941176471, 0.44135802469135804, 0.44135802469135804, 0.44135802469135804, 0.45955882352941174, 0.47794117647058826, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4471450617283951, 0.4876543209876543, 0.4876543209876543, 0.4876543209876543, 0.4876543209876543, 0.4876543209876543, 0.4876543209876543, 0.4876543209876543, 0.4876543209876543, 0.4876543209876543, 0.4876543209876543, 0.5339506172839507, 0.5802469135802469, 0.5802469135802469, 0.5802469135802469, 0.5802469135802469, 0.5802469135802469, 0.5802469135802469, 0.5802469135802469, 0.49344135802469136, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358]
+            # logging.info(self.snapshots_latency) # [131839334, 5166583, 5166583, 4609536, 4256597, 4256597, 3765132, 3659263, 3240845, 3240845, 2782093, 2569303, 2569183, 2561160, 2561096, 2561033, 2545207, 2487319, 2487263, 2438231, 2429960, 2429960, 2405798, 2405798, 2393134, 2393134, 2302546, 2302546, 2210647, 2210647, 2194261, 2194261, 2175583, 2175583, 2171488, 2012104, 2010120, 2006088, 2003534, 2001992, 1999439, 1995344, 1991249, 1987154, 1983059, 1978964, 1881032, 1872462, 1868367, 1864272, 1860177, 1856082, 1851987, 1847892, 1676183, 1671772, 1669975, 1668118, 1668054, 1667927, 1667678, 1667677, 1665880, 1664982, 1664086, 1664022, 1663832, 1663583, 1663582, 1661785, 1659990, 1659737, 1659488, 1659487, 1657690, 1655894, 1655642, 1655393, 1655392, 1651297, 1647202]
+            # logging.info(self.snapshots_type) # [0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 2, 2, 0, 2, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 2, 2, 0, 2, 0, 0, 2, 0, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 0, 2, 0, 2, 0, 2, 2, 3]
             
             # start_time = time.time()
             # self._3_dse_main_algorithm_global_fp()
             # end_time = time.time()
-            # logging.info("DSE + Global Floorplanning time: {} seconds.".format(end_time - start_time)) # 70% # 65% 1969.9290
-            # logging.info(self.snapshots_resource) # 70% [0.28273809523809523, 0.28273809523809523, 0.28273809523809523, 0.28935185185185186, 0.314429012345679, 0.3395061728395062, 0.3395061728395062, 0.3395061728395062, 0.3395061728395062, 0.3395061728395062, 0.3645833333333333, 0.3896604938271605, 0.2638888888888889, 0.30092592592592593, 0.4012345679012346, 0.43929221251819506, 0.44193352741387676, 0.4421124454148472, 0.4424126637554585, 0.44218219311014073, 0.4424672489082969, 0.44212760795730227, 0.44237778990781174, 0.4427750485201359, 0.4431647258612324, 0.44361656962639495, 0.4444580907326541, 0.44529961183891315, 0.44614113294517227, 0.44698265405143134, 0.44782417515769046, 0.44866569626394953, 0.44950721737020866, 0.4503487384764677, 0.45119025958272685, 0.4520317806889859, 0.4526018922852984, 0.45226225133430376, 0.45490356622998546, 0.4557450873362445, 0.45658660844250365, 0.4574281295487627, 0.45826965065502184, 0.4591111717612809, 0.45995269286754004, 0.4607942139737991, 0.46163573508005823, 0.4624772561863173, 0.4633187772925764, 0.4641602983988355, 0.4650018195050946, 0.4661147501213003, 0.46518073750606503, 0.4656454694323144, 0.4660988294517225, 0.4655385735080058, 0.46593583212032996, 0.46603893740902474, 0.4663421882581271, 0.46628002183406114, 0.46671518680252305, 0.46665605288694806, 0.46554160601649686, 0.46679933891314895, 0.46663937409024747, 0.46671367054827756, 0.466358108927705, 0.4663323326055313, 0.4667144286754003, 0.4676552644347404, 0.4668850072780204, 0.4665203481319748, 0.46747407205240177, 0.4675832423580786, 0.46769241266375544] # 65% [0.28273809523809523, 0.28273809523809523, 0.28273809523809523, 0.28935185185185186, 0.314429012345679, 0.3395061728395062, 0.3395061728395062, 0.3395061728395062, 0.3395061728395062, 0.3395061728395062, 0.3645833333333333, 0.3896604938271605, 0.2638888888888889, 0.30092592592592593, 0.4012345679012346, 0.43929221251819506, 0.44193352741387676, 0.4421124454148472, 0.4424126637554585, 0.44218219311014073, 0.4424672489082969, 0.44212760795730227, 0.44237778990781174, 0.4427750485201359, 0.4431647258612324, 0.44361656962639495, 0.4444580907326541, 0.44529961183891315, 0.44614113294517227, 0.44698265405143134, 0.44782417515769046, 0.44866569626394953, 0.44950721737020866, 0.4503487384764677, 0.45119025958272685, 0.4520317806889859, 0.4526018922852984, 0.45226225133430376, 0.45490356622998546, 0.4557450873362445, 0.45658660844250365, 0.4574281295487627, 0.45826965065502184, 0.4591111717612809, 0.45995269286754004, 0.4607942139737991, 0.46163573508005823, 0.4624772561863173, 0.4633187772925764, 0.4641602983988355, 0.4650018195050946, 0.4661147501213003, 0.46518073750606503, 0.4656454694323144, 0.4660988294517225, 0.4655385735080058, 0.46593583212032996, 0.46603893740902474, 0.4663421882581271, 0.46628002183406114, 0.46671518680252305, 0.46665605288694806, 0.46554160601649686, 0.46679933891314895, 0.46663937409024747, 0.46671367054827756, 0.466358108927705, 0.4663323326055313, 0.4667144286754003, 0.4676552644347404, 0.4668850072780204, 0.4665203481319748, 0.46747407205240177, 0.4675832423580786, 0.46769241266375544] # 65% [0.28273809523809523, 0.28273809523809523, 0.28273809523809523, 0.2638888888888889, 0.2638888888888889, 0.2638888888888889, 0.3395061728395062, 0.3395061728395062, 0.3395061728395062, 0.3395061728395062, 0.3645833333333333, 0.3896604938271605, 0.2638888888888889, 0.30092592592592593, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4733700266860747, 0.47319110868510433, 0.4728984716157205, 0.4012345679012346, 0.4012345679012346, 0.47074539058709364, 0.47420245026686075, 0.4748210819990296, 0.47587791120815137, 0.4758688136826783]
-            # logging.info(self.snapshots_latency) # 70% [8933000, 4833796, 734592, 398592, 365825, 333058, 300354, 299457, 298560, 298496, 282430, 266364, 231708, 231708, 231708, 195969, 195969, 194911, 194911, 194911, 194911, 194911, 194911, 194911, 193853, 193853, 192795, 191737, 190679, 189621, 188563, 187505, 186447, 185389, 184331, 183271, 159947, 159947, 159947, 158889, 157831, 156773, 155715, 154657, 153599, 152541, 151483, 150425, 149367, 148309, 147249, 123925, 123925, 123925, 123925, 123925, 123925, 119697, 119697, 119697, 115923, 115923, 115923, 115923, 111695, 107921, 107921, 105873, 105873, 105873, 105873, 105873, 105171, 105171, 105171] # 65% [8933000, 4833796, 734592, 398592, 365825, 333058, 300354, 299457, 298560, 298496, 282430, 266364, 231708, 231708, 231708, 195969, 195969, 194911, 194911, 194911, 194911, 194911, 194911, 194911, 193853, 193853, 192795, 191737, 190679, 189621, 188563, 187505, 186447, 185389, 184331, 183271, 159947, 159947, 159947, 158889, 157831, 156773, 155715, 154657, 153599, 152541, 151483, 150425, 149367, 148309, 147249, 123925, 123925, 123925, 123925, 123925, 123925, 119697, 119697, 119697, 115923, 115923, 115923, 115923, 111695, 107921, 107921, 105873, 105873, 105873, 105873, 105873, 105171, 105171, 105171] # 65% [8933000, 4833796, 734592, 394592, 361825, 329058, 300354, 299457, 298560, 298496, 282430, 266364, 231708, 231708, 231708, 189756, 189756, 188698, 188698, 188698, 188698, 188698, 188698, 188698, 187640, 187640, 186582, 185524, 184466, 183408, 182350, 181292, 180234, 179176, 178118, 177058, 153734, 153734, 153734, 152676, 151618, 150560, 149502, 148444, 147386, 146328, 145270, 144212, 143154, 142096, 141036, 117712, 117712, 117712, 117712, 117712, 117712, 113484, 113484, 113484, 109710, 109710, 109710, 109710, 105482, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 100172, 100172, 100172, 98672, 98672, 98672, 98380, 98380, 93939, 93939, 93939, 92700, 92700]
-            # logging.info(self.snapshots_type) # 70% [0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4] # 65% [0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4] # 65% [0, 4, 4, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 4, 4, 4, 4, 5, 4, 4, 5, 5, 4, 5, 4]
+            # logging.info("DSE + Global Floorplanning time: {} seconds.".format(end_time - start_time)) # 210.5726444721222
+            # logging.info(self.snapshots_resource) # [0.20348586851043182, 0.4066358024691358, 0.41242283950617287, 0.4182098765432099, 0.4182098765432099, 0.42978395061728397, 0.44135802469135804, 0.44135802469135804, 0.4645061728395062, 0.4876543209876543, 0.4876543209876543, 0.4876543209876543, 0.4876543209876543, 0.4876543209876543, 0.6158979257641921, 0.6172936377971858, 0.6186893498301795]
+            # logging.info(self.snapshots_latency) # [131839334, 5166583, 5166583, 4118071, 4118071, 4118071, 3659319, 3659319, 3659319, 3372599, 3372599, 2913791, 2913791, 2913791, 2913791, 2913791, 2577870]
+            # logging.info(self.snapshots_type) # [0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
             
-            self.snapshots_resource = [0.28273809523809523, 0.28273809523809523, 0.28273809523809523, 0.28935185185185186, 0.314429012345679, 0.3395061728395062, 0.3395061728395062, 0.3395061728395062, 0.3395061728395062, 0.3395061728395062, 0.3645833333333333, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.3896604938271605, 0.2638888888888889, 0.2638888888888889, 0.2638888888888889, 0.2638888888888889, 0.2638888888888889, 0.25992063492063494, 0.25595238095238093, 0.30092592592592593, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.45008642649199415, 0.4502153081028627, 0.4503441897137312, 0.4505382702571567, 0.4507323508005822, 0.45073538330907326, 0.4507384158175643, 0.45084758612324116, 0.450956756428918, 0.45115083697234354, 0.45134491751576905, 0.45611202086365843, 0.46626789180009703, 0.4673626273653566, 0.46736565987384765, 0.4673686923823387, 0.46724360140708393, 0.4671185104318292, 0.4666765223192625, 0.4662345342066958, 0.4651140223192625, 0.46397379912663755, 0.46283357593401264, 0.4639283114992722, 0.4634863233867055, 0.46304433527413874, 0.46362430252304704, 0.4638411268801553, 0.46444383794274624, 0.46520803008248424, 0.466358108927705, 0.4663323326055313, 0.4667144286754003, 0.4676552644347404, 0.467603711790393, 0.4675521591460456, 0.466805403930131, 0.46651731562348375, 0.4674710395439107, 0.4675802098495876, 0.46768938015526446, 0.46772880276564777, 0.4677682253760311, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.47916515041242114, 0.4785889737991266, 0.4780127971858321, 0.4789043546821931, 0.4797959121785541, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.47623271470160117, 0.47697871179039303, 0.4777247088791849, 0.4777247088791849, 0.4784707059679767, 0.47921670305676856, 0.4789725861232411, 0.47872846918971373, 0.47872846918971373, 0.4814941169335274, 0.4842597646773411, 0.48535146773410964, 0.48644317079087823, 0.4843279961183891, 0.4842461183891315, 0.48416424065987385, 0.4902883915574964, 0.517799308588064, 0.5453102256186317, 0.5452419941775837, 0.5451737627365356, 0.5461350679281902, 0.5470963731198447, 0.518548338185347, 0.4900003032508491, 0.49002304706453176, 0.4900457908782145, 0.4917333818534692, 0.5209364386220281, 0.550139495390587, 0.5455922489082969, 0.28273809523809523, 0.28273809523809523, 0.28273809523809523, 0.2638888888888889, 0.2638888888888889, 0.2638888888888889, 0.3395061728395062, 0.3395061728395062, 0.3395061728395062, 0.3395061728395062, 0.3645833333333333, 0.3896604938271605, 0.2638888888888889, 0.30092592592592593, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4012345679012346, 0.4733700266860747, 0.47319110868510433, 0.4728984716157205, 0.4012345679012346, 0.4012345679012346, 0.47074539058709364, 0.47420245026686075, 0.4748210819990296, 0.47587791120815137, 0.4758688136826783]
-            self.snapshots_latency = [8933000, 4833796, 734592, 398592, 365825, 333058, 300354, 299457, 298560, 298496, 282430, 266364, 249020, 247962, 246904, 245846, 244788, 238644, 237586, 236528, 235544, 234560, 234559, 234558, 234485, 234412, 234045, 233678, 233677, 233676, 232986, 232296, 231238, 230180, 229431, 228682, 228373, 228064, 227006, 225948, 223900, 222842, 221784, 220726, 219668, 210548, 209490, 208432, 207372, 206312, 203206, 200100, 199050, 198000, 179975, 161950, 144542, 143399, 142256, 142004, 141752, 139704, 139053, 138402, 135077, 131752, 123661, 123541, 123421, 123417, 123413, 121560, 119707, 119512, 119317, 117718, 116119, 116116, 116113, 115411, 115411, 115411, 115411, 115411, 115411, 115411, 114065, 114065, 114065, 113363, 113363, 113363, 107921, 107921, 107921, 107921, 107921, 105873, 105873, 105873, 105873, 105873, 105873, 105873, 105171, 105171, 105171, 105171, 105171, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 100172, 100172, 100172, 100172, 100172, 100172, 100172, 98672, 98672, 98672, 98672, 98672, 98380, 98380, 98380, 96689, 96689, 96689, 94641, 94641, 94641, 94641, 94641, 93939, 93939, 93939, 93939, 93939, 92700, 92700, 92700, 92081, 92081, 92081, 92081, 92081, 92081, 92081, 92081, 92081, 92081, 92081, 91384, 91384, 91384, 91164, 8933000, 4833796, 734592, 394592, 361825, 329058, 300354, 299457, 298560, 298496, 282430, 266364, 231708, 231708, 231708, 189756, 189756, 188698, 188698, 188698, 188698, 188698, 188698, 188698, 187640, 187640, 186582, 185524, 184466, 183408, 182350, 181292, 180234, 179176, 178118, 177058, 153734, 153734, 153734, 152676, 151618, 150560, 149502, 148444, 147386, 146328, 145270, 144212, 143154, 142096, 141036, 117712, 117712, 117712, 117712, 117712, 117712, 113484, 113484, 113484, 109710, 109710, 109710, 109710, 105482, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 101708, 100172, 100172, 100172, 98672, 98672, 98672, 98380, 98380, 93939, 93939, 93939, 92700, 92700]
-            self.snapshots_type = [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+            self.snapshots_resource = [0.20348586851043182, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.41242283950617287, 0.4182098765432099, 0.4182098765432099, 0.4411764705882353, 0.4485294117647059, 0.45588235294117646, 0.45588235294117646, 0.45588235294117646, 0.45588235294117646, 0.45588235294117646, 0.44135802469135804, 0.44135802469135804, 0.44135802469135804, 0.44135802469135804, 0.44135802469135804, 0.44135802469135804, 0.44135802469135804, 0.4852941176470588, 0.4632352941176471, 0.44135802469135804, 0.44135802469135804, 0.44135802469135804, 0.45955882352941174, 0.47794117647058826, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4471450617283951, 0.4876543209876543, 0.4876543209876543, 0.4876543209876543, 0.4876543209876543, 0.4876543209876543, 0.4876543209876543, 0.4876543209876543, 0.4876543209876543, 0.4876543209876543, 0.4876543209876543, 0.5339506172839507, 0.5802469135802469, 0.5802469135802469, 0.5802469135802469, 0.5802469135802469, 0.5802469135802469, 0.5802469135802469, 0.5802469135802469, 0.49344135802469136, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.4066358024691358, 0.20348586851043182, 0.4066358024691358, 0.41242283950617287, 0.4182098765432099, 0.4182098765432099, 0.42978395061728397, 0.44135802469135804, 0.44135802469135804, 0.4645061728395062, 0.4876543209876543, 0.4876543209876543, 0.4876543209876543, 0.4876543209876543, 0.4876543209876543, 0.6158979257641921, 0.6172936377971858, 0.6186893498301795]
+            self.snapshots_latency = [131839334, 5166583, 5166583, 4609536, 4256597, 4256597, 3765132, 3659263, 3240845, 3240845, 2782093, 2569303, 2569183, 2561160, 2561096, 2561033, 2545207, 2487319, 2487263, 2438231, 2429960, 2429960, 2405798, 2405798, 2393134, 2393134, 2302546, 2302546, 2210647, 2210647, 2194261, 2194261, 2175583, 2175583, 2171488, 2012104, 2010120, 2006088, 2003534, 2001992, 1999439, 1995344, 1991249, 1987154, 1983059, 1978964, 1881032, 1872462, 1868367, 1864272, 1860177, 1856082, 1851987, 1847892, 1676183, 1671772, 1669975, 1668118, 1668054, 1667927, 1667678, 1667677, 1665880, 1664982, 1664086, 1664022, 1663832, 1663583, 1663582, 1661785, 1659990, 1659737, 1659488, 1659487, 1657690, 1655894, 1655642, 1655393, 1655392, 1651297, 1647202, 131839334, 5166583, 5166583, 4118071, 4118071, 4118071, 3659319, 3659319, 3659319, 3372599, 3372599, 2913791, 2913791, 2913791, 2913791, 2913791, 2577870]
+            self.snapshots_type = [0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 2, 2, 0, 2, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 2, 2, 0, 2, 0, 0, 2, 0, 0, 0, 2, 0, 0, 2, 0, 0, 2, 0, 2, 0, 0, 2, 0, 2, 0, 2, 2, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
             self._4_draw_dse_path()
             
     
