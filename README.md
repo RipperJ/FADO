@@ -11,7 +11,9 @@ Floorplan-Aware Directive Optimization for HLS designs on Multi-die FPGAs
 
 Thanks for using our FADO framework! FADO is developed by the **[Reconfiguration Computing System Lab @ HKUST](https://eeweiz.home.ece.ust.hk/)**, and to appear as a regular paper (oral) in the International Symposium [FPGA 2023](https://www.isfpga.org/).
 
-For personal usage, not redistribution, you can refer to the pre-print [fado.pdf](./fado.pdf) in this repo.
+For personal usage, not redistribution, you can refer to the pre-print...
+* in this repo as [fado.pdf](./fado.pdf)
+* on arXiv: [https://arxiv.org/abs/2212.11582](https://arxiv.org/abs/2212.11582)
 ```
 Linfeng Du, Tingyuan Liang, Sharad Sinha, Zhiyao Xie, and Wei Zhang. 2022. FADO: Floorplan-Aware Directive Optimization for High-Level Synthesis Designs on Multi-Die FPGAs. In Proceedings of the 2023 ACM/SIGDA International Symposium on Field Programmable Gate Arrays (FPGA ’23), February 12–14, 2023, Monterey, CA, USA. ACM, New York, NY, USA, 11 pages.
 ```
